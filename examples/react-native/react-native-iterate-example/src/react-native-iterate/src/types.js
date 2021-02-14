@@ -26,6 +26,8 @@ export type EventContext = {
 export type EventTraitValue = string | number | boolean;
 export type EventTraitsContext = {[string]: EventTraitValue};
 
+export type EventTraits = EventTraitsContext;
+
 export type TargetingContext = {
   frequency?: Frequency,
   survey_id?: string,
@@ -49,7 +51,11 @@ export type EmbedType = 'mobile';
 export type UserTraitValue = string | number | boolean;
 export type UserTraitsContext = {[string]: UserTraitValue};
 
+export type UserTraits = UserTraitsContext;
+
 export type Survey = {
+  company_id: string,
+  id: string,
   prompt?: Prompt,
 };
 
@@ -80,7 +86,7 @@ export type EmbedResults = {
 };
 
 export type Auth = {
-  results: string,
+  token: string,
 };
 
 export type Trigger = {
@@ -96,4 +102,13 @@ export type TriggerOptions = {
 
 export type Tracking = {
   last_updated: number,
+};
+
+export type EventMessage = {
+  type: string,
+  data: EventMessageDismissData,
+};
+
+export type EventMessageDismissData = {
+  userInitiated: boolean,
 };

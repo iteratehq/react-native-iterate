@@ -3,7 +3,9 @@
  * @flow
  */
 
-export const Version = '1.0.1';
+export const Version = '1.0.0';
+
+export const DefaultHost = 'https://iteratehq.com';
 
 export const Themes = {
   Light: 'light',
@@ -17,4 +19,9 @@ export const Platforms = {
 
 export const TriggerTypes = {
   Seconds: 'seconds',
+};
+
+export const EventMessageTypes = {
+  Close: 'close',
+  Response: 'response',
 };

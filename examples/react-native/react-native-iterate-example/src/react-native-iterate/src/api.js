@@ -8,13 +8,15 @@ import type {
   EmbedContext,
   EmbedResults,
   FetchResponse,
+  Survey,
 } from './types';
+import {DefaultHost} from './constants';
 
 class ApiClient {
   apiKey: string;
   apiHost: string;
 
-  constructor(apiKey: string, apiHost: string = 'https://iteratehq.com') {
+  constructor(apiKey: string, apiHost: string = DefaultHost) {
     this.apiKey = apiKey;
     this.apiHost = apiHost;
   }
@@ -31,9 +33,17 @@ class ApiClient {
       });
   };
 
+  displayed = (survey: Survey) => {
+    this.post(`/surveys/${survey.id}/displayed`);
+  };
+
+  dismissed = (survey: Survey) => {
+    this.post(`/surveys/${survey.id}/dismiss`);
+  };
+
   post = <T>(
     path: string,
-    body: {},
+    body: {} = {},
   ): Promise<FetchResponse<ApiResponse<T>>> => {
     console.log(`POST: ${this.apiHost}/api/v1${path}`, body);
 
