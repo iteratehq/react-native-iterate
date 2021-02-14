@@ -55,11 +55,10 @@ const Prompt: (Props) => React$Node = ({
             ...styles.promptText,
             color: colorScheme === Themes.Dark ? '#fff' : '#000',
           }}>
-          Help us improve the Iterate React Native SDK by answering a few
-          questions about your ideal use cases
+          {survey.prompt?.message}
         </Text>
         <PromptButton
-          text="Happy to help"
+          text={survey.prompt?.button_text || ''}
           color="#7457be"
           onPress={showSurveyButtonClicked}
         />

@@ -59,7 +59,10 @@ export type Survey = {
   prompt?: Prompt,
 };
 
-export type Prompt = {};
+export type Prompt = {
+  message: string,
+  button_text: string,
+};
 
 export type FetchResponse<T> = {
   json: () => T,
