@@ -16,7 +16,14 @@ import {
   showPrompt,
   showSurvey,
 } from './redux';
-import type {EmbedContext, EventTraits, Survey, UserTraits} from './types';
+import type {
+  EmbedContext,
+  EventTraits,
+  Response,
+  Survey,
+  Question,
+  UserTraits,
+} from './types';
 import Storage, {Keys} from './storage';
 
 export const store = createStore(reducer);
@@ -25,6 +32,7 @@ class Iterate {
   api: ApiClient;
   eventQueue: string[] = [];
   initialized: boolean = false;
+  onResponseCallback: (Response, Question) => void;
 
   // Indicate that the client is fully initialized and ready to send events
   init = () => {
@@ -47,6 +55,10 @@ class Iterate {
     if (eventTraits != null) {
       store.dispatch(setEventTraits(eventTraits));
     }
+  };
+
+  onResponse = (onResponseCallback: (Response, Question) => void) => {
+    this.onResponseCallback = onResponseCallback;
   };
 
   sendEvent = (eventName: string) => {
