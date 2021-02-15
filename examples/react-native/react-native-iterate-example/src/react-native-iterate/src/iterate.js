@@ -11,6 +11,7 @@ import {
   reducer,
   setEventTraits,
   setLastUpdated,
+  setPreview,
   setUserAuthToken,
   setUserTraits,
   showPrompt,
@@ -21,6 +22,7 @@ import type {
   EventTraits,
   Response,
   Survey,
+  TargetingContext,
   Question,
   UserTraits,
 } from './types';
@@ -61,6 +63,10 @@ class Iterate {
     this.onResponseCallback = onResponseCallback;
   };
 
+  preview = (surveyId?: string) => {
+    store.dispatch(setPreview(true, surveyId));
+  };
+
   sendEvent = (eventName: string) => {
     // If the client hasn't been initialized yet (e.g. loading async data from local storage)
     // then queue up the events. Shouldn't have to wait more than a few milliseconds or less
@@ -71,20 +77,36 @@ class Iterate {
 
     const state = store.getState();
 
+    // Set the embed context
     const embedContext: EmbedContext = {
       app: {version: Version},
       event: {name: eventName},
       type: 'mobile',
     };
 
+    // Embed context user traits
     if (Object.keys(state.userTraits).length > 0) {
       embedContext.user_traits = state.userTraits;
     }
 
+    // Embed context last updated
     if (state.lastUpdated != null) {
       embedContext.tracking = {
         last_updated: state.lastUpdated,
       };
+    }
+
+    // Embed context preview mode
+    if (state.preview === true) {
+      const targeting: TargetingContext = {
+        frequency: 'always',
+      };
+
+      if (state.previewSurveyId != null) {
+        targeting.survey_id = state.previewSurveyId;
+      }
+
+      embedContext.targeting = targeting;
     }
 
     return this.api.embed(embedContext).then((response) => {
