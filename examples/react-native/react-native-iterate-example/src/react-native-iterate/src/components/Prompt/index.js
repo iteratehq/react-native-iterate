@@ -100,20 +100,22 @@ const CloseButton: ({onPress: () => void}) => React$Node = ({onPress}) => {
       <Image source={require('./images/close.png')} />
     </TouchableNativeFeedback>
   ) : (
-    <TouchableHighlight
-      style={{
-        backgroundColor: '#d6d6d6',
-        borderRadius: 999,
-        position: 'absolute',
-        padding: 7,
-        top: 8,
-        right: 8,
-      }}
-      onPress={onPress}>
+    <TouchableHighlight style={closeButtonStyles.closeButton} onPress={onPress}>
       <Image source={require('./images/close.png')} />
     </TouchableHighlight>
   );
 };
+
+const closeButtonStyles = StyleSheet.create({
+  closeButton: {
+    backgroundColor: '#d6d6d6',
+    borderRadius: 999,
+    position: 'absolute',
+    padding: 7,
+    top: 8,
+    right: 8,
+  },
+});
 
 const mapStateToProps = ({survey}: State) => ({
   survey,
