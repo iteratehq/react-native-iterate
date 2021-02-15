@@ -14,7 +14,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-import {Platforms, Themes} from '../../constants';
+import { Platforms, Themes } from '../../constants';
 
 interface Props {
   color: string;
@@ -22,7 +22,7 @@ interface Props {
   text: string;
 }
 
-const PromptButton: (Props) => React$Node = ({color, onPress, text}) => {
+const PromptButton: (Props) => React$Node = ({ color, onPress, text }) => {
   const colorScheme = useColorScheme();
 
   return Platform.OS === Platforms.Android ? (
@@ -30,39 +30,41 @@ const PromptButton: (Props) => React$Node = ({color, onPress, text}) => {
       <Text>{text}</Text>
     </TouchableNativeFeedback>
   ) : (
-    <View>
-      <TouchableHighlight
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{
-          ...styles.touchable,
-          backgroundColor: colorScheme === Themes.Dark ? '#fff' : color,
-        }}
-        underlayColor={color}
-        onPress={onPress}>
-        <View style={styles.container}>
-          <Text
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              ...styles.text,
-              color: colorScheme === Themes.Dark ? color : '#fff',
-            }}>
-            {text}
-          </Text>
-        </View>
-      </TouchableHighlight>
-    </View>
-  );
+      <View>
+        <TouchableHighlight
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            ...styles.touchable,
+            backgroundColor: colorScheme === Themes.Dark ? '#fff' : color,
+          }}
+          underlayColor={color}
+          onPress={onPress}>
+          <View style={styles.container}>
+            <Text
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{
+                ...styles.text,
+                color: colorScheme === Themes.Dark ? color : '#fff',
+              }}>
+              {text}
+            </Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+    );
 };
 
 const styles = StyleSheet.create({
   touchable: {
     marginLeft: 40,
     marginRight: 40,
-    borderRadius: 5,
+    borderRadius: 6,
+    paddingTop: 2,
+    paddingBottom: 2,
   },
   container: {
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 6,
   },
   text: {
     fontWeight: 'bold',
