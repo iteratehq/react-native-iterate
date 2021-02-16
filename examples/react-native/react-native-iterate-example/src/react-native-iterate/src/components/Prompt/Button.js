@@ -3,14 +3,12 @@
  * @flow
  */
 
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   StyleSheet,
   Text,
   useColorScheme,
-  Platform,
-  TouchableNativeFeedback,
   TouchableHighlight,
 } from 'react-native';
 
@@ -54,11 +52,13 @@ const styles = StyleSheet.create({
   touchable: {
     marginLeft: 40,
     marginRight: 40,
-    borderRadius: 5,
+    borderRadius: 6,
+    paddingTop: 2,
+    paddingBottom: 2,
   },
   container: {
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 6,
   },
   text: {
     fontWeight: 'bold',

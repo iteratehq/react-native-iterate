@@ -5,6 +5,7 @@
 
 import React, {useCallback} from 'react';
 import {
+  Image,
   View,
   SafeAreaView,
   StyleSheet,
@@ -69,6 +70,14 @@ const Prompt: (Props) => React$Node = ({
 
 const styles = StyleSheet.create({
   prompt: {
+    borderRadius: 10,
+    shadowColor: '#000000',
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
     zIndex: 2,
     width: '100%',
     position: 'absolute',
@@ -88,14 +97,25 @@ const styles = StyleSheet.create({
 const CloseButton: ({onPress: () => void}) => React$Node = ({onPress}) => {
   return Platform.OS === Platforms.Android ? (
     <TouchableNativeFeedback onPress={onPress}>
-      <Text>X</Text>
+      <Image source={require('./images/close.png')} />
     </TouchableNativeFeedback>
   ) : (
-    <TouchableHighlight onPress={onPress}>
-      <Text>X</Text>
+    <TouchableHighlight style={closeButtonStyles.closeButton} onPress={onPress}>
+      <Image source={require('./images/close.png')} />
     </TouchableHighlight>
   );
 };
+
+const closeButtonStyles = StyleSheet.create({
+  closeButton: {
+    backgroundColor: '#d6d6d6',
+    borderRadius: 999,
+    position: 'absolute',
+    padding: 7,
+    top: 8,
+    right: 8,
+  },
+});
 
 const mapStateToProps = ({survey}: State) => ({
   survey,

@@ -6,7 +6,7 @@ platform :ios, '10.0'
 target 'Iterate' do
   config = use_native_modules!
 
-  use_react_native!(:path => config["reactNativePath"])
+  use_react_native!(path: config['reactNativePath'])
 
   target 'IterateTests' do
     inherit! :complete
