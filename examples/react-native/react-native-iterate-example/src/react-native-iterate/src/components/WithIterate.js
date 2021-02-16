@@ -30,7 +30,7 @@ const withIterate = ({apiKey}: Props) => {
   store.dispatch(setCompanyAuthToken(apiKey));
   Storage.get(Keys.authToken).then((authToken?: string) => {
     Storage.get(Keys.lastUpdated).then((lastUpdated?: string) => {
-      Storage.get(Keys.userTraits).then((userTraits?: string) => {
+      Storage.get(Keys.userTraits).then((userTraits?: {}) => {
         // Initialize the api with the user auth token
         if (authToken != null) {
           Iterate.configure(authToken);
@@ -44,7 +44,7 @@ const withIterate = ({apiKey}: Props) => {
 
         // Initialize the user traits
         if (userTraits != null) {
-          store.dispatch(setUserTraits(JSON.parse(userTraits)));
+          store.dispatch(setUserTraits(userTraits));
         }
 
         // Let the iterate client know we're all initialized and it's safe
