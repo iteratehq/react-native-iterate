@@ -15,6 +15,7 @@ import {connect} from 'react-redux';
 import {WebView} from 'react-native-webview';
 
 import {DefaultHost, EventMessageTypes, Themes} from '../constants';
+import Iterate from '../iterate';
 import type {State} from '../redux';
 import type {EventMessage, EventTraits, Survey} from '../types';
 
@@ -65,9 +66,23 @@ const SurveyView: (Props) => React$Node = ({
 
   const onMessage = useCallback(
     (event: {nativeEvent: {data: string}}) => {
+      // Dismiss event
       const message: EventMessage = JSON.parse(event.nativeEvent.data);
       if (message.type === EventMessageTypes.Close) {
         onDismiss();
+      }
+
+      // Response event
+      if (
+        message.type === EventMessageTypes.Response &&
+        message.data.response != null &&
+        message.data.question != null &&
+        Iterate.onResponse != null
+      ) {
+        Iterate.onResponseCallback(
+          message.data.response,
+          message.data.question,
+        );
       }
     },
     [onDismiss],

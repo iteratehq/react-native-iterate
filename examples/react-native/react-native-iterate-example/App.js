@@ -21,6 +21,10 @@ import {
 
 const App: () => React$Node = () => {
   useEffect(() => {
+    Iterate.onResponse((response, question) => {
+      console.log('onResponseCallback', response, question);
+    });
+
     Iterate.sendEvent('show-survey-button-tapped');
   }, []);
 
