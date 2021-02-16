@@ -9,12 +9,10 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  Platform,
-  TouchableNativeFeedback,
   TouchableHighlight,
 } from 'react-native';
 
-import { Platforms, Themes } from '../../constants';
+import {Themes} from '../../constants';
 
 interface Props {
   color: string;
@@ -22,36 +20,32 @@ interface Props {
   text: string;
 }
 
-const PromptButton: (Props) => React$Node = ({ color, onPress, text }) => {
+const PromptButton: (Props) => React$Node = ({color, onPress, text}) => {
   const colorScheme = useColorScheme();
 
-  return Platform.OS === Platforms.Android ? (
-    <TouchableNativeFeedback>
-      <Text>{text}</Text>
-    </TouchableNativeFeedback>
-  ) : (
-      <View>
-        <TouchableHighlight
-          // eslint-disable-next-line react-native/no-inline-styles
-          style={{
-            ...styles.touchable,
-            backgroundColor: colorScheme === Themes.Dark ? '#fff' : color,
-          }}
-          underlayColor={color}
-          onPress={onPress}>
-          <View style={styles.container}>
-            <Text
-              // eslint-disable-next-line react-native/no-inline-styles
-              style={{
-                ...styles.text,
-                color: colorScheme === Themes.Dark ? color : '#fff',
-              }}>
-              {text}
-            </Text>
-          </View>
-        </TouchableHighlight>
-      </View>
-    );
+  return (
+    <View>
+      <TouchableHighlight
+        // eslint-disable-next-line react-native/no-inline-styles
+        style={{
+          ...styles.touchable,
+          backgroundColor: colorScheme === Themes.Dark ? '#fff' : color,
+        }}
+        underlayColor={color}
+        onPress={onPress}>
+        <View style={styles.container}>
+          <Text
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              ...styles.text,
+              color: colorScheme === Themes.Dark ? color : '#fff',
+            }}>
+            {text}
+          </Text>
+        </View>
+      </TouchableHighlight>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

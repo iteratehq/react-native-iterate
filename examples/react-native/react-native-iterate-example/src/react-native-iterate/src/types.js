@@ -109,9 +109,18 @@ export type Tracking = {
 
 export type EventMessage = {
   type: string,
-  data: EventMessageDismissData,
+  data: EventMessagesData,
 };
 
-export type EventMessageDismissData = {
-  userInitiated: boolean,
+export type EventMessagesData = {
+  userInitiated?: boolean,
+  question?: Question,
+  response?: Response,
+};
+
+export type Response = {value: any};
+
+export type Question = {
+  id: string,
+  prompt: string,
 };
