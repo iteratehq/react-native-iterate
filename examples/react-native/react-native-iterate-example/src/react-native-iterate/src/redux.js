@@ -11,6 +11,8 @@ export type State = {
   +dismissed: boolean,
   +eventTraits?: EventTraits,
   +lastUpdated?: number,
+  +preview?: boolean,
+  +previewSurveyId?: string,
   +showSurvey: boolean,
   +showPrompt: boolean,
   +survey?: Survey,
@@ -23,6 +25,8 @@ const INITIAL_STATE = {
   dismissed: false,
   eventTraits: {},
   lastUpdated: undefined,
+  preview: false,
+  previewSurveyId: undefined,
   showSurvey: false,
   showPrompt: false,
   survey: undefined,
@@ -36,6 +40,7 @@ type Action =
   | SetCompanyAuthToken
   | SetEventTraits
   | SetLastUpdated
+  | SetPreview
   | SetUserAuthToken
   | SetUserTraits
   | ShowPromptAction
@@ -45,6 +50,7 @@ type DismissAction = {type: 'DISMISS'};
 type SetCompanyAuthToken = {type: 'SET_COMPANY_AUTH_TOKEN', token: string};
 type SetEventTraits = {type: 'SET_EVENT_TRAITS', traits: EventTraits};
 type SetLastUpdated = {type: 'SET_LAST_UPDATED', lastUpdated: number};
+type SetPreview = {type: 'SET_PREVIEW', enabled: boolean, surveyId?: string};
 type SetUserAuthToken = {type: 'SET_USER_AUTH_TOKEN', token: string};
 type SetUserTraits = {type: 'SET_USER_TRAITS', traits: UserTraits};
 type ShowPromptAction = {type: 'SHOW_PROMPT', survey: Survey};
@@ -65,6 +71,15 @@ export const setEventTraits = (traits: EventTraits): SetEventTraits => ({
 export const setLastUpdated = (lastUpdated: number): SetLastUpdated => ({
   type: 'SET_LAST_UPDATED',
   lastUpdated,
+});
+
+export const setPreview = (
+  enabled: boolean,
+  surveyId?: string,
+): SetPreview => ({
+  type: 'SET_PREVIEW',
+  enabled,
+  surveyId,
 });
 
 export const setUserAuthToken = (token: string): SetUserAuthToken => ({
@@ -111,6 +126,12 @@ export const reducer = (state: State = INITIAL_STATE, action: Action) => {
       return {
         ...state,
         lastUpdated: action.lastUpdated,
+      };
+    case 'SET_PREVIEW':
+      return {
+        ...state,
+        preview: action.enabled,
+        previewSurveyId: action.surveyId,
       };
     case 'SET_USER_AUTH_TOKEN':
       return {

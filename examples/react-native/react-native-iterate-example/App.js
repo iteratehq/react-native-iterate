@@ -24,9 +24,7 @@ const App: () => React$Node = () => {
     Iterate.onResponse((response, question) => {
       console.log('onResponseCallback', response, question);
     });
-  }, []);
 
-  useEffect(() => {
     Iterate.sendEvent('show-survey-button-tapped');
   }, []);
 

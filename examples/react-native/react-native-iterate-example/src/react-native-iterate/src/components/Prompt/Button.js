@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -14,7 +14,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-import {Platforms, Themes} from '../../constants';
+import {Themes} from '../../constants';
 
 interface Props {
   color: string;
@@ -25,11 +25,7 @@ interface Props {
 const PromptButton: (Props) => React$Node = ({color, onPress, text}) => {
   const colorScheme = useColorScheme();
 
-  return Platform.OS === Platforms.Android ? (
-    <TouchableNativeFeedback>
-      <Text>{text}</Text>
-    </TouchableNativeFeedback>
-  ) : (
+  return (
     <View>
       <TouchableHighlight
         // eslint-disable-next-line react-native/no-inline-styles
