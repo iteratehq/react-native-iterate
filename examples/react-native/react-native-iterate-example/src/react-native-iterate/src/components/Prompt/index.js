@@ -3,10 +3,10 @@
  * @flow
  */
 
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {
+  Animated,
   Image,
-  View,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -37,19 +37,54 @@ const Prompt: (Props) => React$Node = ({
 }) => {
   const colorScheme = useColorScheme();
 
+  const promptAnimation = useRef(new Animated.Value(500)).current;
+
+  useEffect(() => {
+    Animated.timing(promptAnimation, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  }, [promptAnimation]);
+
+  const onDismissAnimated = useCallback(() => {
+    Animated.timing(promptAnimation, {
+      toValue: 500,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+
+    setTimeout(() => {
+      onDismiss();
+    }, 300);
+  }, [onDismiss, promptAnimation]);
+
   const showSurveyButtonClicked = useCallback(() => {
-    dispatchShowSurvey(survey);
-  }, [dispatchShowSurvey, survey]);
+    Animated.timing(promptAnimation, {
+      toValue: 500,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+
+    setTimeout(() => {
+      dispatchShowSurvey(survey);
+    }, 300);
+  }, [dispatchShowSurvey, promptAnimation, survey]);
 
   return (
-    <View
+    <Animated.View
       // eslint-disable-next-line react-native/no-inline-styles
       style={{
         ...styles.prompt,
         backgroundColor: colorScheme === Themes.Dark ? '#000' : '#fff',
+        transform: [
+          {
+            translateY: promptAnimation,
+          },
+        ],
       }}>
       <SafeAreaView>
-        <CloseButton onPress={onDismiss} />
+        <CloseButton onPress={onDismissAnimated} />
         <Text
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
@@ -64,7 +99,7 @@ const Prompt: (Props) => React$Node = ({
           onPress={showSurveyButtonClicked}
         />
       </SafeAreaView>
-    </View>
+    </Animated.View>
   );
 };
 
