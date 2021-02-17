@@ -7,7 +7,6 @@ import React, {useCallback, useEffect, useRef} from 'react';
 import {
   Animated,
   Image,
-  SafeAreaView,
   StyleSheet,
   Text,
   useColorScheme,
@@ -17,6 +16,7 @@ import {
   View,
 } from 'react-native';
 import {connect} from 'react-redux';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {Platforms, Themes} from '../../constants';
 import type {State} from '../../redux';
@@ -88,7 +88,7 @@ const Prompt: (Props) => React$Node = ({
           ...styles.prompt,
           backgroundColor: colorScheme === Themes.Dark ? '#000' : '#fff',
         }}>
-        <SafeAreaView>
+        <SafeAreaView edges={['bottom']}>
           <CloseButton onPress={onDismissAnimated} />
           <Text
             // eslint-disable-next-line react-native/no-inline-styles

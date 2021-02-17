@@ -6,6 +6,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import Iterate, {store} from '../iterate';
 import {
@@ -55,14 +56,16 @@ const withIterate = ({apiKey}: Props) => {
   });
 
   return (Comp: () => React$Node) => (props: {}) => (
-    <View style={styles.container}>
-      <View style={styles.app}>
-        <Comp {...props} />
-        <Provider store={store}>
-          <PromptOrSurvey />
-        </Provider>
+    <SafeAreaProvider>
+      <View style={styles.container}>
+        <View style={styles.app}>
+          <Comp {...props} />
+          <Provider store={store}>
+            <PromptOrSurvey />
+          </Provider>
+        </View>
       </View>
-    </View>
+    </SafeAreaProvider>
   );
 };
 
