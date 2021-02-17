@@ -14,6 +14,7 @@ import {
   Platform,
   TouchableNativeFeedback,
   TouchableHighlight,
+  View,
 } from 'react-native';
 import {connect} from 'react-redux';
 
@@ -73,50 +74,62 @@ const Prompt: (Props) => React$Node = ({
 
   return (
     <Animated.View
-      // eslint-disable-next-line react-native/no-inline-styles
       style={{
-        ...styles.prompt,
-        backgroundColor: colorScheme === Themes.Dark ? '#000' : '#fff',
+        ...styles.promptContainer,
         transform: [
           {
             translateY: promptAnimation,
           },
         ],
       }}>
-      <SafeAreaView>
-        <CloseButton onPress={onDismissAnimated} />
-        <Text
-          // eslint-disable-next-line react-native/no-inline-styles
-          style={{
-            ...styles.promptText,
-            color: colorScheme === Themes.Dark ? '#fff' : '#000',
-          }}>
-          {survey.prompt?.message}
-        </Text>
-        <PromptButton
-          text={survey.prompt?.button_text || ''}
-          color="#7457be"
-          onPress={showSurveyButtonClicked}
-        />
-      </SafeAreaView>
+      <View
+        // eslint-disable-next-line react-native/no-inline-styles
+        style={{
+          ...styles.prompt,
+          backgroundColor: colorScheme === Themes.Dark ? '#000' : '#fff',
+        }}>
+        <SafeAreaView>
+          <CloseButton onPress={onDismissAnimated} />
+          <Text
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              ...styles.promptText,
+              color: colorScheme === Themes.Dark ? '#fff' : '#000',
+            }}>
+            {survey.prompt?.message}
+          </Text>
+          <PromptButton
+            text={survey.prompt?.button_text || ''}
+            color="#7457be"
+            onPress={showSurveyButtonClicked}
+          />
+        </SafeAreaView>
+      </View>
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
-  prompt: {
-    borderRadius: 10,
-    shadowColor: '#000000',
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
+  promptContainer: {
     zIndex: 2,
     width: '100%',
     position: 'absolute',
     bottom: 0,
+    display: 'flex',
+    alignItems: 'center',
+  },
+  prompt: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    shadowColor: '#000000',
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    maxWidth: 420,
+    width: '100%',
   },
   promptText: {
     fontSize: 16,
