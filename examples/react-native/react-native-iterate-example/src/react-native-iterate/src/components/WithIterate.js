@@ -57,28 +57,12 @@ const withIterate = ({apiKey}: Props) => {
 
   return (Comp: () => React$Node) => (props: {}) => (
     <SafeAreaProvider>
-      <View style={styles.container}>
-        <View style={styles.app}>
-          <Comp {...props} />
-          <Provider store={store}>
-            <PromptOrSurvey />
-          </Provider>
-        </View>
-      </View>
+      <Comp {...props} />
+      <Provider store={store}>
+        <PromptOrSurvey />
+      </Provider>
     </SafeAreaProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-  },
-  app: {
-    width: '100%',
-    height: '100%',
-    zIndex: 1,
-  },
-});
 
 export default withIterate;
