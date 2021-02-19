@@ -1,5 +1,5 @@
-export default {
-  multiply(a: number, b: number) {
-    return Promise.resolve(a * b);
-  },
-};
+import Iterate from './iterate';
+import withIterate from './components/WithIterate';
+
+export { Iterate, withIterate };
+export default Iterate;
