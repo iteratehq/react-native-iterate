@@ -7800,10 +7800,10 @@ react-native-builder-bob@^0.17.1:
   optionalDependencies:
     jetifier "^1.6.6"
 
-react-native-encrypted-storage@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-encrypted-storage/-/react-native-encrypted-storage-3.0.0.tgz#b7bdd03ed361959fc777dab0383928954059a7ac"
-  integrity sha512-qH+8uZw10QFf1bpfKyqdku1wH9pRU6ZekDJ4KBiKcXu7RdrO/uw4zSVPu71329n142eFQQprk21JlLbSwg1Mlg==
+react-native-encrypted-storage@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-encrypted-storage/-/react-native-encrypted-storage-4.0.2.tgz#c7d59b1d3ff2f80d572be3e85aaab3fdee16744a"
+  integrity sha512-vneDkHGDuTvLQjUBztqb2YI8QoH1zxdJonPGTS+g57lfJZff9fAjoLSSb6NgMBebpXFcK3I3sEresGyL+3AArw==
 
 react-native-safe-area-context@^3.1.9:
   version "3.1.9"
