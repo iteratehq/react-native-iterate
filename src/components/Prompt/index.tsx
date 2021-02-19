@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   Animated,
   Image,
@@ -9,6 +9,7 @@ import {
   TouchableNativeFeedback,
   TouchableHighlight,
   View,
+  PanResponder,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -27,6 +28,10 @@ type Props = {
   survey?: Survey;
 };
 
+const ANIMATION_DURATION = 300;
+const DISMISSED_POSITION = 500;
+const DISPLAYED_POSITION = 0;
+
 const Prompt: (Props: Props) => JSX.Element = ({
   dispatchShowSurvey,
   onDismiss,
@@ -34,32 +39,60 @@ const Prompt: (Props: Props) => JSX.Element = ({
 }) => {
   const colorScheme = useColorScheme();
 
-  const promptAnimation = useRef(new Animated.Value(500)).current;
+  const promptAnimation = useRef(new Animated.Value(DISMISSED_POSITION))
+    .current;
+
+  const panResponder = useMemo(
+    () =>
+      PanResponder.create({
+        onStartShouldSetPanResponder: () => true,
+        onPanResponderMove: (_, gestureState) => {
+          promptAnimation.setValue(
+            Math.max(DISPLAYED_POSITION, DISPLAYED_POSITION + gestureState.dy)
+          );
+        },
+        onPanResponderRelease: (_, gesture) => {
+          const shouldDismiss = gesture.vy > DISPLAYED_POSITION;
+          Animated.spring(promptAnimation, {
+            toValue: shouldDismiss ? DISMISSED_POSITION : DISPLAYED_POSITION,
+            velocity: gesture.vy,
+            tension: 2,
+            friction: 8,
+            useNativeDriver: true,
+          }).start(({ finished }) => {
+            if (finished && shouldDismiss) {
+              onDismiss();
+            }
+          });
+        },
+      }),
+    [onDismiss, promptAnimation]
+  );
 
   useEffect(() => {
     Animated.timing(promptAnimation, {
-      toValue: 0,
-      duration: 300,
+      toValue: DISPLAYED_POSITION,
+      duration: ANIMATION_DURATION,
       useNativeDriver: true,
     }).start();
   }, [promptAnimation]);
 
   const onDismissAnimated = useCallback(() => {
     Animated.timing(promptAnimation, {
-      toValue: 500,
-      duration: 300,
+      toValue: DISMISSED_POSITION,
+      duration: ANIMATION_DURATION,
       useNativeDriver: true,
     }).start();
 
     setTimeout(() => {
       onDismiss();
-    }, 300);
+    }, ANIMATION_DURATION);
   }, [onDismiss, promptAnimation]);
 
   const showSurveyButtonClicked = useCallback(() => {
     Animated.timing(promptAnimation, {
-      toValue: 500,
-      duration: 300,
+      toValue: DISMISSED_POSITION,
+      duration: ANIMATION_DURATION,
       useNativeDriver: true,
     }).start();
 
@@ -67,7 +100,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
       if (survey != null) {
         dispatchShowSurvey(survey);
       }
-    }, 300);
+    }, ANIMATION_DURATION);
   }, [dispatchShowSurvey, promptAnimation, survey]);
 
   return (
@@ -80,6 +113,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
           },
         ],
       }}
+      {...panResponder.panHandlers}
     >
       <View
         // eslint-disable-next-line react-native/no-inline-styles
