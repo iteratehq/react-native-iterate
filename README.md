@@ -1,9 +1,12 @@
 
-![Iterate for iOS](https://iterate-assets.s3.amazonaws.com/clients/iterate-react-native-banner.png)
+![Iterate for React Native](https://iterate-assets.s3.amazonaws.com/clients/iterate-react-native-banner.png)
 
 # Iterate for React Native
 
-[![build](https://img.shields.io/circleci/build/github/iteratehq/react-native-iterate)](https://github.com/iteratehq/react-native-iterate) [![license](https://img.shields.io/github/license/iteratehq/iterate-ios?color=%23000000)](https://github.com/iteratehq/react-native-iterate/blob/master/LICENSE.txt) 
+[![build](https://img.shields.io/circleci/build/github/iteratehq/react-native-iterate)](https://github.com/iteratehq/react-native-iterate) 
+[![maintainability](https://img.shields.io/codeclimate/maintainability/iteratehq/react-native-iterate)](https://codeclimate.com/github/iteratehq/react-native-iterate)
+[![version](https://img.shields.io/github/v/tag/iteratehq/react-native-iterate?label=version)](https://github.com/iteratehq/react-native-iterate/releases)
+[![license](https://img.shields.io/github/license/iteratehq/react-native-iterate?color=%23000000)](https://github.com/iteratehq/react-native-iterate/blob/master/LICENSE.txt) 
 
 [Iterate](https://iteratehq.com) surveys put you directly in touch with your app users to learn how you can change for the better—from your product to your app experience.
 
