@@ -3,7 +3,7 @@
 
 # Iterate for React Native
 
-[![license](https://img.shields.io/github/license/iteratehq/iterate-ios?color=%23000000)](https://github.com/iteratehq/iterate-ios/blob/master/LICENSE.txt)
+[![build](https://img.shields.io/circleci/build/github/iteratehq/react-native-iterate)](https://github.com/iteratehq/react-native-iterate) [![license](https://img.shields.io/github/license/iteratehq/iterate-ios?color=%23000000)](https://github.com/iteratehq/react-native-iterate/blob/master/LICENSE.txt) 
 
 [Iterate](https://iteratehq.com) surveys put you directly in touch with your app users to learn how you can change for the better—from your product to your app experience.
 
