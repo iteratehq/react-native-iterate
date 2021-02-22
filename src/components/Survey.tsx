@@ -3,8 +3,9 @@
  * @flow
  */
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
+  ActivityIndicator,
   Modal,
   SafeAreaView,
   StyleSheet,
@@ -34,6 +35,8 @@ const SurveyView: (Props: Props) => JSX.Element = ({
   survey,
   userAuthToken,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const params = [];
   // Add the auth token
   if (userAuthToken != null) {
@@ -101,7 +104,17 @@ const SurveyView: (Props: Props) => JSX.Element = ({
         onRequestClose={onDismiss}
       >
         <SafeAreaView style={styles.container}>
-          <WebView onMessage={onMessage} source={{ uri: url }} />
+          {isLoading && (
+            <View style={styles.loading}>
+              <ActivityIndicator animating={true} />
+            </View>
+          )}
+          <WebView
+            onMessage={onMessage}
+            onLoadStart={() => setIsLoading(true)}
+            onLoadEnd={() => setIsLoading(false)}
+            source={{ uri: url }}
+          />
         </SafeAreaView>
       </Modal>
     </View>
@@ -111,6 +124,16 @@ const SurveyView: (Props: Props) => JSX.Element = ({
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+  },
+  loading: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 2,
   },
 });
 
