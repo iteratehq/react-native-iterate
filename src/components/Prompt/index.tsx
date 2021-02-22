@@ -5,16 +5,14 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  Platform,
-  TouchableNativeFeedback,
   TouchableHighlight,
   View,
   PanResponder,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Platforms, Themes } from '../../constants';
+import { Themes } from '../../constants';
 import type { State } from '../../redux';
 import { showSurvey } from '../../redux';
 import type { Survey } from '../../types';
@@ -41,6 +39,8 @@ const Prompt: (Props: Props) => JSX.Element = ({
 
   const promptAnimation = useRef(new Animated.Value(DISMISSED_POSITION))
     .current;
+
+  const insets = useSafeAreaInsets();
 
   const panResponder = useMemo(
     () =>
@@ -103,6 +103,8 @@ const Prompt: (Props: Props) => JSX.Element = ({
     }, ANIMATION_DURATION);
   }, [dispatchShowSurvey, promptAnimation, survey]);
 
+  const paddingBottom = insets.bottom > 0 ? insets.bottom : 20;
+
   return (
     <Animated.View
       style={{
@@ -122,7 +124,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
           backgroundColor: colorScheme === Themes.Dark ? '#000' : '#fff',
         }}
       >
-        <SafeAreaView edges={['bottom']}>
+        <View style={{ paddingBottom }}>
           <CloseButton onPress={onDismissAnimated} />
           <Text
             // eslint-disable-next-line react-native/no-inline-styles
@@ -138,7 +140,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
             color="#7457be"
             onPress={showSurveyButtonClicked}
           />
-        </SafeAreaView>
+        </View>
       </View>
     </Animated.View>
   );
@@ -156,6 +158,7 @@ const styles = StyleSheet.create({
   prompt: {
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+    elevation: 20,
     shadowColor: '#000000',
     shadowOpacity: 0.4,
     shadowRadius: 4,
@@ -177,17 +180,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const CloseButton = ({ onPress }: { onPress: () => void }) => {
-  return Platform.OS === Platforms.Android ? (
-    <TouchableNativeFeedback onPress={onPress}>
-      <Image source={require('./images/close.png')} />
-    </TouchableNativeFeedback>
-  ) : (
-    <TouchableHighlight style={closeButtonStyles.closeButton} onPress={onPress}>
-      <Image source={require('./images/close.png')} />
-    </TouchableHighlight>
-  );
-};
+const CloseButton = ({ onPress }: { onPress: () => void }) => (
+  <TouchableHighlight style={closeButtonStyles.closeButton} onPress={onPress}>
+    <Image source={require('./images/close.png')} />
+  </TouchableHighlight>
+);
 
 const closeButtonStyles = StyleSheet.create({
   closeButton: {
