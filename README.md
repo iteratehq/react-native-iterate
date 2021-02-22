@@ -91,7 +91,7 @@ const App: () => JSX.Element = () => {
     // ...your application component
 }
 
-export default withIterate(YOUR_API_KEY)(App);
+export default withIterate({ apiKey: YOUR_API_KEY })(App);
 ```
 
 4. Implement events
