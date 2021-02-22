@@ -15,7 +15,6 @@ class ApiClient {
   ): Promise<EmbedResults | void | undefined> => {
     return this.post<EmbedResults>('/surveys/embed', embedContext)
       .then((response) => {
-        console.log('Response: ', response);
         return response.results;
       })
       .catch((error) => {
@@ -32,8 +31,6 @@ class ApiClient {
   };
 
   post = <T,>(path: string, body: {} = {}): Promise<ApiResponse<T>> => {
-    console.log(`POST: ${this.apiHost}/api/v1${path}`, body);
-
     return fetch(`${this.apiHost}/api/v1${path}`, {
       method: 'POST',
       headers: {

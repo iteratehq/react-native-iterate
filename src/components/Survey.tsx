@@ -93,8 +93,6 @@ const SurveyView: (Props: Props) => JSX.Element = ({
     [onDismiss]
   );
 
-  console.log('Loading survey: ', url);
-
   return (
     <View>
       <Modal
@@ -106,7 +104,7 @@ const SurveyView: (Props: Props) => JSX.Element = ({
         <SafeAreaView style={styles.container}>
           {isLoading && (
             <View style={styles.loading}>
-              <ActivityIndicator animating={true} />
+              <ActivityIndicator color="#999999" animating={true} />
             </View>
           )}
           <WebView
