@@ -1,6 +1,6 @@
 {
   "name": "react-native-iterate",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "In-app user research made easy",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -156,7 +156,8 @@
     ]
   },
   "dependencies": {
-    "react-redux": "^7.2.2"
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5"
   },
   "private": false
 }

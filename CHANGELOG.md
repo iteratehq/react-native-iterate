@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.2.1](https://github.com/iteratehq/react-native-iterate/releases/tag/v0.2.1)
+
+**Fixed**
+
+- Include redux as a dependency instead of relying on a peerDependency
+
 ## [0.2.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v0.2.0)
 
 **Fixed**
