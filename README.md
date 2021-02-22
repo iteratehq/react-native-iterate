@@ -42,17 +42,13 @@ We rely on three popular peer dependencies, if you already have them in your app
 With yarn
 
 ```
-$ yarn add react-native-encrypted-storage
-$ yarn add react-native-safe-area-context
-$ yarn add react-native-webview
+$ yarn add react-native-encrypted-storage react-native-safe-area-context react-native-webview
 ```
 
 With npm
 
 ```
-$ npm install --save react-native-encrypted-storage
-$ npm install --save react-native-safe-area-context
-$ npm install --save react-native-webview
+$ npm install --save react-native-encrypted-storage react-native-safe-area-context react-native-webview
 ```
 
 
