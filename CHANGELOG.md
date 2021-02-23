@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.2.3](https://github.com/iteratehq/react-native-iterate/releases/tag/v0.2.3)
+
+**Fixed**
+
+- Use the correct survey color for the prompt button
+
 ## [0.2.2](https://github.com/iteratehq/react-native-iterate/releases/tag/v0.2.2)
 
 **Fixed**

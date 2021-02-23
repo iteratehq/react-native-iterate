@@ -4,7 +4,6 @@ import {
   Image,
   StyleSheet,
   Text,
-  useColorScheme,
   TouchableHighlight,
   View,
   PanResponder,
@@ -12,7 +11,6 @@ import {
 import { connect } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Themes } from '../../constants';
 import type { State } from '../../redux';
 import { showSurvey } from '../../redux';
 import type { Survey } from '../../types';
@@ -35,8 +33,6 @@ const Prompt: (Props: Props) => JSX.Element = ({
   onDismiss,
   survey,
 }) => {
-  const colorScheme = useColorScheme();
-
   const promptAnimation = useRef(new Animated.Value(DISMISSED_POSITION))
     .current;
 
