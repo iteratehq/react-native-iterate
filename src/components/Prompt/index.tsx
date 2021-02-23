@@ -117,27 +117,13 @@ const Prompt: (Props: Props) => JSX.Element = ({
       }}
       {...panResponder.panHandlers}
     >
-      <View
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{
-          ...styles.prompt,
-          backgroundColor: colorScheme === Themes.Dark ? '#000' : '#fff',
-        }}
-      >
+      <View style={styles.prompt}>
         <View style={{ paddingBottom }}>
           <CloseButton onPress={onDismissAnimated} />
-          <Text
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              ...styles.promptText,
-              color: colorScheme === Themes.Dark ? '#fff' : '#000',
-            }}
-          >
-            {survey?.prompt?.message}
-          </Text>
+          <Text style={styles.promptText}>{survey?.prompt?.message}</Text>
           <PromptButton
             text={`${survey?.prompt?.button_text || ''}`}
-            color="#7457be"
+            color={`${survey?.color || '#7457be'}`}
             onPress={showSurveyButtonClicked}
           />
         </View>
@@ -158,6 +144,7 @@ const styles = StyleSheet.create({
   prompt: {
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+    backgroundColor: '#fff',
     elevation: 20,
     shadowColor: '#000000',
     shadowOpacity: 0.4,
@@ -170,6 +157,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   promptText: {
+    color: '#000',
     fontSize: 16,
     marginLeft: 40,
     marginRight: 40,

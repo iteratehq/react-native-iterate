@@ -49,6 +49,7 @@ export type UserTraitsContext = { [key: string]: UserTraitValue };
 export type UserTraits = UserTraitsContext;
 
 export type Survey = {
+  color?: string;
   company_id: string;
   id: string;
   prompt?: Prompt;

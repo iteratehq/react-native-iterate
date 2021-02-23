@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  TouchableHighlight,
-} from 'react-native';
-
-import { Themes } from '../../constants';
+import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 
 interface Props {
   color: string;
@@ -20,29 +12,18 @@ const PromptButton: (Props: Props) => JSX.Element = ({
   onPress,
   text,
 }) => {
-  const colorScheme = useColorScheme();
-
   return (
     <View>
       <TouchableHighlight
-        // eslint-disable-next-line react-native/no-inline-styles
         style={{
           ...styles.touchable,
-          backgroundColor: colorScheme === Themes.Dark ? '#fff' : color,
+          backgroundColor: color,
         }}
         underlayColor={color}
         onPress={onPress}
       >
         <View style={styles.container}>
-          <Text
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              ...styles.text,
-              color: colorScheme === Themes.Dark ? color : '#fff',
-            }}
-          >
-            {text}
-          </Text>
+          <Text style={styles.text}>{text}</Text>
         </View>
       </TouchableHighlight>
     </View>
@@ -62,6 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   text: {
+    color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
     fontSize: 16,
