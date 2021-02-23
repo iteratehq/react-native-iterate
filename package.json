@@ -1,6 +1,6 @@
 {
   "name": "react-native-iterate",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "In-app user research made easy",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
