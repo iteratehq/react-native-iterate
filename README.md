@@ -222,6 +222,22 @@ If you need access to the user's responses on the client, you can use the `onRes
     }
 ```
 
+## Clearing data
+
+To clear all data Iterate has stored (user api key, any user properties stored by calling the `identify` method, etc) call the `reset` method. This is commonly called when you log a user out of your app.
+
+```JSX
+    const App: () => JSX.Element = () => {
+        const logout = useCallback(() => {
+            Iterate.reset()
+
+            // Your other logout logic here
+        }, []);
+
+        // ...your application component
+    }
+```
+
 
 ## Survey eligibility and frequency
 
