@@ -2,6 +2,7 @@
 export interface StorageInterface {
   getItem(key: string): Promise<string | null>;
   setItem(key: string, value: string): Promise<void>;
+  removeItem(key: string): Promise<void>;
 }
 
 export const Keys = {
@@ -10,13 +11,24 @@ export const Keys = {
   userTraits: 'user_traits',
 };
 
+const KeyPrefix = 'com.iteratehq.';
+
 class Storage {
   // A user-provided secure storage
   storageProvider?: StorageInterface;
 
+  // Remove all stored items
+  clear = async () => {
+    return this.secureStorage().then(async (storage) => {
+      for (const [, value] of Object.entries(Keys)) {
+        storage.removeItem(`${KeyPrefix}${value}`);
+      }
+    });
+  };
+
   get = async (key: string) => {
     return this.secureStorage().then(async (storage) => {
-      const result = await storage.getItem(`com.iteratehq.${key}`);
+      const result = await storage.getItem(`${KeyPrefix}${key}`);
       if (result != null) {
         return JSON.parse(result).value;
       }
@@ -26,7 +38,7 @@ class Storage {
   set = async (key: string, value: any) => {
     return this.secureStorage().then(
       async (storage) =>
-        await storage.setItem(`com.iteratehq.${key}`, JSON.stringify({ value }))
+        await storage.setItem(`${KeyPrefix}${key}`, JSON.stringify({ value }))
     );
   };
 

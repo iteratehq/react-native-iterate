@@ -32,6 +32,7 @@ const INITIAL_STATE = {
 // Actions
 type Action =
   | DismissAction
+  | ResetAction
   | SetCompanyAuthToken
   | SetEventTraits
   | SetLastUpdated
@@ -42,6 +43,7 @@ type Action =
   | ShowSurveyAction;
 
 type DismissAction = { type: 'DISMISS' };
+type ResetAction = { type: 'RESET' };
 type SetCompanyAuthToken = { type: 'SET_COMPANY_AUTH_TOKEN'; token: string };
 type SetEventTraits = { type: 'SET_EVENT_TRAITS'; traits: EventTraits };
 type SetLastUpdated = { type: 'SET_LAST_UPDATED'; lastUpdated: number };
@@ -52,6 +54,8 @@ type ShowPromptAction = { type: 'SHOW_PROMPT'; survey: Survey };
 type ShowSurveyAction = { type: 'SHOW_SURVEY'; survey: Survey };
 
 export const dismiss = (): DismissAction => ({ type: 'DISMISS' });
+
+export const reset = (): ResetAction => ({ type: 'RESET' });
 
 export const setCompanyAuthToken = (token: string): SetCompanyAuthToken => ({
   type: 'SET_COMPANY_AUTH_TOKEN',
@@ -107,6 +111,12 @@ export const reducer = (state: State = INITIAL_STATE, action: Action) => {
         showSurvey: false,
         showPrompt: false,
       };
+    case 'RESET':
+      // We don't need to reset the company API key, so we'll
+      // reset to the initial state and cherry pick that
+      const updatedState: State = { ...INITIAL_STATE };
+      updatedState.companyAuthToken = state.companyAuthToken;
+      return updatedState;
     case 'SET_COMPANY_AUTH_TOKEN':
       return {
         ...state,
