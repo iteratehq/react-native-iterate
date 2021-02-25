@@ -14,15 +14,19 @@ import {
   setUserAuthToken,
   setUserTraits,
 } from '../redux';
-import Storage, { Keys } from '../storage';
+import Storage, { Keys, StorageInterface } from '../storage';
 
 import PromptOrSurvey from './PromptOrSurvey';
 
 interface Props {
   apiKey: string;
+  storage: StorageInterface;
 }
 
-const withIterate = ({ apiKey }: Props) => {
+const withIterate = ({ apiKey, storage }: Props) => {
+  // Set the user's secure storage if one was provided
+  Storage.storageProvider = storage;
+
   // Initialize with the company api key
   Iterate.configure(apiKey);
 

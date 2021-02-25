@@ -78,7 +78,6 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-encrypted-storage": "*",
     "react-native-safe-area-context": "*",
     "react-native-webview": "*"
   },

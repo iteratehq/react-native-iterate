@@ -1,4 +1,8 @@
-import EncryptedStorage from 'react-native-encrypted-storage';
+// Interface representing a secure storage facility
+export interface StorageInterface {
+  getItem(key: string): Promise<string | null>;
+  setItem(key: string, value: string): Promise<void>;
+}
 
 export const Keys = {
   lastUpdated: 'last_updated',
@@ -7,34 +11,31 @@ export const Keys = {
 };
 
 class Storage {
+  // A user-provided secure storage
+  storageProvider?: StorageInterface;
+
   get = async (key: string) => {
-    try {
-      const result = await EncryptedStorage.getItem(`com.iteratehq.${key}`);
+    return this.secureStorage().then(async (storage) => {
+      const result = await storage.getItem(`com.iteratehq.${key}`);
       if (result != null) {
         return JSON.parse(result).value;
       }
-    } catch (error) {
-      console.error(error);
-    }
+    });
   };
 
   set = async (key: string, value: any) => {
-    try {
-      await EncryptedStorage.setItem(
-        `com.iteratehq.${key}`,
-        JSON.stringify({ value })
-      );
-    } catch (error) {
-      console.error(error);
-    }
+    return this.secureStorage().then(
+      async (storage) =>
+        await storage.setItem(`com.iteratehq.${key}`, JSON.stringify({ value }))
+    );
   };
 
-  clear = async () => {
-    try {
-      EncryptedStorage.clear();
-    } catch (error) {
-      console.error(error);
+  secureStorage = async (): Promise<StorageInterface> => {
+    if (this.storageProvider != null) {
+      return this.storageProvider;
     }
+
+    throw 'Error initializing Iterate: missing storage. You must provide a storage facility, see README for details';
   };
 }
 
