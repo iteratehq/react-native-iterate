@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v1.1.0)
+
+**Added**
+
+- withIterate now requires a storage facility to be passed in
+
+**Removed**
+
+- react-native-encrypted-storage is no longer a required peer dependency
+
 ## [1.0.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v1.0.0)
 
 **Added**
