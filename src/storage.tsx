@@ -19,15 +19,15 @@ class Storage {
 
   // Remove all stored items
   clear = async () => {
-    return this.secureStorage().then(async (storage) => {
+    return this.storageFacility().then(async (storage) => {
       for (const [, value] of Object.entries(Keys)) {
         storage.removeItem(`${KeyPrefix}${value}`);
       }
     });
   };
 
-  get = async (key: string) => {
-    return this.secureStorage().then(async (storage) => {
+  getItem = async (key: string) => {
+    return this.storageFacility().then(async (storage) => {
       const result = await storage.getItem(`${KeyPrefix}${key}`);
       if (result != null) {
         return JSON.parse(result).value;
@@ -35,14 +35,14 @@ class Storage {
     });
   };
 
-  set = async (key: string, value: any) => {
-    return this.secureStorage().then(
+  setItem = async (key: string, value: any) => {
+    return this.storageFacility().then(
       async (storage) =>
         await storage.setItem(`${KeyPrefix}${key}`, JSON.stringify({ value }))
     );
   };
 
-  secureStorage = async (): Promise<StorageInterface> => {
+  storageFacility = async (): Promise<StorageInterface> => {
     if (this.storageProvider != null) {
       return this.storageProvider;
     }

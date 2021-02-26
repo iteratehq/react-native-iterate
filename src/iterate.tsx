@@ -48,7 +48,7 @@ class Iterate {
   identify = (userTraits?: UserTraits, eventTraits?: EventTraits) => {
     if (userTraits != null) {
       store.dispatch(setUserTraits(userTraits));
-      Storage.set(Keys.userTraits, userTraits);
+      Storage.setItem(Keys.userTraits, userTraits);
     }
 
     if (eventTraits != null) {
@@ -128,14 +128,14 @@ class Iterate {
       if (response.auth != null && response.auth.token != null) {
         const token = response.auth.token;
         store.dispatch(setUserAuthToken(token));
-        Storage.set(Keys.authToken, token);
+        Storage.setItem(Keys.authToken, token);
       }
 
       // Set the last updated time if one is returned
       if (response.tracking != null && response.tracking.last_updated != null) {
         const lastUpdated = response.tracking.last_updated;
         store.dispatch(setLastUpdated(lastUpdated));
-        Storage.set(Keys.lastUpdated, lastUpdated);
+        Storage.setItem(Keys.lastUpdated, lastUpdated);
       }
 
       if (response != null && response.survey != null) {
