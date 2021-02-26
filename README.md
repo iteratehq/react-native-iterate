@@ -55,9 +55,10 @@ $ npm install --save react-native-safe-area-context react-native-webview
 When you initialize Iterate you provide it with a storage facility that's used to save the API key as well as any additional user data set by calling the `identify` method. We recommend using an encrypted storage facility like [react-native-encrypted-storage](https://github.com/emeraldsanto/react-native-encrypted-storage), however you can also use [async-storage](https://github.com/react-native-async-storage/async-storage) or provide your own, the only requirement is that it complies with our StorageInterface.
 
 ```Typescript
-export interface SecureStorage {
-  get(key: string): Promise<string | null>;
-  set(key: string, value: string): Promise<void>;
+export interface StorageInterface {
+  getItem(key: string): Promise<string | null>;
+  setItem(key: string, value: string): Promise<void>;
+  removeItem(key: string): Promise<void>;
 }
 ```
 
@@ -103,7 +104,7 @@ $ pod install
 
 Within your app, surveys are shown in response to _events_. An event can be anything from viewing a screen, clicking a button, or any other user action. You use the Iterate SDK to send events to Iterate, then from your Iterate dashboard you create surveys that target those events.
 
-**Quickstart**
+**Quick start**
 
 Create your [Iterate](https://iteratehq.com) account if you haven't already.
 
@@ -162,7 +163,7 @@ You'll likely want to preview your survey before publishing it so you can test t
 
 ## Recommendations
 
-When implementing Iterate for the first time, we encourage you to implement events for _all_ of your core use cases which you may want to target surveys to in the future. e.g. signup, purchased, viewed X screen, tapped notification, etc. This way you can easily launch new surveys targeting these events without needing to instrument a new event each time.
+When implementing Iterate for the first time, we encourage you to implement events for _all_ of your core use cases which you may want to target surveys to in the future. e.g. sign up, purchased, viewed X screen, tapped notification, etc. This way you can easily launch new surveys targeting these events without needing to instrument a new event each time.
 
 ## Associating data with a user
 

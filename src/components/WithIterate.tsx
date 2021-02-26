@@ -32,9 +32,9 @@ const withIterate = ({ apiKey, storage }: Props) => {
 
   // Initial state values
   store.dispatch(setCompanyAuthToken(apiKey));
-  Storage.get(Keys.authToken).then((authToken?: string) => {
-    Storage.get(Keys.lastUpdated).then((lastUpdated?: string) => {
-      Storage.get(Keys.userTraits).then((userTraits?: {}) => {
+  Storage.getItem(Keys.authToken).then((authToken?: string) => {
+    Storage.getItem(Keys.lastUpdated).then((lastUpdated?: string) => {
+      Storage.getItem(Keys.userTraits).then((userTraits?: {}) => {
         // Initialize the api with the user auth token
         if (authToken != null) {
           Iterate.configure(authToken);
