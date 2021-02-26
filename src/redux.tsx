@@ -114,9 +114,7 @@ export const reducer = (state: State = INITIAL_STATE, action: Action) => {
     case 'RESET':
       // We don't need to reset the company API key, so we'll
       // reset to the initial state and cherry pick that
-      const updatedState: State = { ...INITIAL_STATE };
-      updatedState.companyAuthToken = state.companyAuthToken;
-      return updatedState;
+      return { ...INITIAL_STATE, companyAuthToken: state.companyAuthToken };
     case 'SET_COMPANY_AUTH_TOKEN':
       return {
         ...state,
