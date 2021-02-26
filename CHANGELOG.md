@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v1.2.0)
+
+**Added**
+
+- Add a 'reset' method that clears all data from local storage and the local redux store. This is useful when logging out a user to ensure their data isn't associated with the next logged in user
+- Exports StorageInterface interface
+
 ## [1.1.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v1.1.0)
 
 **Added**
