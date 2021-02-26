@@ -115,7 +115,7 @@ Create your [Iterate](https://iteratehq.com) account if you haven't already.
 import Iterate, { withIterate } from 'react-native-iterate';
 import SecureStorage from 'react-native-encrypted-storage';
 
-const App: () => JSX.Element = () => {
+const App = () => {
     // ...your application component
 }
 
@@ -132,7 +132,7 @@ Here's an example of an event being fired when the user views the activity feed 
 ```JSX
 import Iterate from 'react-native-iterate';
 
-const ActivityFeed: () => JSX.Element = () => {
+const ActivityFeed = () => {
   useEffect(() => {
     Iterate.sendEvent('viewed-activity-feed');
   }, []);
@@ -151,7 +151,7 @@ You'll likely want to preview your survey before publishing it so you can test t
 2. Implement into your application, this can be done once in any component that's rendered before the event you're targeting
 
 ```JSX
-    const App: () => JSX.Element = () => {
+    const App = () => {
         useEffect(() => {
             Iterate.preview('your-survey-id');
         }, []);
@@ -169,7 +169,7 @@ When implementing Iterate for the first time, we encourage you to implement even
 Using the `identify` method, you can easily add 'user properties' to a user that can be used to target surveys to them and associate the information with all of their future responses.
 
 ```JSX
-    const App: () => JSX.Element = () => {
+    const App = () => {
         useEffect(() => {
             Iterate.identify({
                 email: 'example@email.com',
@@ -185,7 +185,7 @@ Using the `identify` method, you can easily add 'user properties' to a user that
 You can also associated 'response properties' with the user's responses to a specific survey (not associated with any future surveys they fill out), by passing a second data object to the `identify` method.
 
 ```JSX
-    const App: () => JSX.Element = () => {
+    const App = () => {
         useEffect(() => {
             Iterate.identify({
                 // User properties
@@ -211,11 +211,27 @@ For more information see our [help article](https://help.iteratehq.com/en/articl
 If you need access to the user's responses on the client, you can use the `onResponse` method to pass a callback function that will return the question and response
 
 ```JSX
-    const App: () => JSX.Element = () => {
+    const App = () => {
         useEffect(() => {
             Iterate.onResponse((response, question) => {
                 // Your logic here
             });
+        }, []);
+
+        // ...your application component
+    }
+```
+
+## Clearing data
+
+To clear all data Iterate has stored (user api key, any user properties stored by calling the `identify` method, etc) call the `reset` method. This is commonly called when you log a user out of your app.
+
+```JSX
+    const App = () => {
+        const logout = useCallback(() => {
+            Iterate.reset()
+
+            // Your other logout logic here
         }, []);
 
         // ...your application component

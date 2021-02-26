@@ -4,6 +4,7 @@ import ApiClient from './api';
 import { TriggerTypes, Version } from './constants';
 import {
   reducer,
+  reset,
   setEventTraits,
   setLastUpdated,
   setPreview,
@@ -63,6 +64,13 @@ class Iterate {
 
   preview = (surveyId?: string) => {
     store.dispatch(setPreview(true, surveyId));
+  };
+
+  // Reset all stored user data. Commonly called on logout so apps can support
+  // multiple user accounts
+  reset = () => {
+    Storage.clear();
+    store.dispatch(reset());
   };
 
   sendEvent = (eventName: string) => {
