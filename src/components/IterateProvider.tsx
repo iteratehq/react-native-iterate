@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { Provider } from 'react-redux';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import Iterate, { store } from '../iterate';
 import {
@@ -15,17 +14,20 @@ import {
   setUserTraits,
 } from '../redux';
 import Storage, { Keys, StorageInterface } from '../storage';
+import type { EdgeInsets } from '../types';
 
 import PromptOrSurvey from './PromptOrSurvey';
 
 interface Props {
   apiKey: string;
+  children: React.ReactNode;
   storage: StorageInterface;
+  safeArea: () => EdgeInsets;
 }
 
-const withIterate = ({ apiKey, storage }: Props) => {
+const IterateProvider = ({ apiKey, children, safeArea, storage }: Props) => {
   // Set the user's secure storage if one was provided
-  Storage.storageProvider = storage;
+  Storage.provider = storage;
 
   // Initialize with the company api key
   Iterate.configure(apiKey);
@@ -58,14 +60,14 @@ const withIterate = ({ apiKey, storage }: Props) => {
     });
   });
 
-  return (Comp: () => JSX.Element) => (props: {}) => (
-    <SafeAreaProvider>
-      <Comp {...props} />
+  return (
+    <>
+      {children}
       <Provider store={store}>
-        <PromptOrSurvey />
+        <PromptOrSurvey safeAreaInsets={safeArea()} />
       </Provider>
-    </SafeAreaProvider>
+    </>
   );
 };
 
-export default withIterate;
+export default IterateProvider;

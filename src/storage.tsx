@@ -15,11 +15,11 @@ const KeyPrefix = 'com.iteratehq.';
 
 class Storage {
   // A user-provided secure storage
-  storageProvider?: StorageInterface;
+  provider?: StorageInterface;
 
   // Remove all stored items
   clear = async () => {
-    return this.storageFacility().then(async (storage) => {
+    return this.storageProvider().then(async (storage) => {
       for (const [, value] of Object.entries(Keys)) {
         storage.removeItem(`${KeyPrefix}${value}`);
       }
@@ -27,7 +27,7 @@ class Storage {
   };
 
   getItem = async (key: string) => {
-    return this.storageFacility().then(async (storage) => {
+    return this.storageProvider().then(async (storage) => {
       const result = await storage.getItem(`${KeyPrefix}${key}`);
       if (result != null) {
         return JSON.parse(result).value;
@@ -36,15 +36,15 @@ class Storage {
   };
 
   setItem = async (key: string, value: any) => {
-    return this.storageFacility().then(
+    return this.storageProvider().then(
       async (storage) =>
         await storage.setItem(`${KeyPrefix}${key}`, JSON.stringify({ value }))
     );
   };
 
-  storageFacility = async (): Promise<StorageInterface> => {
-    if (this.storageProvider != null) {
-      return this.storageProvider;
+  storageProvider = async (): Promise<StorageInterface> => {
+    if (this.provider != null) {
+      return this.provider;
     }
 
     throw 'Error initializing Iterate: missing storage. You must provide a storage facility, see README for details';

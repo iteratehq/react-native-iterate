@@ -1,3 +1,4 @@
+import type { EdgeInsets } from './types';
 import type { EventTraits, Survey, UserTraits } from './types';
 
 // State
@@ -8,6 +9,7 @@ export type State = {
   lastUpdated?: number;
   preview?: boolean;
   previewSurveyId?: string;
+  safeAreaInsets: EdgeInsets;
   showSurvey: boolean;
   showPrompt: boolean;
   survey?: Survey;
@@ -22,6 +24,7 @@ const INITIAL_STATE = {
   lastUpdated: undefined,
   preview: false,
   previewSurveyId: undefined,
+  safeAreaInsets: { top: 0, left: 0, right: 0, bottom: 0 },
   showSurvey: false,
   showPrompt: false,
   survey: undefined,
@@ -37,6 +40,7 @@ type Action =
   | SetEventTraits
   | SetLastUpdated
   | SetPreview
+  | SetSafeAreaInsets
   | SetUserAuthToken
   | SetUserTraits
   | ShowPromptAction
@@ -48,6 +52,10 @@ type SetCompanyAuthToken = { type: 'SET_COMPANY_AUTH_TOKEN'; token: string };
 type SetEventTraits = { type: 'SET_EVENT_TRAITS'; traits: EventTraits };
 type SetLastUpdated = { type: 'SET_LAST_UPDATED'; lastUpdated: number };
 type SetPreview = { type: 'SET_PREVIEW'; enabled: boolean; surveyId?: string };
+type SetSafeAreaInsets = {
+  type: 'SET_SAFE_AREA_INSETS';
+  safeAreaInsets: EdgeInsets;
+};
 type SetUserAuthToken = { type: 'SET_USER_AUTH_TOKEN'; token: string };
 type SetUserTraits = { type: 'SET_USER_TRAITS'; traits: UserTraits };
 type ShowPromptAction = { type: 'SHOW_PROMPT'; survey: Survey };
@@ -79,6 +87,13 @@ export const setPreview = (
   type: 'SET_PREVIEW',
   enabled,
   surveyId,
+});
+
+export const setSafeAreaInsets = (
+  safeAreaInsets: EdgeInsets
+): SetSafeAreaInsets => ({
+  type: 'SET_SAFE_AREA_INSETS',
+  safeAreaInsets,
 });
 
 export const setUserAuthToken = (token: string): SetUserAuthToken => ({
@@ -135,6 +150,11 @@ export const reducer = (state: State = INITIAL_STATE, action: Action) => {
         ...state,
         preview: action.enabled,
         previewSurveyId: action.surveyId,
+      };
+    case 'SET_SAFE_AREA_INSETS':
+      return {
+        ...state,
+        safeAreaInsets: action.safeAreaInsets,
       };
     case 'SET_USER_AUTH_TOKEN':
       return {

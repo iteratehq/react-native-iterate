@@ -33,10 +33,9 @@ $ npm install --save react-native-iterate
 
 **Install peer dependencies**
 
-We rely on two popular peer dependencies, if you already have them in your app you can skip this step.
+We rely on only one peer dependency, if you already have it in your app you can skip this step.
 
 - [react-native-webview](https://github.com/react-native-webview/react-native-webview) - used to display the survey
-- [react-native-safe-area-context](https://github.com/th3rdwave/react-native-safe-area-context) - used to layout the survey using the native safe area
 
 With yarn
 
@@ -62,7 +61,6 @@ export interface StorageInterface {
 }
 ```
 
-Install a storage facility
 
 With yarn
 
@@ -76,6 +74,23 @@ With npm
 $ npm install --save react-native-encrypted-storage
 ```
 
+**Install safe area provider**
+
+On mobile devices the safe area represents the portion of the view that is suitable for UI to be displayed. Rather than requiring an additional peer dependency, you pass in your own method of providing the safe area. We recommend you use [react-native-safe-area-context](https://github.com/th3rdwave/react-native-safe-area-context), however you can provide your own method that conforms to the interface `() => {top: number, bottom: number, left: number, right: number}`
+
+
+With yarn
+
+```
+$ yarn add react-native-safe-area-context
+```
+
+With npm
+
+```
+$ npm install --save react-native-safe-area-context
+```
+
 **Link native dependencies**
 
 From react-native 0.60 autolinking will take care of the link step and you can safely skip
@@ -83,13 +98,17 @@ From react-native 0.60 autolinking will take care of the link step and you can s
 React Native modules that include native Objective-C, Swift, Java, or Kotlin code have to be "linked" so that the compiler knows to include them in the app.
 
 ```
-$ react-native link react-native-safe-area-context
 $ react-native link react-native-webview
 ```
 
 Link your storage facility
 ```
 $ react-native link react-native-encrypted-storage
+```
+
+Link your safe area provider
+```
+$ react-native link react-native-safe-area-context
 ```
 
 **Install pods**
@@ -115,15 +134,17 @@ Create your [Iterate](https://iteratehq.com) account if you haven't already.
 ```JSX
 import Iterate, { withIterate } from 'react-native-iterate';
 import SecureStorage from 'react-native-encrypted-storage';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const App = () => {
-    // ...your application component
-}
+const App = () => (
+    <SafeAreaProvider>
+        <IterateProvider apiKey={YOUR_API_KEY} safeArea={useSafeAreaInsets} storage={SecureStorage}>
+          { // Your application views }
+        </IterateProvider>
+    </SafeAreaProvider>
+)
 
-export default withIterate({ 
-    apiKey: YOUR_API_KEY,
-    storage: SecureStorage, 
-})(App);
+export default App;
 ```
 
 4. Implement events

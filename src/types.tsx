@@ -48,6 +48,13 @@ export type UserTraitsContext = { [key: string]: UserTraitValue };
 
 export type UserTraits = UserTraitsContext;
 
+export type EdgeInsets = {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+};
+
 export type Survey = {
   color?: string;
   company_id: string;

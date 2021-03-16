@@ -3,12 +3,13 @@
  * @flow
  */
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import type { State } from '../redux';
-import { dismiss } from '../redux';
+import { dismiss, setSafeAreaInsets } from '../redux';
 import type { Survey } from '../types';
+import type { EdgeInsets } from '../types';
 
 import Iterate, { Dispatch } from '../iterate';
 import Prompt from './Prompt';
@@ -16,6 +17,8 @@ import SurveyView from './Survey';
 
 type Props = {
   dispatchDismiss: () => void;
+  dispatchSafeAreaInsets: (safeAreaInsets: EdgeInsets) => void;
+  safeAreaInsets: EdgeInsets;
   showPrompt: boolean;
   showSurvey: boolean;
   survey?: Survey;
@@ -23,6 +26,8 @@ type Props = {
 
 const PromptOrSurvey: (Props: Props) => JSX.Element | null = ({
   dispatchDismiss,
+  dispatchSafeAreaInsets,
+  safeAreaInsets,
   survey,
   showPrompt,
   showSurvey,
@@ -33,6 +38,12 @@ const PromptOrSurvey: (Props: Props) => JSX.Element | null = ({
       Iterate.api.dismissed(survey);
     }
   }, [dispatchDismiss, survey]);
+
+  useEffect(() => {
+    if (safeAreaInsets != null) {
+      dispatchSafeAreaInsets(safeAreaInsets);
+    }
+  }, [dispatchSafeAreaInsets, safeAreaInsets]);
 
   if (showPrompt) {
     return <Prompt onDismiss={dismissed} />;
@@ -52,6 +63,9 @@ const mapStateToProps = ({ showPrompt, showSurvey, survey }: State) => ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   dispatchDismiss: () => {
     dispatch(dismiss());
+  },
+  dispatchSafeAreaInsets: (safeAreaInsets: EdgeInsets) => {
+    dispatch(setSafeAreaInsets(safeAreaInsets));
   },
 });
 
