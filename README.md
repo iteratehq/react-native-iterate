@@ -129,7 +129,7 @@ Create your [Iterate](https://iteratehq.com) account if you haven't already.
 
 1. Create a new survey and select "Install in your mobile app"
 2. Go to the "Preview & Publish" tab and copy your SDK API key
-3. Call Iterate.Init with your apiKey, safeArea, and storage, then wrap your App in the `<SafeAreaProvider>` (if using react-native-safe-area-context) and `<IterateProvider>` components
+3. Call Iterate.Init with your apiKey, safeArea function, and storage, then wrap your App in the `<SafeAreaProvider>` (if using react-native-safe-area-context) and `<IterateProvider>` components
 
 ```JSX
 import Iterate, { withIterate } from 'react-native-iterate';
