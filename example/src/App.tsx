@@ -10,11 +10,20 @@ import SecureStorage from 'react-native-encrypted-storage';
 
 const App = () => {
   React.useEffect(() => {
+    Iterate.init({
+      apiKey: apiKey,
+      safeArea: useSafeAreaInsets,
+      storage: SecureStorage,
+    });
     Iterate.onResponse((response, question) => {
       console.log('onResponseCallback', response, question);
     });
 
-    Iterate.sendEvent('show-survey-button-tapped');
+    Iterate.identify({ email: 'example@email.com' });
+
+    Iterate.sendEvent('show-survey-button-tapped', {
+      currentTime: new Date().getTime(),
+    });
   }, []);
 
   const apiKey =
@@ -22,11 +31,7 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <IterateProvider
-        apiKey={apiKey}
-        safeArea={useSafeAreaInsets}
-        storage={SecureStorage}
-      >
+      <IterateProvider>
         <View style={styles.container}>
           <Text>Hello</Text>
         </View>

@@ -1,11 +1,12 @@
 import type { EdgeInsets } from './types';
-import type { EventTraits, Survey, UserTraits } from './types';
+import type { EventTraits, EventTraitsMap, Survey, UserTraits } from './types';
 
 // State
 export type State = {
   companyAuthToken?: string;
   dismissed: boolean;
-  eventTraits?: EventTraits;
+  displayedSurveyResponseId?: number;
+  eventTraits: EventTraitsMap;
   lastUpdated?: number;
   preview?: boolean;
   previewSurveyId?: string;
@@ -20,6 +21,7 @@ export type State = {
 const INITIAL_STATE = {
   companyAuthToken: undefined,
   dismissed: false,
+  displayedSurveyResponseId: undefined,
   eventTraits: {},
   lastUpdated: undefined,
   preview: false,
@@ -49,7 +51,11 @@ type Action =
 type DismissAction = { type: 'DISMISS' };
 type ResetAction = { type: 'RESET' };
 type SetCompanyAuthToken = { type: 'SET_COMPANY_AUTH_TOKEN'; token: string };
-type SetEventTraits = { type: 'SET_EVENT_TRAITS'; traits: EventTraits };
+type SetEventTraits = {
+  type: 'SET_EVENT_TRAITS';
+  responseId: number;
+  traits: EventTraits;
+};
 type SetLastUpdated = { type: 'SET_LAST_UPDATED'; lastUpdated: number };
 type SetPreview = { type: 'SET_PREVIEW'; enabled: boolean; surveyId?: string };
 type SetSafeAreaInsets = {
@@ -58,8 +64,16 @@ type SetSafeAreaInsets = {
 };
 type SetUserAuthToken = { type: 'SET_USER_AUTH_TOKEN'; token: string };
 type SetUserTraits = { type: 'SET_USER_TRAITS'; traits: UserTraits };
-type ShowPromptAction = { type: 'SHOW_PROMPT'; survey: Survey };
-type ShowSurveyAction = { type: 'SHOW_SURVEY'; survey: Survey };
+type ShowPromptAction = {
+  type: 'SHOW_PROMPT';
+  responseId?: number;
+  survey: Survey;
+};
+type ShowSurveyAction = {
+  type: 'SHOW_SURVEY';
+  responseId?: number;
+  survey: Survey;
+};
 
 export const dismiss = (): DismissAction => ({ type: 'DISMISS' });
 
@@ -70,8 +84,12 @@ export const setCompanyAuthToken = (token: string): SetCompanyAuthToken => ({
   token,
 });
 
-export const setEventTraits = (traits: EventTraits): SetEventTraits => ({
+export const setEventTraits = (
+  traits: EventTraits,
+  responseId: number
+): SetEventTraits => ({
   type: 'SET_EVENT_TRAITS',
+  responseId,
   traits,
 });
 
@@ -106,13 +124,21 @@ export const setUserTraits = (traits: UserTraits): SetUserTraits => ({
   traits,
 });
 
-export const showPrompt = (survey: Survey): ShowPromptAction => ({
+export const showPrompt = (
+  survey: Survey,
+  responseId?: number
+): ShowPromptAction => ({
   type: 'SHOW_PROMPT',
+  responseId,
   survey,
 });
 
-export const showSurvey = (survey: Survey): ShowSurveyAction => ({
+export const showSurvey = (
+  survey: Survey,
+  responseId?: number
+): ShowSurveyAction => ({
   type: 'SHOW_SURVEY',
+  responseId,
   survey,
 });
 
@@ -123,6 +149,8 @@ export const reducer = (state: State = INITIAL_STATE, action: Action) => {
       return {
         ...state,
         dismissed: true,
+        displayedSurveyResponseId: undefined,
+        eventTraits: {},
         showSurvey: false,
         showPrompt: false,
       };
@@ -138,7 +166,9 @@ export const reducer = (state: State = INITIAL_STATE, action: Action) => {
     case 'SET_EVENT_TRAITS':
       return {
         ...state,
-        eventTraits: action.traits,
+        eventTraits: {
+          [`${action.responseId}`]: action.traits,
+        },
       };
     case 'SET_LAST_UPDATED':
       return {
@@ -169,12 +199,20 @@ export const reducer = (state: State = INITIAL_STATE, action: Action) => {
     case 'SHOW_PROMPT':
       return {
         ...state,
+        displayedSurveyResponseId:
+          action.responseId != null
+            ? action.responseId
+            : state.displayedSurveyResponseId,
         survey: action.survey,
         showPrompt: true,
       };
     case 'SHOW_SURVEY':
       return {
         ...state,
+        displayedSurveyResponseId:
+          action.responseId != null
+            ? action.responseId
+            : state.displayedSurveyResponseId,
         survey: action.survey,
         showSurvey: true,
         showPrompt: false,
