@@ -23,6 +23,11 @@ export type EventTraitsContext = { [key: string]: EventTraitValue };
 
 export type EventTraits = EventTraitsContext;
 
+// A map from the response id to the events associated with that response
+export type EventTraitsMap = {
+  [key: string]: EventTraits;
+};
+
 export type TargetingContext = {
   frequency?: Frequency;
   survey_id?: string;
@@ -47,6 +52,13 @@ export type UserTraitValue = string | number | boolean;
 export type UserTraitsContext = { [key: string]: UserTraitValue };
 
 export type UserTraits = UserTraitsContext;
+
+export type EdgeInsets = {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+};
 
 export type Survey = {
   color?: string;

@@ -18,11 +18,12 @@ import { WebView } from 'react-native-webview';
 import { DefaultHost, EventMessageTypes, Themes } from '../constants';
 import Iterate from '../iterate';
 import type { State } from '../redux';
-import type { EventMessage, EventTraits, Survey } from '../types';
+import type { EventMessage, EventTraitsMap, Survey } from '../types';
 
 type Props = {
   companyAuthToken?: string;
-  eventTraits?: EventTraits;
+  displayedSurveyResponseId?: number;
+  eventTraits: EventTraitsMap;
   onDismiss: () => void;
   survey?: Survey;
   userAuthToken?: string;
@@ -30,6 +31,7 @@ type Props = {
 
 const SurveyView: (Props: Props) => JSX.Element = ({
   companyAuthToken,
+  displayedSurveyResponseId,
   eventTraits,
   onDismiss,
   survey,
@@ -46,15 +48,21 @@ const SurveyView: (Props: Props) => JSX.Element = ({
   }
 
   // Add response properties
-  for (const trait in eventTraits) {
-    const value = encodeURIComponent(eventTraits[trait].toString());
+  if (
+    displayedSurveyResponseId != null &&
+    eventTraits[displayedSurveyResponseId] != null
+  ) {
+    const traits = eventTraits[displayedSurveyResponseId];
+    for (const trait in traits) {
+      const value = encodeURIComponent(traits[trait].toString());
 
-    if (typeof eventTraits[trait] === 'boolean') {
-      params.push(`response_boolean_${trait}=${value}`);
-    } else if (typeof eventTraits[trait] === 'number') {
-      params.push(`response_number_${trait}=${value}`);
-    } else {
-      params.push(`response_${trait}=${value}`);
+      if (typeof traits[trait] === 'boolean') {
+        params.push(`response_boolean_${trait}=${value}`);
+      } else if (typeof traits[trait] === 'number') {
+        params.push(`response_number_${trait}=${value}`);
+      } else {
+        params.push(`response_${trait}=${value}`);
+      }
     }
   }
 
@@ -137,10 +145,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({
   companyAuthToken,
+  displayedSurveyResponseId,
   eventTraits,
   survey,
   userAuthToken,
 }: State) => ({
+  displayedSurveyResponseId,
   eventTraits,
   survey,
   companyAuthToken,

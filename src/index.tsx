@@ -1,7 +1,7 @@
 import Iterate from './iterate';
-import withIterate from './components/WithIterate';
+import IterateProvider from './components/IterateProvider';
 import type { StorageInterface } from './storage';
 
 export type { StorageInterface };
-export { Iterate, withIterate };
+export { Iterate, IterateProvider };
 export default Iterate;

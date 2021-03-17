@@ -9,10 +9,10 @@ import {
   PanResponder,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { State } from '../../redux';
 import { showSurvey } from '../../redux';
+import type { EdgeInsets } from '../../types';
 import type { Survey } from '../../types';
 
 import PromptButton from './Button';
@@ -21,6 +21,7 @@ import type { Dispatch } from 'src/iterate';
 type Props = {
   dispatchShowSurvey: (Survey: Survey) => void;
   onDismiss: () => void;
+  safeAreaInsets: EdgeInsets;
   survey?: Survey;
 };
 
@@ -31,12 +32,11 @@ const DISPLAYED_POSITION = 0;
 const Prompt: (Props: Props) => JSX.Element = ({
   dispatchShowSurvey,
   onDismiss,
+  safeAreaInsets,
   survey,
 }) => {
   const promptAnimation = useRef(new Animated.Value(DISMISSED_POSITION))
     .current;
-
-  const insets = useSafeAreaInsets();
 
   const panResponder = useMemo(
     () =>
@@ -99,7 +99,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
     }, ANIMATION_DURATION);
   }, [dispatchShowSurvey, promptAnimation, survey]);
 
-  const paddingBottom = insets.bottom > 0 ? insets.bottom : 20;
+  const paddingBottom = safeAreaInsets.bottom > 0 ? safeAreaInsets.bottom : 20;
 
   return (
     <Animated.View
@@ -181,7 +181,8 @@ const closeButtonStyles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ survey }: State) => ({
+const mapStateToProps = ({ safeAreaInsets, survey }: State) => ({
+  safeAreaInsets,
   survey,
 });
 

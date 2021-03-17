@@ -33,10 +33,9 @@ $ npm install --save react-native-iterate
 
 **Install peer dependencies**
 
-We rely on two popular peer dependencies, if you already have them in your app you can skip this step.
+We rely on only one peer dependency, if you already have it in your app you can skip this step.
 
 - [react-native-webview](https://github.com/react-native-webview/react-native-webview) - used to display the survey
-- [react-native-safe-area-context](https://github.com/th3rdwave/react-native-safe-area-context) - used to layout the survey using the native safe area
 
 With yarn
 
@@ -62,7 +61,6 @@ export interface StorageInterface {
 }
 ```
 
-Install a storage facility
 
 With yarn
 
@@ -76,6 +74,23 @@ With npm
 $ npm install --save react-native-encrypted-storage
 ```
 
+**Install safe area provider**
+
+On mobile devices the safe area represents the portion of the view that is suitable for UI to be displayed. Rather than requiring an additional peer dependency, you pass in your own method of providing the safe area. We recommend you use [react-native-safe-area-context](https://github.com/th3rdwave/react-native-safe-area-context), however you can provide your own method that conforms to the interface `() => {top: number, bottom: number, left: number, right: number}`
+
+
+With yarn
+
+```
+$ yarn add react-native-safe-area-context
+```
+
+With npm
+
+```
+$ npm install --save react-native-safe-area-context
+```
+
 **Link native dependencies**
 
 From react-native 0.60 autolinking will take care of the link step and you can safely skip
@@ -83,13 +98,17 @@ From react-native 0.60 autolinking will take care of the link step and you can s
 React Native modules that include native Objective-C, Swift, Java, or Kotlin code have to be "linked" so that the compiler knows to include them in the app.
 
 ```
-$ react-native link react-native-safe-area-context
 $ react-native link react-native-webview
 ```
 
 Link your storage facility
 ```
 $ react-native link react-native-encrypted-storage
+```
+
+Link your safe area provider
+```
+$ react-native link react-native-safe-area-context
 ```
 
 **Install pods**
@@ -110,20 +129,32 @@ Create your [Iterate](https://iteratehq.com) account if you haven't already.
 
 1. Create a new survey and select "Install in your mobile app"
 2. Go to the "Preview & Publish" tab and copy your SDK API key
-3. Wrap your App in the `withIterate` higher-order component
+3. Call Iterate.Init with your apiKey, safeArea function, and storage, then wrap your App in the `<SafeAreaProvider>` (if using react-native-safe-area-context) and `<IterateProvider>` components
 
 ```JSX
 import Iterate, { withIterate } from 'react-native-iterate';
 import SecureStorage from 'react-native-encrypted-storage';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const App = () => {
-    // ...your application component
+  React.useEffect(() => {
+    Iterate.init({
+      apiKey: apiKey,
+      safeArea: useSafeAreaInsets,
+      storage: SecureStorage,
+    });
+  }, []);
+
+  return (
+    <SafeAreaProvider>
+      <IterateProvider>
+        { // Your application views }
+      </IterateProvider>
+    </SafeAreaProvider>
+  )
 }
 
-export default withIterate({ 
-    apiKey: YOUR_API_KEY,
-    storage: SecureStorage, 
-})(App);
+export default App;
 ```
 
 4. Implement events
@@ -148,17 +179,13 @@ const ActivityFeed = () => {
 
 You'll likely want to preview your survey before publishing it so you can test that everything works correctly. When previewing a survey you'll be able to see a survey before it's published. When previewing a survey all targeting options for that survey are ignored (e.g. rate limiting, targeting user properties), the only thing you need to do is trigger the event that your survey is targeting and it will show up.
 
-1. In the "Preview & Publish" tab select 'Learn more' and copy the code.
+1. In the "Preview & Publish" tab select 'React Native' and copy the preview code.
 2. Implement into your application, this can be done once in any component that's rendered before the event you're targeting
 
 ```JSX
-    const App = () => {
-        useEffect(() => {
-            Iterate.preview('your-survey-id');
-        }, []);
-
-        // ...your application component
-    }
+useEffect(() => {
+  Iterate.preview('your-survey-id');
+}, []);
 ```
 
 ## Recommendations
@@ -170,38 +197,24 @@ When implementing Iterate for the first time, we encourage you to implement even
 Using the `identify` method, you can easily add 'user properties' to a user that can be used to target surveys to them and associate the information with all of their future responses.
 
 ```JSX
-    const App = () => {
-        useEffect(() => {
-            Iterate.identify({
-                email: 'example@email.com',
-                user_id: 123456,
-                is_subscriber: true,
-            });
-        }, []);
-
-        // ...your application component
-    }
+useEffect(() => {
+  Iterate.identify({
+    email: 'example@email.com',
+    user_id: 123456,
+    is_subscriber: true,
+  });
+}, []);
 ```
 
-You can also associated 'response properties' with the user's responses to a specific survey (not associated with any future surveys they fill out), by passing a second data object to the `identify` method.
+You can also associate 'response properties' with the user's responses to a specific survey (not associated with any future surveys they fill out), by passing an object to the `sendEvent` method.
 
 ```JSX
-    const App = () => {
-        useEffect(() => {
-            Iterate.identify({
-                // User properties
-                email: 'example@email.com',
-                user_id: 123456,
-                is_subscriber: true,
-            },{
-                // Event properties
-                selected_product_id: 12345,
-                timestamp: 140002658477
-            });
-        }, []);
-
-        // ...your application component
-    }
+useEffect(() => {
+  Iterate.sendEvent('viewed-activity-feed', {
+    selected_product_id: 12345,
+    timestamp: 140002658477
+  });
+}, []);
 ```
 
 
@@ -212,15 +225,11 @@ For more information see our [help article](https://help.iteratehq.com/en/articl
 If you need access to the user's responses on the client, you can use the `onResponse` method to pass a callback function that will return the question and response
 
 ```JSX
-    const App = () => {
-        useEffect(() => {
-            Iterate.onResponse((response, question) => {
-                // Your logic here
-            });
-        }, []);
-
-        // ...your application component
-    }
+useEffect(() => {
+  Iterate.onResponse((response, question) => {
+    // Your logic here
+  });
+}, []);
 ```
 
 ## Clearing data
@@ -228,15 +237,11 @@ If you need access to the user's responses on the client, you can use the `onRes
 To clear all data Iterate has stored (user api key, any user properties stored by calling the `identify` method, etc) call the `reset` method. This is commonly called when you log a user out of your app.
 
 ```JSX
-    const App = () => {
-        const logout = useCallback(() => {
-            Iterate.reset()
+const logout = useCallback(() => {
+  Iterate.reset()
 
-            // Your other logout logic here
-        }, []);
-
-        // ...your application component
-    }
+  // Your other logout logic here
+}, []);
 ```
 
 
