@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.0.0)
+
+**Breaking Changes**
+
+See the README for the updated way to initialize Iterate 
+- Changes from the withIterate high-order component to the <IterateProvider> component
+- Iterate.init(...) is now required to be called before any other methods
+- Changed the API for sending event properties from happening in the Identify method, to the sendEvent method
+- The user now provides their own safe area
+
+**Optimizations**
+- All initialization is now lazy-loaded to maximize app boot performance
+- Additional error handling
+
 ## [1.2.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v1.2.0)
 
 **Added**
