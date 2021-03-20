@@ -15,8 +15,3 @@ export const Platforms = {
 export const TriggerTypes = {
   Seconds: 'seconds',
 };
-
-export const EventMessageTypes = {
-  Close: 'close',
-  Response: 'response',
-};

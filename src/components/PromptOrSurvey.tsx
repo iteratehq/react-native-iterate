@@ -14,6 +14,10 @@ import type { EdgeInsets } from '../types';
 import Iterate, { Dispatch } from '../iterate';
 import Prompt from './Prompt';
 import SurveyView from './Survey';
+import {
+  InteractionEventClosedSource,
+  InteractionEvents,
+} from '../interaction-events';
 
 type Props = {
   dispatchDismiss: () => void;
@@ -32,12 +36,17 @@ const PromptOrSurvey: (Props: Props) => JSX.Element | null = ({
   showPrompt,
   showSurvey,
 }) => {
-  const dismissed = useCallback(() => {
-    dispatchDismiss();
-    if (Iterate.api != null && survey != null) {
-      Iterate.api.dismissed(survey);
-    }
-  }, [dispatchDismiss, survey]);
+  const dismissed = useCallback(
+    (source: InteractionEventClosedSource) => {
+      dispatchDismiss();
+      if (Iterate.api != null && survey != null) {
+        Iterate.api.dismissed(survey);
+      }
+
+      InteractionEvents.Dismiss(source);
+    },
+    [dispatchDismiss, survey]
+  );
 
   useEffect(() => {
     if (safeAreaInsets != null) {

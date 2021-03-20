@@ -3,6 +3,11 @@ import { createStore } from 'redux';
 import ApiClient from './api';
 import { TriggerTypes, Version } from './constants';
 import {
+  Callbacks,
+  InteractionEvent,
+  InteractionEventData,
+} from './interaction-events';
+import {
   reducer,
   reset,
   setCompanyAuthToken,
@@ -39,7 +44,6 @@ class Iterate {
   initialized: boolean = false;
   initializedIdentify: boolean = false;
   initializedSendEvent: boolean = false;
-  onResponseCallback?: (Response: Response, Question: Question) => void;
 
   // Minimal initialization that is expected to be called on app boot
   init = ({
@@ -89,9 +93,18 @@ class Iterate {
   };
 
   onResponse = (
-    onResponseCallback: (Response: Response, Question: Question) => void
+    userOnResponseCallback: (Response: Response, Question: Question) => void
   ) => {
-    this.onResponseCallback = onResponseCallback;
+    Callbacks.onResponse = userOnResponseCallback;
+  };
+
+  onEvent = (
+    userOnEventCallback: (
+      type: InteractionEvent,
+      data: InteractionEventData
+    ) => void
+  ) => {
+    Callbacks.onEvent = userOnEventCallback;
   };
 
   preview = (surveyId?: string) => {
