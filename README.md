@@ -132,7 +132,7 @@ Create your [Iterate](https://iteratehq.com) account if you haven't already.
 3. Call Iterate.Init with your apiKey, safeArea function, and storage, then wrap your App in the `<SafeAreaProvider>` (if using react-native-safe-area-context) and `<IterateProvider>` components
 
 ```JSX
-import Iterate, { withIterate } from 'react-native-iterate';
+import Iterate from 'react-native-iterate';
 import SecureStorage from 'react-native-encrypted-storage';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
