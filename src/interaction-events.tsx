@@ -4,13 +4,22 @@ import type { Question, Response } from './types';
 export const EventMessageTypes = {
   Close: 'close',
   Response: 'response',
+  SurveyComplete: 'survey-complete',
 };
 
-export type InteractionEvent = 'response' | 'dismiss';
+export const InteractionEventTypes = {
+  Dismiss: 'dismiss',
+  Response: 'response',
+  SurveyComplete: 'survey-complete',
+};
+
+export type InteractionEventTypeKeys = keyof typeof InteractionEventTypes;
+export type InteractionEventTypeValues = typeof InteractionEventTypes[InteractionEventTypeKeys];
 
 export type InteractionEventData =
   | InteractionEventResponseData
-  | InteractionEventClosedData;
+  | InteractionEventClosedData
+  | InteractionEventSurveyCompleteData;
 
 export type InteractionEventResponseData = {
   response: Response;
@@ -23,6 +32,8 @@ export type InteractionEventClosedData = {
 
 export type InteractionEventClosedSource = 'prompt' | 'survey';
 
+export type InteractionEventSurveyCompleteData = {};
+
 export const InteractionEvents = {
   Dismiss: (source: InteractionEventClosedSource) => {
     Callbacks.onEvent('dismiss', { source });
@@ -33,12 +44,18 @@ export const InteractionEvents = {
       Callbacks.onEvent('response', { response, question });
     }
   },
+  SurveyComplete: () => {
+    Callbacks.onEvent('survey-complete', {});
+  },
 };
 
 class InteractionEventCallbacks {
   // Default the callbacks to no-ops
   onResponse = (_response: Response, _question: Question) => {};
-  onEvent = (_type: InteractionEvent, _data: InteractionEventData) => {};
+  onEvent = (
+    _type: InteractionEventTypeValues,
+    _data: InteractionEventData
+  ) => {};
 }
 
 export const Callbacks = new InteractionEventCallbacks();

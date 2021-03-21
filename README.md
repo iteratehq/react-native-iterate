@@ -220,7 +220,7 @@ useEffect(() => {
 
 For more information see our [help article](https://help.iteratehq.com/en/articles/4457590-associating-data-with-a-user-or-response).
 
-## Response callbacks
+## Event callbacks
 
 If you need access to the user's responses on the client, you can use the `onResponse` method to pass a callback function that will return the question and response
 
@@ -231,6 +231,23 @@ useEffect(() => {
   });
 }, []);
 ```
+
+If you need access to other events on the survey (dismiss, survey-complete, etc), you can use the `onEvent` method to pass a callback function that will fire with each of the events listed below
+
+```JSX
+useEffect(() => {
+  Iterate.onEvent((event, data) => {
+    // Your logic here
+  });
+}, []);
+```
+
+| Event | Data | Notes |
+| ------------- | ------------- | ------------- |
+| 'dismiss'  | `{ source: 'prompt' \| 'survey' }`  |
+| 'response'  | `{ response: Response, question: Question }` |
+| 'survey-complete'  | `{}`  | Called once when the user reaches the 'thank you' screen
+
 
 ## Clearing data
 

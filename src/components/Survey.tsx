@@ -97,6 +97,9 @@ const SurveyView: (Props: Props) => JSX.Element = ({
             message.data.question
           );
           break;
+        case EventMessageTypes.SurveyComplete:
+          InteractionEvents.SurveyComplete();
+          break;
       }
     },
     [dismiss]

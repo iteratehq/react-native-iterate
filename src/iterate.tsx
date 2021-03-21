@@ -4,7 +4,7 @@ import ApiClient from './api';
 import { TriggerTypes, Version } from './constants';
 import {
   Callbacks,
-  InteractionEvent,
+  InteractionEventTypeValues,
   InteractionEventData,
 } from './interaction-events';
 import {
@@ -100,7 +100,7 @@ class Iterate {
 
   onEvent = (
     userOnEventCallback: (
-      type: InteractionEvent,
+      type: InteractionEventTypeValues,
       data: InteractionEventData
     ) => void
   ) => {
