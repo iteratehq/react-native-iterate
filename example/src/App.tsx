@@ -18,6 +18,9 @@ const App = () => {
     Iterate.onResponse((response, question) => {
       console.log('onResponseCallback', response, question);
     });
+    Iterate.onEvent((event, data) => {
+      console.log('onEventCallback', event, data);
+    });
 
     Iterate.identify({ email: 'example@email.com' });
 

@@ -17,10 +17,11 @@ import type { Survey } from '../../types';
 
 import PromptButton from './Button';
 import type { Dispatch } from 'src/iterate';
+import type { InteractionEventClosedSource } from 'src/interaction-events';
 
 type Props = {
   dispatchShowSurvey: (Survey: Survey) => void;
-  onDismiss: () => void;
+  onDismiss: (source: InteractionEventClosedSource) => void;
   safeAreaInsets: EdgeInsets;
   survey?: Survey;
 };
@@ -57,7 +58,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
             useNativeDriver: true,
           }).start(({ finished }) => {
             if (finished && shouldDismiss) {
-              onDismiss();
+              onDismiss('prompt');
             }
           });
         },
@@ -81,7 +82,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
     }).start();
 
     setTimeout(() => {
-      onDismiss();
+      onDismiss('prompt');
     }, ANIMATION_DURATION);
   }, [onDismiss, promptAnimation]);
 

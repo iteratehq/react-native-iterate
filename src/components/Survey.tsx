@@ -15,8 +15,12 @@ import {
 import { connect } from 'react-redux';
 import { WebView } from 'react-native-webview';
 
-import { DefaultHost, EventMessageTypes, Themes } from '../constants';
-import Iterate from '../iterate';
+import { DefaultHost, Themes } from '../constants';
+import {
+  EventMessageTypes,
+  InteractionEventClosedSource,
+  InteractionEvents,
+} from '../interaction-events';
 import type { State } from '../redux';
 import type { EventMessage, EventTraitsMap, Survey } from '../types';
 
@@ -24,7 +28,7 @@ type Props = {
   companyAuthToken?: string;
   displayedSurveyResponseId?: number;
   eventTraits: EventTraitsMap;
-  onDismiss: () => void;
+  onDismiss: (source: InteractionEventClosedSource) => void;
   survey?: Survey;
   userAuthToken?: string;
 };
@@ -38,6 +42,10 @@ const SurveyView: (Props: Props) => JSX.Element = ({
   userAuthToken,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const dismiss = useCallback(() => {
+    onDismiss('survey');
+  }, [onDismiss]);
 
   const params = [];
   // Add the auth token
@@ -77,28 +85,24 @@ const SurveyView: (Props: Props) => JSX.Element = ({
 
   const onMessage = useCallback(
     (event: { nativeEvent: { data: string } }) => {
-      // Dismiss event
       const message: EventMessage = JSON.parse(event.nativeEvent.data);
-      if (message.type === EventMessageTypes.Close) {
-        onDismiss();
-      }
 
-      // Response event
-      if (
-        message.type === EventMessageTypes.Response &&
-        message.data.response != null &&
-        message.data.question != null &&
-        Iterate.onResponse != null
-      ) {
-        if (Iterate.onResponseCallback != null) {
-          Iterate.onResponseCallback(
+      switch (message.type) {
+        case EventMessageTypes.Close:
+          dismiss();
+          break;
+        case EventMessageTypes.Response:
+          InteractionEvents.Response(
             message.data.response,
             message.data.question
           );
-        }
+          break;
+        case EventMessageTypes.SurveyComplete:
+          InteractionEvents.SurveyComplete();
+          break;
       }
     },
-    [onDismiss]
+    [dismiss]
   );
 
   return (
@@ -106,8 +110,7 @@ const SurveyView: (Props: Props) => JSX.Element = ({
       <Modal
         presentationStyle="pageSheet"
         animationType="slide"
-        onDismiss={onDismiss}
-        onRequestClose={onDismiss}
+        onRequestClose={dismiss}
       >
         <SafeAreaView style={styles.container}>
           {isLoading && (
