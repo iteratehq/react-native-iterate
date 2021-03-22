@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.1.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.1.0)
+
+**Added**
+
+- Add Iterate.onEvent callback to get additional interaction events on the survey like 'dismiss' and 'survey-complete'
+
 ## [2.0.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.0.0)
 
 **Breaking Changes**
