@@ -6,6 +6,7 @@ import {
   Callbacks,
   InteractionEventTypeValues,
   InteractionEventData,
+  InteractionEvents,
 } from './interaction-events';
 import {
   reducer,
@@ -93,7 +94,11 @@ class Iterate {
   };
 
   onResponse = (
-    userOnResponseCallback: (Response: Response, Question: Question) => void
+    userOnResponseCallback: (
+      response: Response,
+      question: Question,
+      survey: Survey
+    ) => void
   ) => {
     Callbacks.onResponse = userOnResponseCallback;
   };
@@ -252,8 +257,10 @@ class Iterate {
   dispatchShowSurveyOrPrompt(survey: Survey, responseId: number) {
     if (survey.prompt != null) {
       store.dispatch(showPrompt(survey, responseId));
+      InteractionEvents.PromptDisplayed(survey);
     } else {
       store.dispatch(showSurvey(survey, responseId));
+      InteractionEvents.SurveyDisplayed(survey);
     }
 
     if (this.api == null) {

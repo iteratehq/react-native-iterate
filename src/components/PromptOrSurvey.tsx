@@ -15,7 +15,7 @@ import Iterate, { Dispatch } from '../iterate';
 import Prompt from './Prompt';
 import SurveyView from './Survey';
 import {
-  InteractionEventClosedSource,
+  InteractionEventSource,
   InteractionEvents,
 } from '../interaction-events';
 
@@ -37,13 +37,13 @@ const PromptOrSurvey: (Props: Props) => JSX.Element | null = ({
   showSurvey,
 }) => {
   const dismissed = useCallback(
-    (source: InteractionEventClosedSource) => {
+    (source: InteractionEventSource) => {
       dispatchDismiss();
       if (Iterate.api != null && survey != null) {
         Iterate.api.dismissed(survey);
       }
 
-      InteractionEvents.Dismiss(source);
+      InteractionEvents.Dismiss(source, survey as Survey);
     },
     [dispatchDismiss, survey]
   );

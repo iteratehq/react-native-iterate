@@ -65,6 +65,7 @@ export type Survey = {
   company_id: string;
   id: string;
   prompt?: Prompt;
+  title: string;
 };
 
 export type Prompt = {

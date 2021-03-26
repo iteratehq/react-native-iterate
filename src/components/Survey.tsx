@@ -18,7 +18,7 @@ import { WebView } from 'react-native-webview';
 import { DefaultHost, Themes } from '../constants';
 import {
   EventMessageTypes,
-  InteractionEventClosedSource,
+  InteractionEventSource,
   InteractionEvents,
 } from '../interaction-events';
 import type { State } from '../redux';
@@ -28,7 +28,7 @@ type Props = {
   companyAuthToken?: string;
   displayedSurveyResponseId?: number;
   eventTraits: EventTraitsMap;
-  onDismiss: (source: InteractionEventClosedSource) => void;
+  onDismiss: (source: InteractionEventSource) => void;
   survey?: Survey;
   userAuthToken?: string;
 };
@@ -93,16 +93,17 @@ const SurveyView: (Props: Props) => JSX.Element = ({
           break;
         case EventMessageTypes.Response:
           InteractionEvents.Response(
+            survey as Survey,
             message.data.response,
             message.data.question
           );
           break;
         case EventMessageTypes.SurveyComplete:
-          InteractionEvents.SurveyComplete();
+          InteractionEvents.SurveyComplete(survey as Survey);
           break;
       }
     },
-    [dismiss]
+    [dismiss, survey]
   );
 
   return (

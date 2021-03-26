@@ -226,7 +226,7 @@ If you need access to the user's responses on the client, you can use the `onRes
 
 ```JSX
 useEffect(() => {
-  Iterate.onResponse((response, question) => {
+  Iterate.onResponse((response, question, survey) => {
     // Your logic here
   });
 }, []);
@@ -244,9 +244,10 @@ useEffect(() => {
 
 | Event | Data | Notes |
 | ------------- | ------------- | ------------- |
-| 'dismiss'  | `{ source: 'prompt' \| 'survey' }`  |
-| 'response'  | `{ response: Response, question: Question }` |
-| 'survey-complete'  | `{}`  | Called once when the user reaches the 'thank you' screen
+| 'dismiss'  | `{ source: 'prompt' \| 'survey', survey: Survey }`  |
+| 'displayed'  | `{ source: 'prompt' \| 'survey', survey: Survey }`  |
+| 'response'  | `{ response: Response, question: Question, survey: Survey }` |
+| 'survey-complete'  | `{ survey: Survey }`  | Called once when the user reaches the 'thank you' screen
 
 
 ## Clearing data
