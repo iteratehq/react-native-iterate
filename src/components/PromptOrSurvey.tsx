@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import type { State } from '../redux';
 import { dismiss, setSafeAreaInsets } from '../redux';
-import type { Survey } from '../types';
+import type { ProgressEventMessageData, Survey } from '../types';
 import type { EdgeInsets } from '../types';
 
 import Iterate, { Dispatch } from '../iterate';
@@ -37,13 +37,13 @@ const PromptOrSurvey: (Props: Props) => JSX.Element | null = ({
   showSurvey,
 }) => {
   const dismissed = useCallback(
-    (source: InteractionEventSource) => {
+    (source: InteractionEventSource, progress?: ProgressEventMessageData) => {
       dispatchDismiss();
       if (Iterate.api != null && survey != null) {
         Iterate.api.dismissed(survey);
       }
 
-      InteractionEvents.Dismiss(source, survey as Survey);
+      InteractionEvents.Dismiss(source, survey as Survey, progress);
     },
     [dispatchDismiss, survey]
   );

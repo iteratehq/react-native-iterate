@@ -1,8 +1,14 @@
-import type { Question, Response, Survey } from './types';
+import type {
+  ProgressEventMessageData,
+  Question,
+  Response,
+  Survey,
+} from './types';
 
 // Message received from the webview
 export const EventMessageTypes = {
   Close: 'close',
+  Progress: 'progress',
   Response: 'response',
   SurveyComplete: 'survey-complete',
 };
@@ -30,6 +36,7 @@ export type InteractionEventResponseData = {
 };
 
 export type InteractionEventDismissData = {
+  progress?: ProgressEventMessageData;
   source: InteractionEventSource;
   survey: Survey;
 };
@@ -46,8 +53,16 @@ export type InteractionEventSurveyCompleteData = {
 export type InteractionEventSource = 'prompt' | 'survey';
 
 export const InteractionEvents = {
-  Dismiss: (source: InteractionEventSource, survey: Survey) => {
-    Callbacks.onEvent('dismiss', { source, survey });
+  Dismiss: (
+    source: InteractionEventSource,
+    survey: Survey,
+    progress?: ProgressEventMessageData
+  ) => {
+    let data: InteractionEventDismissData = { source, survey };
+    if (progress != null) {
+      data.progress = progress;
+    }
+    Callbacks.onEvent('dismiss', data);
   },
   PromptDisplayed: (survey: Survey) => {
     Callbacks.onEvent('displayed', { source: 'prompt', survey });

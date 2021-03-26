@@ -121,10 +121,23 @@ export type EventMessage = {
   data: EventMessagesData;
 };
 
-export type EventMessagesData = {
-  userInitiated?: boolean;
+export type EventMessagesData =
+  | DismissEventMessageData
+  | ResponseEventMessageData;
+
+export type ResponseEventMessageData = {
   question?: Question;
   response?: Response;
+};
+
+export type DismissEventMessageData = {
+  userInitiated?: boolean;
+};
+
+export type ProgressEventMessageData = {
+  completed: number;
+  total: number;
+  currentQuestion?: Question;
 };
 
 export type Response = { value: any };
