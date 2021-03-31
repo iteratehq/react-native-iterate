@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.2.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.2.0)
+
+**Added**
+
+- 'dismiss' event now includes a 'progress' property that includes how far the user got in the survey
+- All events now include the survey they are related to (helpful when getting events on multiple surveys)
+- New 'displayed' event which is fired when the survey or prompt are displayed
+
 ## [2.1.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.1.0)
 
 **Added**
