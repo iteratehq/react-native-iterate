@@ -17,11 +17,14 @@ import type { Survey } from '../../types';
 
 import PromptButton from './Button';
 import type { Dispatch } from 'src/iterate';
-import type { InteractionEventClosedSource } from 'src/interaction-events';
+import {
+  InteractionEvents,
+  InteractionEventSource,
+} from '../../interaction-events';
 
 type Props = {
   dispatchShowSurvey: (Survey: Survey) => void;
-  onDismiss: (source: InteractionEventClosedSource) => void;
+  onDismiss: (source: InteractionEventSource) => void;
   safeAreaInsets: EdgeInsets;
   survey?: Survey;
 };
@@ -96,6 +99,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
     setTimeout(() => {
       if (survey != null) {
         dispatchShowSurvey(survey);
+        InteractionEvents.SurveyDisplayed(survey);
       }
     }, ANIMATION_DURATION);
   }, [dispatchShowSurvey, promptAnimation, survey]);

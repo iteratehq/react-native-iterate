@@ -15,8 +15,8 @@ const App = () => {
       safeArea: useSafeAreaInsets,
       storage: SecureStorage,
     });
-    Iterate.onResponse((response, question) => {
-      console.log('onResponseCallback', response, question);
+    Iterate.onResponse((response, question, survey) => {
+      console.log('onResponseCallback', response, question, survey);
     });
     Iterate.onEvent((event, data) => {
       console.log('onEventCallback', event, data);

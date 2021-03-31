@@ -18,17 +18,26 @@ import { WebView } from 'react-native-webview';
 import { DefaultHost, Themes } from '../constants';
 import {
   EventMessageTypes,
-  InteractionEventClosedSource,
+  InteractionEventSource,
   InteractionEvents,
 } from '../interaction-events';
 import type { State } from '../redux';
-import type { EventMessage, EventTraitsMap, Survey } from '../types';
+import type {
+  EventMessage,
+  ProgressEventMessageData,
+  EventTraitsMap,
+  ResponseEventMessageData,
+  Survey,
+} from '../types';
 
 type Props = {
   companyAuthToken?: string;
   displayedSurveyResponseId?: number;
   eventTraits: EventTraitsMap;
-  onDismiss: (source: InteractionEventClosedSource) => void;
+  onDismiss: (
+    source: InteractionEventSource,
+    progress?: ProgressEventMessageData
+  ) => void;
   survey?: Survey;
   userAuthToken?: string;
 };
@@ -42,10 +51,11 @@ const SurveyView: (Props: Props) => JSX.Element = ({
   userAuthToken,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState<ProgressEventMessageData>();
 
   const dismiss = useCallback(() => {
-    onDismiss('survey');
-  }, [onDismiss]);
+    onDismiss('survey', progress);
+  }, [onDismiss, progress]);
 
   const params = [];
   // Add the auth token
@@ -91,18 +101,23 @@ const SurveyView: (Props: Props) => JSX.Element = ({
         case EventMessageTypes.Close:
           dismiss();
           break;
+        case EventMessageTypes.Progress:
+          setProgress(message.data as ProgressEventMessageData);
+          break;
         case EventMessageTypes.Response:
+          const data = message.data as ResponseEventMessageData;
           InteractionEvents.Response(
-            message.data.response,
-            message.data.question
+            survey as Survey,
+            data.response,
+            data.question
           );
           break;
         case EventMessageTypes.SurveyComplete:
-          InteractionEvents.SurveyComplete();
+          InteractionEvents.SurveyComplete(survey as Survey);
           break;
       }
     },
-    [dismiss]
+    [dismiss, survey]
   );
 
   return (
