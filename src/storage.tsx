@@ -21,7 +21,12 @@ class Storage {
   clear = async () => {
     return this.storageProvider().then(async (storage) => {
       for (const [, value] of Object.entries(Keys)) {
-        storage.removeItem(`${KeyPrefix}${value}`);
+        // Ensure we're only removing items that exist to avoid errors
+        storage.getItem(`${KeyPrefix}${value}`).then((item) => {
+          if (item != null) {
+            storage.removeItem(`${KeyPrefix}${value}`);
+          }
+        });
       }
     });
   };
