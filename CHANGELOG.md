@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.2.1](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.2.1)
+
+**Fixed**
+
+- Fixed an error that occurred when attempting to remove data in the Iterate.reset() method that had not been set
+
 ## [2.2.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.2.0)
 
 **Added**
