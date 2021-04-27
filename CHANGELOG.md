@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.2.2](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.2.2)
+
+**Fixed**
+
+- Fixed a bug that caused API requests for new users to use the incorrect auth token until Iterate.init was executed again
+
 ## [2.2.1](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.2.1)
 
 **Fixed**
