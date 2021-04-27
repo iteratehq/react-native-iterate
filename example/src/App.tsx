@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
 import Iterate, { IterateProvider } from 'react-native-iterate';
 import {
   SafeAreaProvider,
@@ -15,6 +15,7 @@ const App = () => {
       safeArea: useSafeAreaInsets,
       storage: SecureStorage,
     });
+
     Iterate.onResponse((response, question, survey) => {
       console.log('onResponseCallback', response, question, survey);
     });
@@ -23,10 +24,6 @@ const App = () => {
     });
 
     Iterate.identify({ email: 'example@email.com' });
-
-    Iterate.sendEvent('show-survey-button-tapped', {
-      currentTime: new Date().getTime(),
-    });
   }, []);
 
   const apiKey =
@@ -37,6 +34,16 @@ const App = () => {
       <IterateProvider>
         <View style={styles.container}>
           <Text>Hello</Text>
+          <Button
+            title="ok"
+            onPress={() => {
+              Iterate.sendEvent('show-survey-button-tapped', {
+                currentTime: new Date().getTime(),
+              });
+            }}
+          >
+            Click
+          </Button>
         </View>
       </IterateProvider>
     </SafeAreaProvider>

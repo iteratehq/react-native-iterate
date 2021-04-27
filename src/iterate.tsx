@@ -215,6 +215,7 @@ class Iterate {
       // Set the user auth token if one is returned
       if (response.auth != null && response.auth.token != null) {
         const token = response.auth.token;
+        this.api = new ApiClient(token);
         store.dispatch(setUserAuthToken(token));
         Storage.setItem(Keys.authToken, token);
       }
