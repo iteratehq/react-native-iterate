@@ -121,6 +121,12 @@ class Iterate {
   reset = () => {
     Storage.clear();
     store.dispatch(reset());
+
+    // Reset the api client to the company api key
+    if (this.apiKey == null) {
+      throw 'Error sending event to Iterate: missing api key. Make sure you call Iterate.init() before calling sendEvent, see README for details';
+    }
+    this.api = new ApiClient(this.apiKey);
   };
 
   // Lazily initialize dependencies for sendEvent

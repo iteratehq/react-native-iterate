@@ -22,12 +22,13 @@ const App = () => {
     Iterate.onEvent((event, data) => {
       console.log('onEventCallback', event, data);
     });
-
-    Iterate.identify({ email: 'example@email.com' });
   }, []);
 
   const apiKey =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55X2lkIjoiNWRmZTM2OGEwOWI2ZWYwMDAxYjNlNjE4IiwiaWF0IjoxNTc2OTQxMTk0fQ.QBWr2goMwOngVhi6wY9sdFAKEvBGmn-JRDKstVMFh6M';
+
+  const externalId = 'user-123';
+  const email = 'exampl@email.com';
 
   return (
     <SafeAreaProvider>
@@ -35,15 +36,28 @@ const App = () => {
         <View style={styles.container}>
           <Text>Hello</Text>
           <Button
-            title="ok"
+            title="Trigger survey"
             onPress={() => {
               Iterate.sendEvent('show-survey-button-tapped', {
                 currentTime: new Date().getTime(),
               });
             }}
-          >
-            Click
-          </Button>
+          />
+          <Button
+            title="Login"
+            onPress={() => {
+              Iterate.identify({
+                external_id: externalId,
+                email,
+              });
+            }}
+          />
+          <Button
+            title="Logout"
+            onPress={() => {
+              Iterate.reset();
+            }}
+          />
         </View>
       </IterateProvider>
     </SafeAreaProvider>
