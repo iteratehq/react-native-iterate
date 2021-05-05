@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.2.3](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.2.3)
+
+**Fixed**
+
+- Fixed a bug that caused the user auth token not to be cleared when Iterate.reset() was called until the app was closed
+
+**Added**
+
+- Iterate.reset() can now safely be called before Iterate.init()
+
 ## [2.2.2](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.2.2)
 
 **Fixed**
