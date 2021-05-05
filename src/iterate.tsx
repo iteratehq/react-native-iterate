@@ -119,13 +119,15 @@ class Iterate {
   // Reset all stored user data. Commonly called on logout so apps can support
   // multiple user accounts
   reset = () => {
-    Storage.clear();
+    // Only clear the storage if it has been initialized. This allows the reset
+    // method to be called before Init, giving consumers of the SDK more flexibility
+    if (Storage.provider != null) {
+      Storage.clear();
+    }
+
     store.dispatch(reset());
 
     // Reset the api client to the company api key
-    if (this.apiKey == null) {
-      throw 'Error sending event to Iterate: missing api key. Make sure you call Iterate.init() before calling sendEvent, see README for details';
-    }
     this.api = new ApiClient(this.apiKey);
   };
 
