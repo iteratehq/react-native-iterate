@@ -194,13 +194,13 @@ When implementing Iterate for the first time, we encourage you to implement even
 
 ## Associating data with a user
 
-Using the `identify` method, you can easily add 'user properties' to a user that can be used to target surveys to them and associate the information with all of their future responses.
+Using the `identify` method, you can easily add 'user properties' to a user that can be used to target surveys to them and associate the information with all of their future responses. We recommend setting the `external_id` (needs to be a string) which represents your internal id for the user, this allows us to associate this user across multiple platforms and sessions'
 
 ```JSX
 useEffect(() => {
   Iterate.identify({
     email: 'example@email.com',
-    user_id: 123456,
+    external_id: '12abc34',
     is_subscriber: true,
   });
 }, []);
