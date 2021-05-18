@@ -94,4 +94,9 @@ class InteractionEventCallbacks {
   ) => {};
 }
 
+export const resetInteractionEventCallbacks = () => {
+  Callbacks.onEvent = (_type, _data) => {};
+  Callbacks.onResponse = (_type, _data, _survey) => {};
+};
+
 export const Callbacks = new InteractionEventCallbacks();

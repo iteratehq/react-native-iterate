@@ -7,6 +7,7 @@ import {
   InteractionEventTypeValues,
   InteractionEventData,
   InteractionEvents,
+  resetInteractionEventCallbacks,
 } from './interaction-events';
 import {
   reducer,
@@ -119,6 +120,9 @@ class Iterate {
   // Reset all stored user data. Commonly called on logout so apps can support
   // multiple user accounts
   reset = () => {
+    // Reset the interaction events. Surveys opened with a delay, might otherwise
+    // lead to callbacks
+    resetInteractionEventCallbacks();
     // Only clear the storage if it has been initialized. This allows the reset
     // method to be called before Init, giving consumers of the SDK more flexibility
     if (Storage.provider != null) {
@@ -235,7 +239,7 @@ class Iterate {
         Storage.setItem(Keys.lastUpdated, lastUpdated);
       }
 
-      if (response != null && response.survey != null) {
+      if (response.survey != null) {
         // Generate a unique id (current timestamp) for this survey display so we ensure we associate
         // the correct event traits with it
         const responseId = new Date().getTime();
