@@ -39,8 +39,9 @@ const Prompt: (Props: Props) => JSX.Element = ({
   safeAreaInsets,
   survey,
 }) => {
-  const promptAnimation = useRef(new Animated.Value(DISMISSED_POSITION))
-    .current;
+  const promptAnimation = useRef(
+    new Animated.Value(DISMISSED_POSITION)
+  ).current;
 
   const panResponder = useMemo(
     () =>
