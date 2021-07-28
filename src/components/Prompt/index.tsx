@@ -109,8 +109,9 @@ const Prompt: (Props: Props) => JSX.Element = ({
 
   const theme = Appearance.getColorScheme();
   const promptBackgroundColor =
-    theme === Themes.Dark ? Colors.Black : Colors.White;
+    theme === Themes.Dark ? Colors.LightBlack : Colors.White;
   const promptTextColor = theme === Themes.Dark ? Colors.White : Colors.Black;
+  const shadowOpacity = theme === Themes.Dark ? 0.8 : 0.4;
 
   const paddingBottom = safeAreaInsets.bottom > 0 ? safeAreaInsets.bottom : 20;
 
@@ -126,7 +127,15 @@ const Prompt: (Props: Props) => JSX.Element = ({
       }}
       {...panResponder.panHandlers}
     >
-      <View style={[styles.prompt, { backgroundColor: promptBackgroundColor }]}>
+      <View
+        style={[
+          styles.prompt,
+          {
+            backgroundColor: promptBackgroundColor,
+            shadowOpacity: shadowOpacity,
+          },
+        ]}
+      >
         <View style={{ paddingBottom }}>
           <CloseButton onPress={onDismissAnimated} />
           <Text style={[styles.promptText, { color: promptTextColor }]}>
@@ -158,7 +167,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     elevation: 20,
     shadowColor: '#000000',
-    shadowOpacity: 0.4,
     shadowRadius: 4,
     shadowOffset: {
       width: 0,
@@ -180,7 +188,8 @@ const styles = StyleSheet.create({
 
 const CloseButton = ({ onPress }: { onPress: () => void }) => {
   const theme = Appearance.getColorScheme();
-  const backgroundColor = theme === Themes.Dark ? Colors.Black : Colors.Grey;
+  const backgroundColor =
+    theme === Themes.Dark ? Colors.LightBlack : Colors.Grey;
 
   return (
     <TouchableHighlight
