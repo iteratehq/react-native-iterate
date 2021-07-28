@@ -6,6 +6,7 @@
 import React, { useCallback, useState } from 'react';
 import {
   ActivityIndicator,
+  Appearance,
   Modal,
   SafeAreaView,
   StyleSheet,
@@ -15,7 +16,7 @@ import {
 import { connect } from 'react-redux';
 import { WebView } from 'react-native-webview';
 
-import { DefaultHost, Themes } from '../constants';
+import { Colors, DefaultHost, Themes } from '../constants';
 import {
   EventMessageTypes,
   InteractionEventSource,
@@ -120,6 +121,10 @@ const SurveyView: (Props: Props) => JSX.Element = ({
     [dismiss, survey]
   );
 
+  const theme = Appearance.getColorScheme();
+  const backgroundColor =
+    theme === Themes.Dark ? Colors.LightBlack : Colors.White;
+
   return (
     <View>
       <Modal
@@ -127,9 +132,19 @@ const SurveyView: (Props: Props) => JSX.Element = ({
         animationType="slide"
         onRequestClose={dismiss}
       >
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView
+          style={{
+            ...styles.container,
+            backgroundColor: backgroundColor,
+          }}
+        >
           {isLoading && (
-            <View style={styles.loading}>
+            <View
+              style={{
+                ...styles.loading,
+                backgroundColor: backgroundColor,
+              }}
+            >
               <ActivityIndicator color="#999999" animating={true} />
             </View>
           )}
@@ -138,6 +153,7 @@ const SurveyView: (Props: Props) => JSX.Element = ({
             onLoadStart={() => setIsLoading(true)}
             onLoadEnd={() => setIsLoading(false)}
             source={{ uri: url }}
+            style={{ backgroundColor: backgroundColor }}
           />
         </SafeAreaView>
       </Modal>

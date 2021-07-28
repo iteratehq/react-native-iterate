@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { Appearance, StyleSheet, View, Text, Button } from 'react-native';
 import Iterate, { IterateProvider } from 'react-native-iterate';
 import {
   SafeAreaProvider,
@@ -30,10 +30,18 @@ const App = () => {
   const externalId = 'user-123';
   const email = 'exampl@email.com';
 
+  const theme = Appearance.getColorScheme();
+  const backgroundColor = theme === 'dark' ? '#000' : '#fff';
+
   return (
     <SafeAreaProvider>
       <IterateProvider>
-        <View style={styles.container}>
+        <View
+          style={{
+            ...styles.container,
+            backgroundColor: backgroundColor,
+          }}
+        >
           <Text>Hello</Text>
           <Button
             title="Trigger survey"
