@@ -62,6 +62,7 @@ export type EdgeInsets = {
 
 export type Survey = {
   color?: string;
+  color_dark?: string;
   company_id: string;
   id: string;
   prompt?: Prompt;

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   Animated,
+  Appearance,
   Image,
   StyleSheet,
   Text,
@@ -10,6 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
+import { Colors, Themes } from '../../constants';
 import type { State } from '../../redux';
 import { showSurvey } from '../../redux';
 import type { EdgeInsets } from '../../types';
@@ -105,6 +107,11 @@ const Prompt: (Props: Props) => JSX.Element = ({
     }, ANIMATION_DURATION);
   }, [dispatchShowSurvey, promptAnimation, survey]);
 
+  const theme = Appearance.getColorScheme();
+  const promptBackgroundColor =
+    theme === Themes.Dark ? Colors.Black : Colors.White;
+  const promptTextColor = theme === Themes.Dark ? Colors.White : Colors.Black;
+
   const paddingBottom = safeAreaInsets.bottom > 0 ? safeAreaInsets.bottom : 20;
 
   return (
@@ -119,13 +126,16 @@ const Prompt: (Props: Props) => JSX.Element = ({
       }}
       {...panResponder.panHandlers}
     >
-      <View style={styles.prompt}>
+      <View style={[styles.prompt, { backgroundColor: promptBackgroundColor }]}>
         <View style={{ paddingBottom }}>
           <CloseButton onPress={onDismissAnimated} />
-          <Text style={styles.promptText}>{survey?.prompt?.message}</Text>
+          <Text style={[styles.promptText, { color: promptTextColor }]}>
+            {survey?.prompt?.message}
+          </Text>
           <PromptButton
             text={`${survey?.prompt?.button_text || ''}`}
             color={`${survey?.color || '#7457be'}`}
+            colorDark={survey?.color_dark}
             onPress={showSurveyButtonClicked}
           />
         </View>
@@ -146,7 +156,6 @@ const styles = StyleSheet.create({
   prompt: {
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    backgroundColor: '#fff',
     elevation: 20,
     shadowColor: '#000000',
     shadowOpacity: 0.4,
@@ -159,7 +168,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   promptText: {
-    color: '#000',
     fontSize: 16,
     marginLeft: 40,
     marginRight: 40,
@@ -170,15 +178,22 @@ const styles = StyleSheet.create({
   },
 });
 
-const CloseButton = ({ onPress }: { onPress: () => void }) => (
-  <TouchableHighlight style={closeButtonStyles.closeButton} onPress={onPress}>
-    <Image source={require('./images/close.png')} />
-  </TouchableHighlight>
-);
+const CloseButton = ({ onPress }: { onPress: () => void }) => {
+  const theme = Appearance.getColorScheme();
+  const backgroundColor = theme === Themes.Dark ? Colors.Black : Colors.Grey;
+
+  return (
+    <TouchableHighlight
+      style={[closeButtonStyles.closeButton, { backgroundColor }]}
+      onPress={onPress}
+    >
+      <Image source={require('./images/close.png')} />
+    </TouchableHighlight>
+  );
+};
 
 const closeButtonStyles = StyleSheet.create({
   closeButton: {
-    backgroundColor: '#d6d6d6',
     borderRadius: 999,
     position: 'absolute',
     padding: 7,
