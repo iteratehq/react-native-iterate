@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.3.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.3.0)
+
+**Added**
+
+- Dark mode support. You can log into your Iterate dashboard and select a dark-mode color separate from your primary color.
+
+
 ## [2.2.4](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.2.4)
 
 **Updated**
