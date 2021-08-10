@@ -152,6 +152,7 @@ const SurveyView: (Props: Props) => JSX.Element = ({
             onMessage={onMessage}
             onLoadStart={() => setIsLoading(true)}
             onLoadEnd={() => setIsLoading(false)}
+            onError={dismiss}
             source={{ uri: url }}
             style={{ backgroundColor: backgroundColor }}
           />
