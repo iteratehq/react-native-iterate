@@ -1,5 +1,11 @@
 import type { EdgeInsets } from './types';
-import type { EventTraits, EventTraitsMap, Survey, UserTraits } from './types';
+import type {
+  EventTraits,
+  EventTraitsMap,
+  PresentationStyle,
+  Survey,
+  UserTraits,
+} from './types';
 
 // State
 export type State = {
@@ -10,6 +16,7 @@ export type State = {
   lastUpdated?: number;
   preview?: boolean;
   previewSurveyId?: string;
+  presentationStyle: PresentationStyle;
   safeAreaInsets: EdgeInsets;
   showSurvey: boolean;
   showPrompt: boolean;
@@ -26,6 +33,7 @@ const INITIAL_STATE = {
   lastUpdated: undefined,
   preview: false,
   previewSurveyId: undefined,
+  presentationStyle: 'pageSheet' as PresentationStyle,
   safeAreaInsets: { top: 0, left: 0, right: 0, bottom: 0 },
   showSurvey: false,
   showPrompt: false,
@@ -41,6 +49,7 @@ type Action =
   | SetCompanyAuthToken
   | SetEventTraits
   | SetLastUpdated
+  | SetPresentationStyle
   | SetPreview
   | SetSafeAreaInsets
   | SetUserAuthToken
@@ -57,6 +66,10 @@ type SetEventTraits = {
   traits: EventTraits;
 };
 type SetLastUpdated = { type: 'SET_LAST_UPDATED'; lastUpdated: number };
+type SetPresentationStyle = {
+  type: 'SET_PRESENTATION_STYLE';
+  presentationStyle: PresentationStyle;
+};
 type SetPreview = { type: 'SET_PREVIEW'; enabled: boolean; surveyId?: string };
 type SetSafeAreaInsets = {
   type: 'SET_SAFE_AREA_INSETS';
@@ -96,6 +109,13 @@ export const setEventTraits = (
 export const setLastUpdated = (lastUpdated: number): SetLastUpdated => ({
   type: 'SET_LAST_UPDATED',
   lastUpdated,
+});
+
+export const setPresentationStyle = (
+  presentationStyle: PresentationStyle
+): SetPresentationStyle => ({
+  type: 'SET_PRESENTATION_STYLE',
+  presentationStyle,
 });
 
 export const setPreview = (
@@ -174,6 +194,11 @@ export const reducer = (state: State = INITIAL_STATE, action: Action) => {
       return {
         ...state,
         lastUpdated: action.lastUpdated,
+      };
+    case 'SET_PRESENTATION_STYLE':
+      return {
+        ...state,
+        presentationStyle: action.presentationStyle,
       };
     case 'SET_PREVIEW':
       return {
