@@ -25,6 +25,7 @@ import {
 import type { State } from '../redux';
 import type {
   EventMessage,
+  PresentationStyle,
   ProgressEventMessageData,
   EventTraitsMap,
   ResponseEventMessageData,
@@ -39,6 +40,7 @@ type Props = {
     source: InteractionEventSource,
     progress?: ProgressEventMessageData
   ) => void;
+  presentationStyle: PresentationStyle;
   survey?: Survey;
   userAuthToken?: string;
 };
@@ -48,6 +50,7 @@ const SurveyView: (Props: Props) => JSX.Element = ({
   displayedSurveyResponseId,
   eventTraits,
   onDismiss,
+  presentationStyle,
   survey,
   userAuthToken,
 }) => {
@@ -128,7 +131,7 @@ const SurveyView: (Props: Props) => JSX.Element = ({
   return (
     <View>
       <Modal
-        presentationStyle="pageSheet"
+        presentationStyle={presentationStyle}
         animationType="slide"
         onRequestClose={dismiss}
       >
@@ -181,11 +184,13 @@ const mapStateToProps = ({
   companyAuthToken,
   displayedSurveyResponseId,
   eventTraits,
+  presentationStyle,
   survey,
   userAuthToken,
 }: State) => ({
   displayedSurveyResponseId,
   eventTraits,
+  presentationStyle,
   survey,
   companyAuthToken,
   userAuthToken,
