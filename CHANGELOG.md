@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.3.2](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.3.2)
+
+**Updated**
+
+- Updated dependencies 
+
 ## [2.3.1](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.3.1)
 
 **Added**
