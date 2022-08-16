@@ -21,7 +21,8 @@ export const InteractionEventTypes = {
 };
 
 export type InteractionEventTypeKeys = keyof typeof InteractionEventTypes;
-export type InteractionEventTypeValues = typeof InteractionEventTypes[InteractionEventTypeKeys];
+export type InteractionEventTypeValues =
+  typeof InteractionEventTypes[InteractionEventTypeKeys];
 
 export type InteractionEventData =
   | InteractionEventResponseData
