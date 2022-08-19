@@ -12,6 +12,7 @@ import {
   StyleSheet,
   View,
   useColorScheme,
+  Linking,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { WebView } from 'react-native-webview';
@@ -31,6 +32,7 @@ import type {
   ResponseEventMessageData,
   Survey,
 } from '../types';
+import Iterate from '../iterate';
 
 type Props = {
   companyAuthToken?: string;
@@ -155,6 +157,14 @@ const SurveyView: (Props: Props) => JSX.Element = ({
             onMessage={onMessage}
             onLoadStart={() => setIsLoading(true)}
             onLoadEnd={() => setIsLoading(false)}
+            onShouldStartLoadWithRequest={(request) => {
+              if (request.url.startsWith(Iterate.api?.apiHost ?? DefaultHost)) {
+                return true;
+              } else {
+                Linking.openURL(request.url);
+                return false;
+              }
+            }}
             source={{ uri: url }}
             style={{ backgroundColor: backgroundColor }}
           />
