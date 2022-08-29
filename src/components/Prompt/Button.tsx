@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { Colors, Themes } from '../../constants';
+import Iterate from '../../iterate';
 
 interface Props {
   color: string;
@@ -38,7 +39,22 @@ const PromptButton: (Props: Props) => JSX.Element = ({
         onPress={onPress}
       >
         <View style={styles.container}>
-          <Text style={[styles.text, { color: textColor }]}>{text}</Text>
+          <Text
+            style={[
+              styles.text,
+              // eslint-disable-next-line react-native/no-inline-styles
+              {
+                color: textColor,
+                fontFamily: Iterate.buttonFont?.postscriptName,
+                fontWeight:
+                  Iterate.buttonFont?.postscriptName != null
+                    ? 'normal'
+                    : styles.text.fontWeight,
+              },
+            ]}
+          >
+            {text}
+          </Text>
         </View>
       </TouchableHighlight>
     </View>

@@ -38,6 +38,11 @@ export type Dispatch = typeof store.dispatch;
 
 export type EventData = { eventName: string; eventTraits?: EventTraits };
 
+export type FontData = {
+  filename: string;
+  postscriptName: string;
+};
+
 class Iterate {
   api?: ApiClient;
   apiKey?: string;
@@ -45,21 +50,29 @@ class Iterate {
   initialized: boolean = false;
   initializedIdentify: boolean = false;
   initializedSendEvent: boolean = false;
+  buttonFont?: FontData;
+  surveyTextFont?: FontData;
 
   // Minimal initialization that is expected to be called on app boot
   init = ({
     apiKey,
     safeArea,
     storage,
+    buttonFont,
+    surveyTextFont,
   }: {
     apiKey: string;
     safeArea: () => EdgeInsets;
     storage: StorageInterface;
+    buttonFont?: FontData;
+    surveyTextFont?: FontData;
   }) => {
     this.apiKey = apiKey;
     SafeArea.provider = safeArea;
     Storage.provider = storage;
     this.initialized = true;
+    this.buttonFont = buttonFont;
+    this.surveyTextFont = surveyTextFont;
   };
 
   // Lazily initialize dependencies for identify
