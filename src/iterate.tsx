@@ -14,6 +14,7 @@ import {
   setCompanyAuthToken,
   setEventTraits,
   setLastUpdated,
+  setPresentationStyle,
   setPreview,
   setUserAuthToken,
   setUserTraits,
@@ -24,6 +25,7 @@ import type {
   EdgeInsets,
   EmbedContext,
   EventTraits,
+  PresentationStyle,
   Response,
   Survey,
   TargetingContext,
@@ -58,18 +60,28 @@ class Iterate {
     apiKey,
     safeArea,
     storage,
+    // Allow the presentation style of the survey modal to be overridden,
+    // this is a temporary solution to a bug in react-navigation that causes
+    // the app to crash when swiping down on a modal in the pageSheet presentation style.
+    presentationStyle,
     buttonFont,
     surveyTextFont,
   }: {
     apiKey: string;
     safeArea: () => EdgeInsets;
     storage: StorageInterface;
+    presentationStyle?: PresentationStyle;
     buttonFont?: FontData;
     surveyTextFont?: FontData;
   }) => {
     this.apiKey = apiKey;
     SafeArea.provider = safeArea;
     Storage.provider = storage;
+
+    if (presentationStyle != null) {
+      store.dispatch(setPresentationStyle(presentationStyle));
+    }
+
     this.initialized = true;
     this.buttonFont = buttonFont;
     this.surveyTextFont = surveyTextFont;

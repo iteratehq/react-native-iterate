@@ -60,6 +60,12 @@ export type EdgeInsets = {
   left: number;
 };
 
+export type PresentationStyle =
+  | 'fullScreen'
+  | 'pageSheet'
+  | 'formSheet'
+  | 'overFullScreen';
+
 export type Survey = {
   color?: string;
   color_dark?: string;

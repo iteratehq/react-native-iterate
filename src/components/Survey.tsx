@@ -13,6 +13,7 @@ import {
   StyleSheet,
   View,
   useColorScheme,
+  Linking,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { WebView } from 'react-native-webview';
@@ -26,6 +27,7 @@ import {
 import type { State } from '../redux';
 import type {
   EventMessage,
+  PresentationStyle,
   ProgressEventMessageData,
   EventTraitsMap,
   ResponseEventMessageData,
@@ -41,6 +43,7 @@ type Props = {
     source: InteractionEventSource,
     progress?: ProgressEventMessageData
   ) => void;
+  presentationStyle: PresentationStyle;
   survey?: Survey;
   userAuthToken?: string;
 };
@@ -50,6 +53,7 @@ const SurveyView: (Props: Props) => JSX.Element = ({
   displayedSurveyResponseId,
   eventTraits,
   onDismiss,
+  presentationStyle,
   survey,
   userAuthToken,
 }) => {
@@ -177,7 +181,7 @@ const SurveyView: (Props: Props) => JSX.Element = ({
   return (
     <View>
       <Modal
-        presentationStyle="pageSheet"
+        presentationStyle={presentationStyle}
         animationType="slide"
         onRequestClose={dismiss}
       >
@@ -202,6 +206,16 @@ const SurveyView: (Props: Props) => JSX.Element = ({
               onMessage={onMessage}
               onLoadStart={() => setIsLoading(true)}
               onLoadEnd={() => setIsLoading(false)}
+              onShouldStartLoadWithRequest={(request) => {
+                if (
+                  request.url.startsWith(Iterate.api?.apiHost ?? DefaultHost)
+                ) {
+                  return true;
+                } else {
+                  Linking.openURL(request.url);
+                  return false;
+                }
+              }}
               originWhitelist={['file://']}
               // Once the webview has loaded the static HTML for the page, window.location.href will be a file:/// url.
               // Append the auth token to the URL as a query parameter so the page can use it for API requests
@@ -242,11 +256,13 @@ const mapStateToProps = ({
   companyAuthToken,
   displayedSurveyResponseId,
   eventTraits,
+  presentationStyle,
   survey,
   userAuthToken,
 }: State) => ({
   displayedSurveyResponseId,
   eventTraits,
+  presentationStyle,
   survey,
   companyAuthToken,
   userAuthToken,
