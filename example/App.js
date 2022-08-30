@@ -48,8 +48,7 @@ const App = () => {
           style={{
             ...styles.container,
             backgroundColor: backgroundColor,
-          }}
-        >
+          }}>
           <Button
             title="Trigger survey"
             onPress={() => {
