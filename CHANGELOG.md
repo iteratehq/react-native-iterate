@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.3.3](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.3.3)
+
+**Added**
+
+- Added support for custom fonts in survey UI
+
+**Fixed**
+
+- Fixed an issue preventing external links in the survey copy from opening
+
 ## [2.3.2](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.3.2)
 
 **Updated**
