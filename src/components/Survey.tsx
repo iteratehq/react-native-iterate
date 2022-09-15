@@ -3,11 +3,12 @@
  * @flow
  */
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Appearance,
   Modal,
+  Platform,
   SafeAreaView,
   StyleSheet,
   View,
@@ -58,6 +59,7 @@ const SurveyView: (Props: Props) => JSX.Element = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState<ProgressEventMessageData>();
+  const [html, setHtml] = useState('');
 
   const dismiss = useCallback(() => {
     onDismiss('survey', progress);
@@ -95,9 +97,51 @@ const SurveyView: (Props: Props) => JSX.Element = ({
     `theme=${useColorScheme() === Themes.Dark ? Themes.Dark : Themes.Light}`
   );
 
+  params.push('absoluteURLs=true');
+
+  if (Iterate.surveyTextFont != null) {
+    params.push(
+      `surveyTextFontPath=${
+        Platform.OS === 'android'
+          ? `file:///android_asset/fonts/${Iterate.surveyTextFont.filename}`
+          : Iterate.surveyTextFont.filename
+      }`
+    );
+  }
+
+  if (Iterate.buttonFont != null) {
+    params.push(
+      `buttonFontPath=${
+        Platform.OS === 'android'
+          ? `file:///android_asset/fonts/${Iterate.buttonFont.filename}`
+          : Iterate.buttonFont.filename
+      }`
+    );
+  }
+
   const url = `${DefaultHost}/${survey?.company_id}/${
     survey?.id
   }/mobile?${params.join('&')}`;
+
+  // In order to access assets in the app bundle (e.g. fonts), we need to load the HTML for the survey page in
+  // a separate request and provide it to the webview, so that the webview's base URL is the location of the
+  // app bundle in the local filesystem.
+  useEffect(() => {
+    if (survey != null) {
+      setIsLoading(true);
+      fetch(url).then((response) => {
+        response
+          .text()
+          .then((responseHtml) => {
+            setHtml(responseHtml);
+            setIsLoading(false);
+          })
+          .catch(() => {
+            setIsLoading(false);
+          });
+      });
+    }
+  }, [survey, url]);
 
   const onMessage = useCallback(
     (event: { nativeEvent: { data: string } }) => {
@@ -130,6 +174,10 @@ const SurveyView: (Props: Props) => JSX.Element = ({
   const backgroundColor =
     theme === Themes.Dark ? Colors.LightBlack : Colors.White;
 
+  const addQueryParamScript = `window.history.pushState('', '', '?auth_token=${
+    userAuthToken ?? companyAuthToken
+  }');`;
+
   return (
     <View>
       <Modal
@@ -153,21 +201,35 @@ const SurveyView: (Props: Props) => JSX.Element = ({
               <ActivityIndicator color="#999999" animating={true} />
             </View>
           )}
-          <WebView
-            onMessage={onMessage}
-            onLoadStart={() => setIsLoading(true)}
-            onLoadEnd={() => setIsLoading(false)}
-            onShouldStartLoadWithRequest={(request) => {
-              if (request.url.startsWith(Iterate.api?.apiHost ?? DefaultHost)) {
-                return true;
-              } else {
-                Linking.openURL(request.url);
-                return false;
-              }
-            }}
-            source={{ uri: url }}
-            style={{ backgroundColor: backgroundColor }}
-          />
+          {html.length > 0 && (
+            <WebView
+              onMessage={onMessage}
+              onLoadStart={() => setIsLoading(true)}
+              onLoadEnd={() => setIsLoading(false)}
+              onShouldStartLoadWithRequest={(request) => {
+                if (
+                  request.url.startsWith(Iterate.api?.apiHost ?? DefaultHost)
+                ) {
+                  return true;
+                } else {
+                  Linking.openURL(request.url);
+                  return false;
+                }
+              }}
+              originWhitelist={['file://']}
+              // Once the webview has loaded the static HTML for the page, window.location.href will be a file:/// url.
+              // Append the auth token to the URL as a query parameter so the page can use it for API requests
+              injectedJavaScript={addQueryParamScript}
+              source={{
+                html,
+                // On iOS, a blank baseUrl parameter here results in window.location.href being a file:/// url pointing
+                // local location of the bundle. On Android, we need to provide a baseUrl or window.location.href will be
+                // about:blank.
+                baseUrl: Platform.OS === 'android' ? 'file:///' : '',
+              }}
+              style={{ backgroundColor: backgroundColor }}
+            />
+          )}
         </SafeAreaView>
       </Modal>
     </View>

@@ -40,6 +40,11 @@ export type Dispatch = typeof store.dispatch;
 
 export type EventData = { eventName: string; eventTraits?: EventTraits };
 
+export type FontData = {
+  filename: string;
+  postscriptName: string;
+};
+
 class Iterate {
   api?: ApiClient;
   apiKey?: string;
@@ -47,6 +52,8 @@ class Iterate {
   initialized: boolean = false;
   initializedIdentify: boolean = false;
   initializedSendEvent: boolean = false;
+  buttonFont?: FontData;
+  surveyTextFont?: FontData;
 
   // Minimal initialization that is expected to be called on app boot
   init = ({
@@ -57,11 +64,15 @@ class Iterate {
     // this is a temporary solution to a bug in react-navigation that causes
     // the app to crash when swiping down on a modal in the pageSheet presentation style.
     presentationStyle,
+    buttonFont,
+    surveyTextFont,
   }: {
     apiKey: string;
     safeArea: () => EdgeInsets;
     storage: StorageInterface;
     presentationStyle?: PresentationStyle;
+    buttonFont?: FontData;
+    surveyTextFont?: FontData;
   }) => {
     this.apiKey = apiKey;
     SafeArea.provider = safeArea;
@@ -72,6 +83,8 @@ class Iterate {
     }
 
     this.initialized = true;
+    this.buttonFont = buttonFont;
+    this.surveyTextFont = surveyTextFont;
   };
 
   // Lazily initialize dependencies for identify

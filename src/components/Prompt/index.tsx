@@ -19,6 +19,7 @@ import type { Survey } from '../../types';
 
 import PromptButton from './Button';
 import type { Dispatch } from 'src/iterate';
+import Iterate from '../../iterate';
 import {
   InteractionEvents,
   InteractionEventSource,
@@ -138,7 +139,15 @@ const Prompt: (Props: Props) => JSX.Element = ({
       >
         <View style={{ paddingBottom }}>
           <CloseButton onPress={onDismissAnimated} />
-          <Text style={[styles.promptText, { color: promptTextColor }]}>
+          <Text
+            style={[
+              styles.promptText,
+              {
+                color: promptTextColor,
+                fontFamily: Iterate.surveyTextFont?.postscriptName,
+              },
+            ]}
+          >
             {survey?.prompt?.message}
           </Text>
           <PromptButton

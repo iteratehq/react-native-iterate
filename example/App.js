@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {Appearance, StyleSheet, View, Text, Button} from 'react-native';
+import {Appearance, StyleSheet, View, Button} from 'react-native';
 import Iterate, {IterateProvider} from 'react-native-iterate';
 import {
   SafeAreaProvider,
@@ -14,6 +14,14 @@ const App = () => {
       apiKey: apiKey,
       safeArea: useSafeAreaInsets,
       storage: SecureStorage,
+      buttonFont: {
+        filename: 'WorkSans-Regular.ttf',
+        postscriptName: 'WorkSans-Regular',
+      },
+      surveyTextFont: {
+        filename: 'Merriweather-Regular.ttf',
+        postscriptName: 'Merriweather-Regular',
+      },
     });
 
     Iterate.onResponse((response, question, survey) => {
@@ -41,7 +49,6 @@ const App = () => {
             ...styles.container,
             backgroundColor: backgroundColor,
           }}>
-          <Text>Hello</Text>
           <Button
             title="Trigger survey"
             onPress={() => {
