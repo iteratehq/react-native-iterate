@@ -208,7 +208,8 @@ const SurveyView: (Props: Props) => JSX.Element = ({
               onLoadEnd={() => setIsLoading(false)}
               onShouldStartLoadWithRequest={(request) => {
                 if (
-                  request.url.startsWith(Iterate.api?.apiHost ?? DefaultHost)
+                  request.url.startsWith(Iterate.api?.apiHost ?? DefaultHost) ||
+                  request.url.startsWith('file://')
                 ) {
                   return true;
                 } else {
