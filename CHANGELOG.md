@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.3.4](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.3.4)
+
+**Fixed**
+
+- Fixed an issue preventing file:/// URLs from being loaded in the survey webview
+
 ## [2.3.3](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.3.3)
 
 **Added**
