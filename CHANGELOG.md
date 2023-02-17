@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.3.5](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.3.5)
+
+**Fixed**
+
+- Fixed an issue preventing response properties from being sent in 2.3.4
+
 ## [2.3.4](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.3.4)
 
 **Fixed**
