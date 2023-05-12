@@ -5,7 +5,9 @@ import type {
   PresentationStyle,
   Survey,
   UserTraits,
+  UserTraitsContext,
 } from './types';
+import { TraitTypes } from './types';
 
 // State
 export type State = {
@@ -22,7 +24,7 @@ export type State = {
   showPrompt: boolean;
   survey?: Survey;
   userAuthToken?: string;
-  userTraits?: UserTraits;
+  userTraits?: UserTraitsContext;
 };
 
 const INITIAL_STATE = {
@@ -76,7 +78,7 @@ type SetSafeAreaInsets = {
   safeAreaInsets: EdgeInsets;
 };
 type SetUserAuthToken = { type: 'SET_USER_AUTH_TOKEN'; token: string };
-type SetUserTraits = { type: 'SET_USER_TRAITS'; traits: UserTraits };
+type SetUserTraits = { type: 'SET_USER_TRAITS'; traits: UserTraitsContext };
 type ShowPromptAction = {
   type: 'SHOW_PROMPT';
   responseId?: number;
@@ -139,10 +141,36 @@ export const setUserAuthToken = (token: string): SetUserAuthToken => ({
   token,
 });
 
-export const setUserTraits = (traits: UserTraits): SetUserTraits => ({
-  type: 'SET_USER_TRAITS',
-  traits,
-});
+export const setUserTraits = (traits: UserTraits): SetUserTraits => {
+  const validTraits: UserTraitsContext = {};
+  Object.entries(traits).forEach(([key, value]) => {
+    switch (typeof value) {
+      case 'boolean':
+      case 'number':
+      case 'string':
+        validTraits[key] = value;
+        break;
+      case 'object':
+        // Check if it's a valid date and convert it to a complex trait type with a value of the unix timestamp in seconds
+        if (
+          Object.prototype.toString.call(value) === '[object Date]' &&
+          !isNaN(value.getTime())
+        ) {
+          validTraits[key] = {
+            value: Math.floor(value.getTime() / 1000),
+            type: TraitTypes.Date,
+          };
+        }
+        break;
+      default:
+    }
+  });
+
+  return {
+    type: 'SET_USER_TRAITS',
+    traits: validTraits,
+  };
+};
 
 export const showPrompt = (
   survey: Survey,

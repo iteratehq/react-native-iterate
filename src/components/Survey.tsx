@@ -19,11 +19,8 @@ import { connect } from 'react-redux';
 import { WebView } from 'react-native-webview';
 
 import { Colors, DefaultHost, Themes } from '../constants';
-import {
-  EventMessageTypes,
-  InteractionEventSource,
-  InteractionEvents,
-} from '../interaction-events';
+import { EventMessageTypes, InteractionEvents } from '../interaction-events';
+import type { InteractionEventSource } from '../interaction-events';
 import type { State } from '../redux';
 import type {
   EventMessage,
@@ -86,6 +83,14 @@ const SurveyView: (Props: Props) => JSX.Element = ({
         params.push(`response_boolean_${trait}=${value}`);
       } else if (typeof traits[trait] === 'number') {
         params.push(`response_number_${trait}=${value}`);
+      } else if (
+        typeof traits[trait] === 'object' &&
+        Object.prototype.toString.call(traits[trait]) === '[object Date]' &&
+        !isNaN((traits[trait] as Date).getTime())
+      ) {
+        params.push(
+          `response_date_${trait}=${(traits[trait] as Date).getTime() / 1000}`
+        );
       } else {
         params.push(`response_${trait}=${value}`);
       }
