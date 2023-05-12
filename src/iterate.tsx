@@ -2,11 +2,10 @@ import { createStore } from 'redux';
 
 import ApiClient from './api';
 import { TriggerTypes, Version } from './constants';
-import {
-  Callbacks,
+import { Callbacks, InteractionEvents } from './interaction-events';
+import type {
   InteractionEventTypeValues,
   InteractionEventData,
-  InteractionEvents,
 } from './interaction-events';
 import {
   reducer,
@@ -32,7 +31,8 @@ import type {
   Question,
   UserTraits,
 } from './types';
-import Storage, { Keys, StorageInterface } from './storage';
+import Storage, { Keys } from './storage';
+import type { StorageInterface } from './storage';
 import SafeArea from './safearea';
 
 export const store = createStore(reducer);

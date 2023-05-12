@@ -20,10 +20,8 @@ import type { Survey } from '../../types';
 import PromptButton from './Button';
 import type { Dispatch } from 'src/iterate';
 import Iterate from '../../iterate';
-import {
-  InteractionEvents,
-  InteractionEventSource,
-} from '../../interaction-events';
+import { InteractionEvents } from '../../interaction-events';
+import type { InteractionEventSource } from '../../interaction-events';
 
 type Props = {
   dispatchShowSurvey: (Survey: Survey) => void;

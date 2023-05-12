@@ -2,8 +2,8 @@ import Iterate from './iterate';
 import IterateProvider from './components/IterateProvider';
 import type { StorageInterface } from './storage';
 export type { Question, Survey } from './types';
-export {
-  InteractionEventTypes,
+export { InteractionEventTypes } from './interaction-events';
+export type {
   InteractionEventData,
   InteractionEventResponseData,
   InteractionEventDismissData,
