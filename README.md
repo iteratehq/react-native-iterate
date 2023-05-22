@@ -226,6 +226,7 @@ useEffect(() => {
     email: 'example@email.com',
     external_id: '12abc34',
     is_subscriber: true,
+    joined: new Date(),
   });
 }, []);
 ```
