@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.4.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.4.0)
+
+**Added**
+
+- Added support for date types in user and response properties
+
 ## [2.3.5](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.3.5)
 
 **Fixed**
