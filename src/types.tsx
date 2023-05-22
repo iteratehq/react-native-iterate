@@ -18,10 +18,15 @@ export type EventContext = {
   name?: string;
 };
 
-export type EventTraitValue = string | number | boolean;
-export type EventTraitsContext = { [key: string]: EventTraitValue };
+export type EventTraitValue = string | number | boolean | Date;
+export type EventTraits = { [key: string]: EventTraitValue };
 
-export type EventTraits = EventTraitsContext;
+export type EventTraitContextValue =
+  | string
+  | number
+  | boolean
+  | { type: string; value: number };
+export type EventTraitsContext = { [key: string]: EventTraitContextValue };
 
 // A map from the response id to the events associated with that response
 export type EventTraitsMap = {
@@ -48,10 +53,22 @@ export type TriggerContextType = 'manual';
 
 export type EmbedType = 'mobile';
 
-export type UserTraitValue = string | number | boolean;
-export type UserTraitsContext = { [key: string]: UserTraitValue };
+export const TraitTypes = {
+  Date: 'date',
+  Number: 'number',
+  String: 'string',
+  Boolean: 'boolean',
+};
 
-export type UserTraits = UserTraitsContext;
+export type UserTraitValue = string | number | boolean | Date;
+export type UserTraits = { [key: string]: UserTraitValue };
+
+export type UserTraitContextValue =
+  | string
+  | number
+  | boolean
+  | { type: string; value: number };
+export type UserTraitsContext = { [key: string]: UserTraitContextValue };
 
 export type EdgeInsets = {
   top: number;

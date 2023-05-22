@@ -54,6 +54,7 @@ const App = () => {
             onPress={() => {
               Iterate.sendEvent('show-survey-button-tapped', {
                 currentTime: new Date().getTime(),
+                exampleDate: new Date(2023, 4, 13),
               });
             }}
           />
@@ -63,6 +64,7 @@ const App = () => {
               Iterate.identify({
                 external_id: externalId,
                 email,
+                date_joined: new Date(2023, 4, 12),
               });
             }}
           />

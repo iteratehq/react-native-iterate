@@ -11,13 +11,12 @@ import { dismiss, setSafeAreaInsets } from '../redux';
 import type { ProgressEventMessageData, Survey } from '../types';
 import type { EdgeInsets } from '../types';
 
-import Iterate, { Dispatch } from '../iterate';
+import Iterate from '../iterate';
+import type { Dispatch } from '../iterate';
 import Prompt from './Prompt';
 import SurveyView from './Survey';
-import {
-  InteractionEventSource,
-  InteractionEvents,
-} from '../interaction-events';
+import { InteractionEvents } from '../interaction-events';
+import type { InteractionEventSource } from '../interaction-events';
 
 type Props = {
   dispatchDismiss: () => void;
