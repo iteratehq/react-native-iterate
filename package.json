@@ -1,10 +1,10 @@
 {
   "name": "react-native-iterate",
-  "version": "2.4.0",
+  "version": "0.1.0",
   "description": "In-app user research made easy",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
-  "types": "lib/typescript/index.d.ts",
+  "types": "lib/typescript/src/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
   "files": [
@@ -13,25 +13,26 @@
     "android",
     "ios",
     "cpp",
-    "react-native-iterate.podspec",
-    "!lib/typescript/example",
-    "!android/build",
+    "*.podspec",
     "!ios/build",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties",
     "!**/__tests__",
     "!**/__fixtures__",
-    "!**/__mocks__"
+    "!**/__mocks__",
+    "!**/.*"
   ],
   "scripts": {
+    "example": "yarn workspace react-native-iterate-example",
     "test": "jest",
-    "typescript": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "clean": "del-cli lib",
     "prepare": "bob build",
-    "example": "yarn --cwd example",
-    "pods": "cd example && pod-install --quiet",
-    "bootstrap": "yarn example && yarn && yarn pods",
-    "postinstall": "husky install",
-    "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "release": "release-it"
   },
   "keywords": [
     "react-native",
@@ -49,42 +50,46 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^17.0.3",
-    "@react-native-community/eslint-config": "^3.0.3",
+    "@commitlint/config-conventional": "^17.0.2",
+    "@evilmartians/lefthook": "^1.5.0",
+    "@react-native/eslint-config": "^0.72.2",
+    "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^28.1.2",
-    "@types/react": "^18.0.15",
-    "@types/react-native": "0.69.2",
-    "@types/react-redux": "^7.1.16",
-    "commitlint": "^17.0.3",
-    "eslint": "^8.19.0",
+    "@types/react": "~17.0.21",
+    "@types/react-native": "0.70.0",
+    "commitlint": "^17.0.2",
+    "del-cli": "^5.0.0",
+    "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.1",
-    "jest": "^28.1.2",
-    "metro-react-native-babel-preset": "^0.71.3",
-    "pinst": "^3.0.0",
-    "pod-install": "^0.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^28.1.1",
     "prettier": "^2.0.5",
     "react": "18.2.0",
-    "react-native": "0.69.1",
-    "react-native-builder-bob": "^0.18.1",
-    "react-native-encrypted-storage": "^4.0.2",
-    "react-native-webview": "^11.22.5",
-    "typescript": "^5.0.4"
+    "react-native": "0.72.6",
+    "react-native-builder-bob": "^0.23.1",
+    "release-it": "^15.0.0",
+    "typescript": "^5.0.2"
+  },
+  "resolutions": {
+    "@types/react": "17.0.21"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
     "react-native-webview": "*"
   },
+  "workspaces": [
+    "example"
+  ],
+  "packageManager": "yarn@3.6.1",
+  "engines": {
+    "node": ">= 18.0.0"
+  },
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
       "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!((jest-)?react-native(-.*)?|@react-native(-community)?)/)"
     ]
   },
   "commitlint": {
@@ -92,10 +97,27 @@
       "@commitlint/config-conventional"
     ]
   },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      }
+    }
+  },
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@react-native-community",
+      "@react-native",
       "prettier"
     ],
     "rules": {
@@ -137,8 +159,7 @@
     ]
   },
   "dependencies": {
-    "react-redux": "^8.0.2",
-    "redux": "^4.0.5"
-  },
-  "private": false
+    "react-redux": "^8.1.3",
+    "redux": "^4.2.1"
+  }
 }
