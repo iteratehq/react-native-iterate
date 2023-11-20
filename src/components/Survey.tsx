@@ -26,6 +26,7 @@ import type {
   EventMessage,
   PresentationStyle,
   ProgressEventMessageData,
+  EventTraits,
   EventTraitsMap,
   ResponseEventMessageData,
   Survey,
@@ -75,9 +76,14 @@ const SurveyView: (Props: Props) => JSX.Element = ({
     displayedSurveyResponseId != null &&
     eventTraits[displayedSurveyResponseId] != null
   ) {
-    const traits = eventTraits[displayedSurveyResponseId];
+    const traits = eventTraits[displayedSurveyResponseId] as EventTraits;
     for (const trait in traits) {
-      const value = encodeURIComponent(traits[trait].toString());
+      const rawValue = traits[trait];
+      if (rawValue == null) {
+        continue;
+      }
+
+      const value = encodeURIComponent(rawValue.toString());
 
       if (typeof traits[trait] === 'boolean') {
         params.push(`response_boolean_${trait}=${value}`);
@@ -179,9 +185,10 @@ const SurveyView: (Props: Props) => JSX.Element = ({
   const backgroundColor =
     theme === Themes.Dark ? Colors.LightBlack : Colors.White;
 
-  const addQueryParamScript = `window.history.pushState('', '', '?${params.join(
-    '&'
-  )}');`;
+  // Only do this if we haven't already
+  const addQueryParamScript = `if (!window.location.search) {
+    window.history.pushState('', '', '?${params.join('&')}');
+  }`;
 
   return (
     <View>
