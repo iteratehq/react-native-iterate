@@ -18,7 +18,7 @@ import type { EdgeInsets } from '../../types';
 import type { Survey } from '../../types';
 
 import PromptButton from './Button';
-import type { Dispatch } from 'src/iterate';
+import type { Dispatch } from '../../iterate';
 import Iterate from '../../iterate';
 import { InteractionEvents } from '../../interaction-events';
 import type { InteractionEventSource } from '../../interaction-events';

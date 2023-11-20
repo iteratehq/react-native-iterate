@@ -273,7 +273,7 @@ class Iterate {
         if (
           response.triggers != null &&
           response.triggers.length > 0 &&
-          response.triggers[0].type === TriggerTypes.Seconds
+          response.triggers[0]?.type === TriggerTypes.Seconds
         ) {
           const survey = response.survey;
           setTimeout(() => {
