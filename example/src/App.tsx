@@ -7,6 +7,7 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import SecureStorage from 'react-native-encrypted-storage';
+import Markdown from 'react-native-markdown-display';
 
 const App = () => {
   React.useEffect(() => {
@@ -14,14 +15,7 @@ const App = () => {
       apiKey: apiKey,
       safeArea: useSafeAreaInsets,
       storage: SecureStorage,
-      buttonFont: {
-        filename: 'WorkSans-Regular.ttf',
-        postscriptName: 'WorkSans-Regular',
-      },
-      surveyTextFont: {
-        filename: 'Merriweather-Regular.ttf',
-        postscriptName: 'Merriweather-Regular',
-      },
+      markdown: Markdown,
     });
 
     Iterate.onResponse((response, question, survey) => {

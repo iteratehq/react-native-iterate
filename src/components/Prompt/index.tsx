@@ -20,6 +20,7 @@ import type { Survey } from '../../types';
 import PromptButton from './Button';
 import type { Dispatch } from '../../iterate';
 import Iterate from '../../iterate';
+import markdown from '../../markdown';
 import { InteractionEvents } from '../../interaction-events';
 import type { InteractionEventSource } from '../../interaction-events';
 
@@ -114,6 +115,19 @@ const Prompt: (Props: Props) => JSX.Element = ({
 
   const paddingBottom = safeAreaInsets.bottom > 0 ? safeAreaInsets.bottom : 20;
 
+  const promptTextStyle = [
+    styles.promptText,
+    {
+      color: promptTextColor,
+    },
+    // To correctly render markdown, only set the fontFamily if it's not null
+    Iterate.surveyTextFont?.postscriptName != null
+      ? {
+          fontFamily: Iterate.surveyTextFont?.postscriptName,
+        }
+      : null,
+  ];
+
   return (
     <Animated.View
       style={{
@@ -137,17 +151,25 @@ const Prompt: (Props: Props) => JSX.Element = ({
       >
         <View style={{ paddingBottom }}>
           <CloseButton onPress={onDismissAnimated} />
-          <Text
-            style={[
-              styles.promptText,
+          {markdown.Render(survey?.prompt?.message ?? '', {
+            body: [
+              promptTextStyle,
               {
-                color: promptTextColor,
-                fontFamily: Iterate.surveyTextFont?.postscriptName,
+                marginBottom: styles.promptText.marginBottom - 7, // Account for the bottom margin in the last paragraph
               },
-            ]}
-          >
-            {survey?.prompt?.message}
-          </Text>
+            ],
+            paragraph: {
+              justifyContent: 'center',
+              marginTop: 0,
+              marginBottom: 7,
+            },
+            link: {
+              textDecorationLine: 'none',
+              color: survey?.color ?? '#7457be',
+            },
+          }) || (
+            <Text style={promptTextStyle}>{survey?.prompt?.message ?? ''}</Text>
+          )}
           <PromptButton
             text={`${survey?.prompt?.button_text || ''}`}
             color={`${survey?.color || '#7457be'}`}
