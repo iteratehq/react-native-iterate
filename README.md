@@ -287,6 +287,21 @@ const logout = useCallback(() => {
 }, []);
 ```
 
+## Supporting Markdown in the prompt
+
+To support Markdown in the prompt, you'll need to provide a Markdown renderer. We recommend you use [react-native-markdown-display](https://github.com/iamacup/react-native-markdown-display), however you can provide your own component that is an `React.ElementType` and accepts the markdown string as it's children.
+
+
+```JSX
+import Markdown from 'react-native-markdown-display';
+
+ Iterate.init({
+    apiKey: apiKey,
+    safeArea: useSafeAreaInsets,
+    storage: SecureStorage,
+    markdown: Markdown
+  });
+```
 
 ## Survey eligibility and frequency
 

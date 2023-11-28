@@ -31,6 +31,8 @@ import type {
   Question,
   UserTraits,
 } from './types';
+import Markdown from './markdown';
+import type { MarkdownInterface } from './markdown';
 import Storage, { Keys } from './storage';
 import type { StorageInterface } from './storage';
 import SafeArea from './safearea';
@@ -60,6 +62,7 @@ class Iterate {
     apiKey,
     safeArea,
     storage,
+    markdown,
     // Allow the presentation style of the survey modal to be overridden,
     // this is a temporary solution to a bug in react-navigation that causes
     // the app to crash when swiping down on a modal in the pageSheet presentation style.
@@ -70,6 +73,7 @@ class Iterate {
     apiKey: string;
     safeArea: () => EdgeInsets;
     storage: StorageInterface;
+    markdown?: MarkdownInterface;
     presentationStyle?: PresentationStyle;
     buttonFont?: FontData;
     surveyTextFont?: FontData;
@@ -77,6 +81,7 @@ class Iterate {
     this.apiKey = apiKey;
     SafeArea.provider = safeArea;
     Storage.provider = storage;
+    Markdown.provider = markdown;
 
     if (presentationStyle != null) {
       store.dispatch(setPresentationStyle(presentationStyle));
