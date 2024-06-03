@@ -8,12 +8,14 @@ import {
 } from 'react-native';
 import { Colors, Themes } from '../../constants';
 import Iterate from '../../iterate';
+import type { Survey } from '../../types';
 
 interface Props {
   color: string;
   colorDark?: string;
   onPress: () => void;
   text: string;
+  survey: Survey;
 }
 
 const PromptButton: (Props: Props) => JSX.Element = ({
@@ -21,12 +23,25 @@ const PromptButton: (Props: Props) => JSX.Element = ({
   colorDark,
   onPress,
   text,
+  survey,
 }) => {
-  const theme = Appearance.getColorScheme();
+  let backgroundColor;
+  let textColor;
 
-  const backgroundColor =
-    theme === Themes.Dark && colorDark != null ? colorDark : color;
-  const textColor = theme === Themes.Dark ? Colors.Black : Colors.White;
+  switch (survey?.appearance) {
+    case Themes.Dark:
+      backgroundColor = colorDark || color;
+      textColor = Colors.Black;
+      break;
+    case Themes.Light:
+      backgroundColor = color;
+      textColor = Colors.White;
+      break;
+    default:
+      Appearance.getColorScheme() === Themes.Dark
+        ? ((backgroundColor = colorDark || color), (textColor = Colors.Black))
+        : ((backgroundColor = color), (textColor = Colors.White));
+  }
 
   return (
     <View>

@@ -107,11 +107,30 @@ const Prompt: (Props: Props) => JSX.Element = ({
     }, ANIMATION_DURATION);
   }, [dispatchShowSurvey, promptAnimation, survey]);
 
-  const theme = Appearance.getColorScheme();
-  const promptBackgroundColor =
-    theme === Themes.Dark ? Colors.LightBlack : Colors.White;
-  const promptTextColor = theme === Themes.Dark ? Colors.White : Colors.Black;
-  const shadowOpacity = theme === Themes.Dark ? 0.8 : 0.4;
+  let promptBackgroundColor;
+  let promptTextColor;
+  let shadowOpacity;
+
+  switch (survey?.appearance) {
+    case Themes.Dark:
+      promptBackgroundColor = Colors.LightBlack;
+      promptTextColor = Colors.White;
+      shadowOpacity = 0.8;
+      break;
+    case Themes.Light:
+      promptBackgroundColor = Colors.White;
+      promptTextColor = Colors.Black;
+      shadowOpacity = 0.4;
+      break;
+    default:
+      Appearance.getColorScheme() === Themes.Dark
+        ? ((promptBackgroundColor = Colors.LightBlack),
+          (promptTextColor = Colors.White),
+          (shadowOpacity = 0.8))
+        : ((promptBackgroundColor = Colors.White),
+          (promptTextColor = Colors.Black),
+          (shadowOpacity = 0.4));
+  }
 
   const paddingBottom = safeAreaInsets.bottom > 0 ? safeAreaInsets.bottom : 20;
 
@@ -150,7 +169,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
         ]}
       >
         <View style={{ paddingBottom }}>
-          <CloseButton onPress={onDismissAnimated} />
+          <CloseButton onPress={onDismissAnimated} survey={survey} />
           {markdown.Render(survey?.prompt?.message ?? '', {
             body: [
               promptTextStyle,
@@ -175,6 +194,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
             color={`${survey?.color || '#7457be'}`}
             colorDark={survey?.color_dark}
             onPress={showSurveyButtonClicked}
+            survey={survey}
           />
         </View>
       </View>
@@ -215,10 +235,27 @@ const styles = StyleSheet.create({
   },
 });
 
-const CloseButton = ({ onPress }: { onPress: () => void }) => {
-  const theme = Appearance.getColorScheme();
-  const backgroundColor =
-    theme === Themes.Dark ? Colors.LightBlack : Colors.Grey;
+const CloseButton = ({
+  onPress,
+  survey,
+}: {
+  onPress: () => void;
+  survey: Survey;
+}) => {
+  let backgroundColor;
+
+  switch (survey?.appearance) {
+    case Themes.Dark:
+      backgroundColor = Colors.LightBlack;
+      break;
+    case Themes.Light:
+      backgroundColor = Colors.Grey;
+      break;
+    default:
+      Appearance.getColorScheme() === Themes.Dark
+        ? (backgroundColor = Colors.LightBlack)
+        : (backgroundColor = Colors.Grey);
+  }
 
   return (
     <TouchableHighlight
