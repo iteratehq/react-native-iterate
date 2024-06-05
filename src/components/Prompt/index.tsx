@@ -240,7 +240,7 @@ const CloseButton = ({
   survey,
 }: {
   onPress: () => void;
-  survey: Survey;
+  survey?: Survey;
 }) => {
   let backgroundColor;
 

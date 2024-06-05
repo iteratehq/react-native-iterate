@@ -15,7 +15,7 @@ interface Props {
   colorDark?: string;
   onPress: () => void;
   text: string;
-  survey: Survey;
+  survey?: Survey;
 }
 
 const PromptButton: (Props: Props) => JSX.Element = ({
