@@ -105,7 +105,11 @@ const SurveyView: (Props: Props) => JSX.Element = ({
 
   // Add theme
   params.push(
-    `theme=${useColorScheme() === Themes.Dark ? Themes.Dark : Themes.Light}`
+    `theme=${
+      useColorScheme() === Themes.Dark || survey?.appearance === Themes.Dark
+        ? Themes.Dark
+        : Themes.Light
+    }`
   );
 
   params.push('absoluteURLs=true');
@@ -181,9 +185,20 @@ const SurveyView: (Props: Props) => JSX.Element = ({
     [dismiss, survey]
   );
 
-  const theme = Appearance.getColorScheme();
-  const backgroundColor =
-    theme === Themes.Dark ? Colors.LightBlack : Colors.White;
+  let backgroundColor;
+
+  switch (survey?.appearance) {
+    case Themes.Dark:
+      backgroundColor = Colors.LightBlack;
+      break;
+    case Themes.Light:
+      backgroundColor = Colors.Grey;
+      break;
+    default:
+      Appearance.getColorScheme() === Themes.Dark
+        ? (backgroundColor = Colors.LightBlack)
+        : (backgroundColor = Colors.Grey);
+  }
 
   // Only do this if we haven't already
   const addQueryParamScript = `if (!window.location.search) {

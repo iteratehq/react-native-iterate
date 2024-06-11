@@ -84,6 +84,7 @@ export type PresentationStyle =
   | 'overFullScreen';
 
 export type Survey = {
+  appearance?: string;
   color?: string;
   color_dark?: string;
   company_id: string;

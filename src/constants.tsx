@@ -10,6 +10,7 @@ export const Colors = {
 };
 
 export const Themes = {
+  Auto: 'auto',
   Light: 'light',
   Dark: 'dark',
 };
