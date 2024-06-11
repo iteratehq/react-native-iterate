@@ -1,4 +1,4 @@
-export const Version = '2.5.0';
+export const Version = '2.6.0';
 
 export const DefaultHost = 'https://iteratehq.com';
 
