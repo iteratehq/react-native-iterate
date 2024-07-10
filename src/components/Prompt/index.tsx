@@ -23,6 +23,7 @@ import Iterate from '../../iterate';
 import markdown from '../../markdown';
 import { InteractionEvents } from '../../interaction-events';
 import type { InteractionEventSource } from '../../interaction-events';
+import { useTranslation } from '../../language';
 
 type Props = {
   dispatchShowSurvey: (Survey: Survey) => void;
@@ -147,6 +148,11 @@ const Prompt: (Props: Props) => JSX.Element = ({
       : null,
   ];
 
+  const promptText =
+    useTranslation('survey.prompt.text') ?? survey?.prompt?.message;
+  const promptButtonText =
+    useTranslation('survey.prompt.buttonText') ?? survey?.prompt?.button_text;
+
   return (
     <Animated.View
       style={{
@@ -170,7 +176,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
       >
         <View style={{ paddingBottom }}>
           <CloseButton onPress={onDismissAnimated} survey={survey} />
-          {markdown.Render(survey?.prompt?.message ?? '', {
+          {markdown.Render(promptText ?? '', {
             body: [
               promptTextStyle,
               {
@@ -186,11 +192,9 @@ const Prompt: (Props: Props) => JSX.Element = ({
               textDecorationLine: 'none',
               color: survey?.color ?? '#7457be',
             },
-          }) || (
-            <Text style={promptTextStyle}>{survey?.prompt?.message ?? ''}</Text>
-          )}
+          }) || <Text style={promptTextStyle}>{promptText ?? ''}</Text>}
           <PromptButton
-            text={`${survey?.prompt?.button_text || ''}`}
+            text={`${promptButtonText || ''}`}
             color={`${survey?.color || '#7457be'}`}
             colorDark={survey?.color_dark}
             onPress={showSurveyButtonClicked}
