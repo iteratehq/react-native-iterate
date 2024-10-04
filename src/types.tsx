@@ -89,8 +89,10 @@ export type Survey = {
   color_dark?: string;
   company_id: string;
   id: string;
+  primary_language?: Language;
   prompt?: Prompt;
   title: string;
+  translations?: Translation[];
 };
 
 export type Prompt = {
@@ -171,3 +173,20 @@ export type Question = {
   id: string;
   prompt: string;
 };
+
+export type Translation = {
+  language: Language;
+  items?: TranslationItems;
+};
+
+export type TranslationItems = { [K in TranslationItemKey]: TranslationItem };
+
+export type TranslationItem = {
+  text?: string;
+};
+
+export type TranslationItemKey =
+  | 'survey.prompt.text'
+  | 'survey.prompt.buttonText';
+
+export type Language = string;
