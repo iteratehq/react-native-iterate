@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+
+## [2.7.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.7.0)
+
+**Added**
+
+- Added support for multi-language surveys
+
+
 ## [2.6.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.6.0)
 
 **Added**
