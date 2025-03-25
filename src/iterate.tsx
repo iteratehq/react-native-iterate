@@ -271,7 +271,7 @@ class Iterate {
         const responseId = new Date().getTime();
 
         if (response.event_traits != null) {
-          eventTraits = { ...eventTraits, ...response.event_traits };
+          eventTraits = { ...(eventTraits ?? {}), ...response.event_traits };
         }
 
         if (eventTraits != null) {
