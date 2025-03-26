@@ -119,6 +119,7 @@ export type ApiResponse<ResultsType> = {
 
 export type EmbedResults = {
   auth?: Auth;
+  event_traits?: EventTraits;
   survey?: Survey;
   triggers?: Trigger[];
   tracking?: Tracking;

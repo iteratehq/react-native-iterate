@@ -270,6 +270,10 @@ class Iterate {
         // the correct event traits with it
         const responseId = new Date().getTime();
 
+        if (response.event_traits != null) {
+          eventTraits = { ...(eventTraits ?? {}), ...response.event_traits };
+        }
+
         if (eventTraits != null) {
           store.dispatch(setEventTraits(eventTraits, responseId));
         }
