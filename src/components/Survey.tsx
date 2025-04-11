@@ -83,22 +83,25 @@ const SurveyView: (Props: Props) => JSX.Element = ({
         continue;
       }
 
+      const encodedTrait = encodeURIComponent(trait);
       const value = encodeURIComponent(rawValue.toString());
 
       if (typeof traits[trait] === 'boolean') {
-        params.push(`response_boolean_${trait}=${value}`);
+        params.push(`response_boolean_${encodedTrait}=${value}`);
       } else if (typeof traits[trait] === 'number') {
-        params.push(`response_number_${trait}=${value}`);
+        params.push(`response_number_${encodedTrait}=${value}`);
       } else if (
         typeof traits[trait] === 'object' &&
         Object.prototype.toString.call(traits[trait]) === '[object Date]' &&
         !isNaN((traits[trait] as Date).getTime())
       ) {
         params.push(
-          `response_date_${trait}=${(traits[trait] as Date).getTime() / 1000}`
+          `response_date_${encodedTrait}=${
+            (traits[trait] as Date).getTime() / 1000
+          }`
         );
       } else {
-        params.push(`response_${trait}=${value}`);
+        params.push(`response_${encodedTrait}=${value}`);
       }
     }
   }
