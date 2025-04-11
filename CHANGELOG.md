@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.7.2](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.7.2)
+
+Released on 2025-04-11.
+
+**Fixed**
+
+Ampersand's are correctly encoded when present in response properties
 
 ## [2.7.1](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.7.1)
 
