@@ -36,7 +36,7 @@ const ANIMATION_DURATION = 300;
 const DISMISSED_POSITION = 500;
 const DISPLAYED_POSITION = 0;
 
-const Prompt: (Props: Props) => JSX.Element = ({
+const Prompt: (Props: Props) => React.ReactElement = ({
   dispatchShowSurvey,
   onDismiss,
   safeAreaInsets,

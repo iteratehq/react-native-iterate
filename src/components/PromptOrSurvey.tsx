@@ -27,7 +27,7 @@ type Props = {
   survey?: Survey;
 };
 
-const PromptOrSurvey: (Props: Props) => JSX.Element | null = ({
+const PromptOrSurvey: (Props: Props) => React.ReactElement | null = ({
   dispatchDismiss,
   dispatchSafeAreaInsets,
   safeAreaInsets,

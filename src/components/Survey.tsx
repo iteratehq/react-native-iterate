@@ -46,7 +46,7 @@ type Props = {
   userAuthToken?: string;
 };
 
-const SurveyView: (Props: Props) => JSX.Element = ({
+const SurveyView: (Props: Props) => React.ReactElement = ({
   companyAuthToken,
   displayedSurveyResponseId,
   eventTraits,
