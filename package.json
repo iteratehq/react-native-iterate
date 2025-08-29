@@ -26,7 +26,6 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-iterate-example",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -80,7 +79,6 @@
     "react-native-webview": "*"
   },
   "workspaces": [
-    "example",
     "examples/SimpleExample"
   ],
   "packageManager": "yarn@3.6.1",
@@ -90,7 +88,7 @@
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
+      "<rootDir>/examples/",
       "<rootDir>/lib/"
     ]
   },
