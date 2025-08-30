@@ -266,7 +266,10 @@ const CloseButton = ({
       style={[closeButtonStyles.closeButton, { backgroundColor }]}
       onPress={onPress}
     >
-      <Image source={require('./images/close.png')} />
+      <Image
+        source={require('./images/close.png')}
+        style={closeButtonStyles.closeIcon}
+      />
     </TouchableHighlight>
   );
 };
@@ -278,6 +281,10 @@ const closeButtonStyles = StyleSheet.create({
     padding: 7,
     top: 8,
     right: 8,
+  },
+  closeIcon: {
+    width: 12,
+    height: 12,
   },
 });
 
