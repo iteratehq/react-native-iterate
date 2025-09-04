@@ -133,7 +133,7 @@ const Prompt: (Props: Props) => React.ReactElement = ({
           (shadowOpacity = 0.4));
   }
 
-  const paddingBottom = safeAreaInsets.bottom > 0 ? safeAreaInsets.bottom : 20;
+  const paddingBottom = safeAreaInsets.bottom > 0 ? safeAreaInsets.bottom + 8 : 28;
 
   const promptTextStyle = [
     styles.promptText,
