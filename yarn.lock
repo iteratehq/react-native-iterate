@@ -15,19 +15,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ark/schema@npm:0.46.0":
-  version: 0.46.0
-  resolution: "@ark/schema@npm:0.46.0"
+"@ark/schema@npm:0.47.0":
+  version: 0.47.0
+  resolution: "@ark/schema@npm:0.47.0"
   dependencies:
-    "@ark/util": 0.46.0
-  checksum: a4e7bc0e1c23009c7702ada7cfcbb1638af76f9721c43f96432844ec8616da6fc8121057fb87b0b80142558cf5c3e6141f40443cf43dd026ada8fd4acd635565
+    "@ark/util": 0.47.0
+  checksum: 673aa8be83a35064da1366f7c70b03537f96c857336fb378a6082f32494453603fa9d41623f626ddbaff6fad1ff5940838de9bfa0b7d255426a4ef6424ed23f3
   languageName: node
   linkType: hard
 
-"@ark/util@npm:0.46.0":
-  version: 0.46.0
-  resolution: "@ark/util@npm:0.46.0"
-  checksum: 0c0ceeb10aa0806860f7a7922586a05cda2945f7f598b414b4ebf268a6b45b00f9a854d6afd6b59df58c733e90d00b230194dd6a180a3a23d0eb64612be1b0e0
+"@ark/util@npm:0.47.0":
+  version: 0.47.0
+  resolution: "@ark/util@npm:0.47.0"
+  checksum: ffa2e259a167d04d010cdfa3a66f9ee78f3294d9e0b1cb01577c2c5e119a71364bd9c907ba9d35e16aa796f93e3764dbc8767d268ecf409e24d631600df12702
   languageName: node
   linkType: hard
 
@@ -3779,12 +3779,12 @@ __metadata:
   linkType: hard
 
 "arktype@npm:^2.1.15":
-  version: 2.1.20
-  resolution: "arktype@npm:2.1.20"
+  version: 2.1.21
+  resolution: "arktype@npm:2.1.21"
   dependencies:
-    "@ark/schema": 0.46.0
-    "@ark/util": 0.46.0
-  checksum: 5c02dda98606b83b35bbc66934259e3f30c4b4486c32e470e199da533c0af568951502173d7d7a5e64a2e53667eb36d10d772ce46c0bff204fab759430614c9b
+    "@ark/schema": 0.47.0
+    "@ark/util": 0.47.0
+  checksum: 267f9b1de212c48ee6c98cf5dc0bf9eee8cb4111b0b02347bbf1e8e589875798896f821e4de3b92684515edffd4e01220b48b5424f2d7a6d67f8782db1d5bf60
   languageName: node
   linkType: hard
 
@@ -10317,7 +10317,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-builder-bob@npm:^0.40.13":
+"react-native-builder-bob@npm:latest":
   version: 0.40.13
   resolution: "react-native-builder-bob@npm:0.40.13"
   dependencies:
@@ -10397,7 +10397,7 @@ __metadata:
     prettier: ^3.5.0
     react: ^19.1.0
     react-native: 0.81.1
-    react-native-builder-bob: ^0.40.13
+    react-native-builder-bob: latest
     react-native-safe-area-context: ^5.6.1
     react-native-webview: 11.26.1
     react-redux: ^9.2.0
