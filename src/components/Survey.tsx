@@ -9,7 +9,6 @@ import {
   Appearance,
   Modal,
   Platform,
-  SafeAreaView,
   StyleSheet,
   View,
   useColorScheme,
@@ -17,6 +16,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { WebView } from 'react-native-webview';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { Colors, DefaultHost, Themes } from '../constants';
 import { EventMessageTypes, InteractionEvents } from '../interaction-events';
@@ -46,7 +46,7 @@ type Props = {
   userAuthToken?: string;
 };
 
-const SurveyView: (Props: Props) => JSX.Element = ({
+const SurveyView: (Props: Props) => React.ReactElement = ({
   companyAuthToken,
   displayedSurveyResponseId,
   eventTraits,
@@ -215,12 +215,13 @@ const SurveyView: (Props: Props) => JSX.Element = ({
         animationType="slide"
         onRequestClose={dismiss}
       >
-        <SafeAreaView
-          style={{
-            ...styles.container,
-            backgroundColor: backgroundColor,
-          }}
-        >
+        <SafeAreaProvider>
+          <SafeAreaView
+            style={{
+              ...styles.container,
+              backgroundColor: backgroundColor,
+            }}
+          >
           {isLoading && (
             <View
               style={{
@@ -261,7 +262,8 @@ const SurveyView: (Props: Props) => JSX.Element = ({
               style={{ backgroundColor: backgroundColor }}
             />
           )}
-        </SafeAreaView>
+          </SafeAreaView>
+        </SafeAreaProvider>
       </Modal>
     </View>
   );

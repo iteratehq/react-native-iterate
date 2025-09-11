@@ -15,7 +15,7 @@ class Markdown {
   Render(
     value: string,
     style: MarkdownInterfacePropsStyle
-  ): JSX.Element | null {
+  ): React.ReactElement | null {
     const MarkdownProvider = this.provider;
 
     if (MarkdownProvider != null) {

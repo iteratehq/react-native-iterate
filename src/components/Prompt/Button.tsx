@@ -18,7 +18,7 @@ interface Props {
   survey?: Survey;
 }
 
-const PromptButton: (Props: Props) => JSX.Element = ({
+const PromptButton: (Props: Props) => React.ReactElement = ({
   color,
   colorDark,
   onPress,

@@ -36,7 +36,7 @@ const ANIMATION_DURATION = 300;
 const DISMISSED_POSITION = 500;
 const DISPLAYED_POSITION = 0;
 
-const Prompt: (Props: Props) => JSX.Element = ({
+const Prompt: (Props: Props) => React.ReactElement = ({
   dispatchShowSurvey,
   onDismiss,
   safeAreaInsets,
@@ -133,7 +133,7 @@ const Prompt: (Props: Props) => JSX.Element = ({
           (shadowOpacity = 0.4));
   }
 
-  const paddingBottom = safeAreaInsets.bottom > 0 ? safeAreaInsets.bottom : 20;
+  const paddingBottom = safeAreaInsets.bottom > 0 ? safeAreaInsets.bottom + 8 : 28;
 
   const promptTextStyle = [
     styles.promptText,
@@ -266,7 +266,10 @@ const CloseButton = ({
       style={[closeButtonStyles.closeButton, { backgroundColor }]}
       onPress={onPress}
     >
-      <Image source={require('./images/close.png')} />
+      <Image
+        source={require('./images/close.png')}
+        style={closeButtonStyles.closeIcon}
+      />
     </TouchableHighlight>
   );
 };
@@ -278,6 +281,10 @@ const closeButtonStyles = StyleSheet.create({
     padding: 7,
     top: 8,
     right: 8,
+  },
+  closeIcon: {
+    width: 12,
+    height: 12,
   },
 });
 

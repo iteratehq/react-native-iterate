@@ -15,7 +15,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const IterateProvider = ({ children }: Props) => {
+const IterateProvider = ({ children }: Props): React.ReactNode => {
   // Get safe area
   const safeArea =
     SafeArea.provider != null
