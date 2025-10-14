@@ -12,6 +12,9 @@
 		6C55674377BC0F74FD15DB1D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		89991C9D5CA142698A361BFC /* WorkSans-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D87004600AA4F63A87843F9 /* WorkSans-VariableFont_wght.ttf */; };
+		B209F12DD5234CC780CEF867 /* WorkSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6019927FEB784F9D9FF97A00 /* WorkSans-Regular.ttf */; };
+		FDC5E126412D47D8B868282A /* Merriweather-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D43CB6966E0A4FEC98BC8633 /* Merriweather-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,10 +23,13 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SimpleExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = SimpleExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-SimpleExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleExample.debug.xcconfig"; path = "Target Support Files/Pods-SimpleExample/Pods-SimpleExample.debug.xcconfig"; sourceTree = "<group>"; };
+		3D87004600AA4F63A87843F9 /* WorkSans-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-VariableFont_wght.ttf"; path = "../assets/fonts/WorkSans-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-SimpleExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleExample.release.xcconfig"; path = "Target Support Files/Pods-SimpleExample/Pods-SimpleExample.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-SimpleExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6019927FEB784F9D9FF97A00 /* WorkSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-Regular.ttf"; path = "../assets/fonts/WorkSans-Regular.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = SimpleExample/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SimpleExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D43CB6966E0A4FEC98BC8633 /* Merriweather-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Merriweather-Regular.ttf"; path = "../assets/fonts/Merriweather-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -75,6 +81,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				FF48CEE1897A45F8A908495E /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -96,6 +103,17 @@
 				5709B34CF0A7D63546082F79 /* Pods-SimpleExample.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FF48CEE1897A45F8A908495E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D43CB6966E0A4FEC98BC8633 /* Merriweather-Regular.ttf */,
+				6019927FEB784F9D9FF97A00 /* WorkSans-Regular.ttf */,
+				3D87004600AA4F63A87843F9 /* WorkSans-VariableFont_wght.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +179,9 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				6C55674377BC0F74FD15DB1D /* PrivacyInfo.xcprivacy in Resources */,
+				FDC5E126412D47D8B868282A /* Merriweather-Regular.ttf in Resources */,
+				B209F12DD5234CC780CEF867 /* WorkSans-Regular.ttf in Resources */,
+				89991C9D5CA142698A361BFC /* WorkSans-VariableFont_wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,9 +23,10 @@ const getPreferredLanguage = (
 ): Language => {
   const deviceLanguageWithRegion =
     Platform.OS === 'ios'
-      ? NativeModules.SettingsManager.settings.AppleLocale ??
-        NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
-      : NativeModules.I18nManager.localeIdentifier;
+      ? NativeModules.SettingsManager?.settings?.AppleLocale ??
+        NativeModules.SettingsManager?.settings?.AppleLanguages?.[0] ?? // iOS 13
+        'en-US'
+      : NativeModules.I18nManager?.localeIdentifier ?? 'en-US';
   const deviceLanguage = deviceLanguageWithRegion.substring(0, 2);
 
   const userTraitLanguage = userTraits?.language as Language;
