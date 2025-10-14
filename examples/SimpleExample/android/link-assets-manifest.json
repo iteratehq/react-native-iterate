@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Merriweather-Regular.ttf",
+      "sha1": "f4e7810e4e20d1932d3d7994bb6f6456280ee6bd"
+    },
+    {
+      "path": "assets/fonts/WorkSans-Regular.ttf",
+      "sha1": "89a5d38e1316b70da48e9475628023264af74783"
+    },
+    {
+      "path": "assets/fonts/WorkSans-VariableFont_wght.ttf",
+      "sha1": "4337ebe379f077e10794f92c7e2358d567698eb4"
+    }
+  ]
+}

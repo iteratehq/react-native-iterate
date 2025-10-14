@@ -40,6 +40,14 @@ function AppContent() {
       safeArea: useSafeAreaInsets,
       storage: SecureStorage,
       markdown: Markdown,
+      buttonFont: {
+        filename: 'WorkSans-Regular.ttf',
+        postscriptName: 'WorkSans-Regular',
+      },
+      surveyTextFont: {
+        filename: 'Merriweather-Regular.ttf',
+        postscriptName: 'Merriweather-Regular',
+      },
     });
 
     Iterate.onResponse((response, question, survey) => {
