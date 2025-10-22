@@ -18,6 +18,30 @@ interface Props {
   survey?: Survey;
 }
 
+const calculateLuminance = (hexColor: string): number => {
+  // Remove # if present
+  const hex = hexColor.replace('#', '');
+
+  // Convert hex to RGB (0-255)
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  // Linearize sRGB values (gamma correction) per WCAG spec
+  const linearize = (channel: number): number => {
+    const c = channel / 255;
+    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  };
+
+  const rLinear = linearize(r);
+  const gLinear = linearize(g);
+  const bLinear = linearize(b);
+
+  // Calculate relative luminance using WCAG formula
+  // https://www.w3.org/TR/WCAG20/#relativeluminancedef
+  return 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
+};
+
 const PromptButton: (Props: Props) => React.ReactElement = ({
   color,
   colorDark,
@@ -26,22 +50,23 @@ const PromptButton: (Props: Props) => React.ReactElement = ({
   survey,
 }) => {
   let backgroundColor;
-  let textColor;
 
   switch (survey?.appearance) {
     case Themes.Dark:
       backgroundColor = colorDark || color;
-      textColor = Colors.Black;
       break;
     case Themes.Light:
       backgroundColor = color;
-      textColor = Colors.White;
       break;
     default:
-      Appearance.getColorScheme() === Themes.Dark
-        ? ((backgroundColor = colorDark || color), (textColor = Colors.Black))
-        : ((backgroundColor = color), (textColor = Colors.White));
+      backgroundColor =
+        Appearance.getColorScheme() === Themes.Dark
+          ? colorDark || color
+          : color;
   }
+
+  const luminance = calculateLuminance(backgroundColor);
+  const textColor = luminance < 0.5 ? Colors.White : Colors.Black;
 
   return (
     <View>
