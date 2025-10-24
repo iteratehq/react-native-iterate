@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.8.1](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.8.1)
+
+Released on 2025-10-48.
+
+**Added**
+
+- The prompt button text color is now dynamically selected based on the background color
+
 ## [2.8.0](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.8.0)
 
 **Added**
