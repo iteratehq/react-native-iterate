@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.8.2](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.8.2)
+
+Released on 2026-02-04.
+
+**Fixed**
+
+- Fixed issue where react-native-webview attempt to load about:blank was blocked
+
 ## [2.8.1](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.8.1)
 
 Released on 2025-10-48.
