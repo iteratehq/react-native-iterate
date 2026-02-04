@@ -240,7 +240,8 @@ const SurveyView: (Props: Props) => React.ReactElement = ({
               onShouldStartLoadWithRequest={(request) => {
                 if (
                   request.url.startsWith(Iterate.api?.apiHost ?? DefaultHost) ||
-                  request.url.startsWith('file://')
+                  request.url.startsWith('file://') ||
+                  request.url === 'about:blank'
                 ) {
                   return true;
                 } else {
