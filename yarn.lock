@@ -6130,14 +6130,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-xml-parser@npm:^4.4.1":
-  version: 4.5.3
-  resolution: "fast-xml-parser@npm:4.5.3"
+"fast-xml-parser@npm:^4.4.1, fast-xml-parser@npm:^5.3.6":
+  version: 5.3.6
+  resolution: "fast-xml-parser@npm:5.3.6"
   dependencies:
-    strnum: ^1.1.1
+    strnum: ^2.1.2
   bin:
     fxparser: src/cli/cli.js
-  checksum: cd6a184941ec6c23f9e6b514421a3f396cfdff5f4a8c7c27bd0eff896edb4a2b55c27da16f09b789663613dfc4933602b9b71ac3e9d1d2ddcc0492fc46c8fa52
+  checksum: 40d237b00bd2bda3a268c97c158538b6b9c4cc2c2246bf173168001f396b5a94d28fe41a092bce7f587cd8e10fd6ce218805e19db5d2c855827f895d67365154
   languageName: node
   linkType: hard
 
@@ -11495,6 +11495,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"strnum@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "strnum@npm:2.1.2"
+  checksum: 97adcd17dcbf70b44eabfcaa29748bb5c31e7b239f9d24257cc4a5cc5b7f2bbde821a0fc0c669059ded9df85fd18f88aa8fe6b6d287ce079786ce94b723892ad
+  languageName: node
+  linkType: hard
+
 "supports-color@npm:^7.1.0":
   version: 7.2.0
   resolution: "supports-color@npm:7.2.0"
@@ -11520,16 +11527,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:^7.5.3":
-  version: 7.5.7
-  resolution: "tar@npm:7.5.7"
+"tar@npm:^7.5.8":
+  version: 7.5.8
+  resolution: "tar@npm:7.5.8"
   dependencies:
     "@isaacs/fs-minipass": ^4.0.0
     chownr: ^3.0.0
     minipass: ^7.1.2
     minizlib: ^3.1.0
     yallist: ^5.0.0
-  checksum: 82fa04804b6cae4c0b46b84e97a08c39e1c17bb959350baa32d139bcf5e1fc7ebc3ceb72465dd3e2e311992386ecc13599a257d5672158490ceb9464146d5573
+  checksum: 498901b4af7dbb4c976be2162f4251cf3725ed1c4da6f5ff534f19fbc0ca9f2b1f9e8eccfae1319d3647f0af951a04a17f6a853cab5b36bf50065f27ed604fe9
   languageName: node
   linkType: hard
 
