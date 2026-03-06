@@ -56,9 +56,10 @@ Node >= 20 required (see `.nvmrc`). Use Yarn (v3.6.1, workspaces enabled) — np
 ## Conventions
 
 - **Conventional commits** enforced by commitlint pre-commit hook: `fix:`, `feat:`, `refactor:`, `docs:`, `test:`, `chore:`
-- **Pre-commit hooks** via lefthook: runs ESLint and TypeScript type checking on changed files
+- **Pre-commit hooks** via lefthook: runs ESLint and TypeScript type checking on changed files. Lefthook uses `@{push}` to determine changed files, so commits will fail on new branches without an upstream. Push the branch first (`git push -u origin <branch>`) before committing.
 - **Strict TypeScript**: `strict: true`, `noUncheckedIndexedAccess`, `noUnusedLocals`, `noUnusedParameters`, `verbatimModuleSyntax`
 - **Version constant**: `src/constants.tsx` has a `Version` string that must match `package.json` version — update both when bumping
 - **Peer dependencies**: `react`, `react-native`, `react-native-webview`, `react-native-safe-area-context` are peers (not bundled)
 - **Storage keys** are prefixed with `com.iteratehq.` and values are JSON-wrapped as `{ value: ... }`
+- **Pull requests**: Don't include "Generated with Claude Code" in PR descriptions. Keep test plans minimal — only include verification steps for non-obvious or risky changes, not routine checkboxes.
 - **Fixing CVEs**: When fixing a CVE in a dependency, consider both approaches: (1) adding a `resolutions` override in `package.json` to force a patched version, and (2) upgrading the underlying direct dependency that pulls in the vulnerable transitive dependency. Prefer upgrading the direct dependency when possible; use resolutions as a stopgap when the direct dependency hasn't released a fix yet.
