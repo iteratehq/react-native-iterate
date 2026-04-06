@@ -3025,9 +3025,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native/new-app-screen@npm:0.81.1":
-  version: 0.81.1
-  resolution: "@react-native/new-app-screen@npm:0.81.1"
+"@react-native/new-app-screen@npm:0.84.1":
+  version: 0.84.1
+  resolution: "@react-native/new-app-screen@npm:0.84.1"
   peerDependencies:
     "@types/react": ^19.1.0
     react: "*"
@@ -3035,7 +3035,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: faa084596292146b3d8b0432dbee25f7dee53bde3b92f1964ab627babba4a8eba56b302f45f1c56294357d26f1458d7a1b2a70932828d5b2475737ed057ac058
+  checksum: 701294e249e9eae7cde6d099af4ff906ce8098c2b1dcf74dd3c32a23d18f9a68b165281459eb842105e1281b924552f9b7d01be915acac076332148d8c151956
   languageName: node
   linkType: hard
 
@@ -3562,7 +3562,7 @@ __metadata:
     "@react-native/babel-preset": 0.81.1
     "@react-native/eslint-config": 0.81.1
     "@react-native/metro-config": 0.81.1
-    "@react-native/new-app-screen": 0.81.1
+    "@react-native/new-app-screen": 0.84.1
     "@react-native/typescript-config": 0.81.1
     "@types/jest": ^29.5.13
     "@types/react": ^19.1.0
