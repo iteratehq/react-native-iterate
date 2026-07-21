@@ -137,13 +137,22 @@ const SurveyView: (Props: Props) => React.ReactElement = ({
     );
   }
 
-  const url = `${DefaultHost}/${survey?.company_id}/${
-    survey?.id
-  }/mobile?${params.join('&')}`;
+  const queryString = params.join('&');
+  const url = `${DefaultHost}/${survey?.company_id}/${survey?.id}/mobile?${queryString}`;
 
-  // In order to access assets in the app bundle (e.g. fonts), we need to load the HTML for the survey page in
-  // a separate request and provide it to the webview, so that the webview's base URL is the location of the
-  // app bundle in the local filesystem.
+  // The survey page reads the auth_token (and other params) from window.location.search on every API
+  // request. We load the page as static HTML with a file:// base URL so bundled custom fonts resolve, and
+  // we carry the query string in that base URL so window.location.search is populated natively when the
+  // page boots. We used to load the HTML with a blank base URL and re-add the query string after load via
+  // injectedJavaScript (history.pushState), but WebKit rejects pushState on the resulting opaque origin, so
+  // the token never reached the page and every answer was recorded against a new anonymous user (issue #320).
+  const baseUrl =
+    Platform.OS === 'android'
+      ? `file:///?${queryString}`
+      : `file:///index.html?${queryString}`;
+
+  // Fetch the survey page HTML and hand it to the WebView as a static string (rather than loading the URL
+  // directly) so the WebView's origin is file:// — required for bundled fonts to resolve from the app bundle.
   useEffect(() => {
     if (survey != null) {
       setIsLoading(true);
@@ -203,11 +212,6 @@ const SurveyView: (Props: Props) => React.ReactElement = ({
         : (backgroundColor = Colors.Grey);
   }
 
-  // Only do this if we haven't already
-  const addQueryParamScript = `if (!window.location.search) {
-    window.history.pushState('', '', '?${params.join('&')}');
-  }`;
-
   return (
     <View>
       <Modal
@@ -250,15 +254,12 @@ const SurveyView: (Props: Props) => React.ReactElement = ({
                 }
               }}
               originWhitelist={['file://']}
-              // Once the webview has loaded the static HTML for the page, window.location.href will be a file:/// url.
-              // Append the auth token to the URL as a query parameter so the page can use it for API requests
-              injectedJavaScript={addQueryParamScript}
               source={{
                 html,
-                // On iOS, a blank baseUrl parameter here results in window.location.href being a file:/// url pointing
-                // local location of the bundle. On Android, we need to provide a baseUrl or window.location.href will be
-                // about:blank.
-                baseUrl: Platform.OS === 'android' ? 'file:///' : '',
+                // The query string (auth_token etc.) is carried here so it is present in
+                // window.location.search when the page boots. The file:// origin lets bundled
+                // custom fonts resolve from the app bundle.
+                baseUrl,
               }}
               style={{ backgroundColor: backgroundColor }}
             />
