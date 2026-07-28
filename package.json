@@ -109,6 +109,7 @@
   },
   "jest": {
     "preset": "react-native",
+    "coverageProvider": "v8",
     "modulePathIgnorePatterns": [
       "<rootDir>/examples/",
       "<rootDir>/lib/"
