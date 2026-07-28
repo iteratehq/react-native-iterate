@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.8.3](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.8.3)
+
+Released on 2026-07-28.
+
+**Fixed**
+
+- Fixed race condition adding auth token into the survey
+
 ## [2.8.2](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.8.2)
 
 Released on 2026-02-04.
