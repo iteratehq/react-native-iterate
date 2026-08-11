@@ -23,11 +23,15 @@ class ApiClient {
   };
 
   displayed = (survey: Survey) => {
-    this.post(`/surveys/${survey.id}/displayed`);
+    this.post(`/surveys/${survey.id}/displayed`).catch((error) => {
+      console.error(error);
+    });
   };
 
   dismissed = (survey: Survey) => {
-    this.post(`/surveys/${survey.id}/dismiss`);
+    this.post(`/surveys/${survey.id}/dismiss`).catch((error) => {
+      console.error(error);
+    });
   };
 
   post = <T,>(path: string, body: {} = {}): Promise<ApiResponse<T>> => {
