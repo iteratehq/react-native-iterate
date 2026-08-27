@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 `react-native-iterate` adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.8.4](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.8.4)
+
+Released on 2026-08-27.
+
+**Fixed**
+
+- Fixed unhandled promise rejections for failed network requests in the `displayed` and `dismissed` methods
+
 ## [2.8.3](https://github.com/iteratehq/react-native-iterate/releases/tag/v2.8.3)
 
 Released on 2026-07-28.
