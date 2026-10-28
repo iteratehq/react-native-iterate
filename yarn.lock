@@ -8319,12 +8319,12 @@ __metadata:
   linkType: hard
 
 "launch-editor@npm:^2.9.1":
-  version: 2.13.1
-  resolution: "launch-editor@npm:2.13.1"
+  version: 2.14.2
+  resolution: "launch-editor@npm:2.14.2"
   dependencies:
     picocolors: ^1.1.1
-    shell-quote: ^1.8.3
-  checksum: cc2f89dd4b45ecb84b25d77d0702c472e6f9c2c2a530e2c577a104fd9c32433b6c82c7c98cc1d444054d0aa0ac371881b37fc7593a4ae38d7bde2e8f4a238180
+    shell-quote: ^1.10.0
+  checksum: fc5e7cfc8732f20f76e75746aaafdb14b0d1c3dd646a73be3f0576a5928ac8ef80efbf445332de295e79f7d1fb9b32811950ee75cb630308e8db613e5d8c735f
   languageName: node
   linkType: hard
 
